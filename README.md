@@ -1,4 +1,5 @@
 core-js
 =======
 
-Micro-framework for object oriented javascript
+Micro-framework for object oriented javascript.
+
