@@ -3,9 +3,6 @@
     if(!scope.core){
         scope.core = {};
     }
-    for(var prop in o){
-        scope.core[prop] = o[prop]; //override declarations/attachments
-    }
     if(!scope.core.selector){
         try{
             scope.core.selector = jQuery || $ || null;
@@ -39,7 +36,7 @@
         };
     }
     /**
-     * Function "inherits" prototype - inheritance implementation used by the "Capsule" micro-framework.
+     * Function "inherits" prototype - inheritance implementation used by the "Core" micro-framework.
      * @method inherits
      * @param obj {Function} superclass
      */
@@ -174,8 +171,8 @@
 if(!console){
     console = {
         log:function(){},
-        warn:function(){}
-
+        warn:function(){},
+        trace:function(){}
     }
 }
 /** Core class - base object of everything **/
@@ -216,7 +213,7 @@ if(!console){
      * @param opts {Object} Configuration object passed on the constructor.
      * @returns {Function} the proxy handler specified
      */
-    Core.prototype.getProxyHandler = function(str){
+    Core.prototype._ = Core.prototype.getProxyHandler = function(str){
         if(!this.proxyHandlers[str]){
             if(typeof this[str] === "function" ){
                 this.proxyHandlers[str] = this[str].bind(this);
@@ -263,7 +260,6 @@ if(!console){
 
     //completes registration and implements autocomplete for IDE
 
-    core.registerNamespace("core.Core");
-    scope.core.Core = Core;
+    core.registerNamespace("core.Core", Core);
 
 })(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);

@@ -173,7 +173,5 @@
 
         dis = null;
     };
-    //completes registration and implements intellisense for some IDEs
-    core.registerNamespace("core.events.Signal");
-    scope.core.events.Signal = Signal;
+    core.registerNamespace("core.events.Signal", Signal);
 })(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);

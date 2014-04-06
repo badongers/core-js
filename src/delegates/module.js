@@ -60,7 +60,6 @@
         }
 
     };
-    core.registerNamespace("core.delegates.Module");
-    scope.core.delegates.Module = Module;
+    core.registerNamespace("core.delegates.Module", Module);
 
 })(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);

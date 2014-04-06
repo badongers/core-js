@@ -112,7 +112,7 @@
         }
 
     };
-    core.registerNamespace("core.net.XHR");
+
     var o = {
         init:function () {
             if (instance == null) {
@@ -122,5 +122,5 @@
         }
     };
     o.instance = o.init;
-    scope.core.net.XHR = o;
+    core.registerNamespace("core.net.XHR", o);
 })(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);

@@ -26,7 +26,5 @@
         }
     };
     o.instance = o.init;
-    o.EVENTS = EventChannel.EVENTS;
-    core.registerNamespace("core.events.EventChannel");
-    scope.core.events.EventChannel = o;
+    core.registerNamespace("core.events.EventChannel", o);
 })(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);

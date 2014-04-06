@@ -1,5 +1,5 @@
 (function ($, scope) {
-    var Core = core.Core,
+    var Core = core.import("core.Core"),
         __super__ = Core.prototype;
 
     function Document(opts) {
@@ -54,7 +54,6 @@
         }
 
     };
-    core.registerNamespace("core.delegates.Document");
-    scope.core.delegates.Document = Document;
+    core.registerNamespace("core.delegates.Document", Document);
 
 })(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
