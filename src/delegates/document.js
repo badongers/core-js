@@ -54,8 +54,8 @@
     };
     var findRootClass = function(){
         var root = document.body;
-        if(root.hasAttribute("app-root") || root.hasAttribute("data-root")){
-            var cls = Function.apply(scope, ["return "+(root.hasAttribute("app-root") ? root.getAttribute("app-root") : root.getAttribute("data-root"))])();
+        if(root.hasAttribute("core-app") || root.hasAttribute("data-root")){
+            var cls = Function.apply(scope, ["return "+(root.hasAttribute("core-app") ? root.getAttribute("core-app") : root.getAttribute("data-root"))])();
             var opts = root.getAttribute("data-params") ? JSON.parse(root.getAttribute("data-params")) : {};
             opts.el = root;
             window.__coreapp__ = new cls(opts);
