@@ -1,6 +1,22 @@
-core-js
+Core JS
 =======
 
-Micro-framework for object oriented javascript.
+> CoreJS is micro-framework for applying OOP principles in Javascript.
 
-Still work in progress... 
+Version
+----
+
+> Still a work in progress... 
+
+Installation
+--------------
+
+
+Quickstart Guide
+--------------
+
+
+License
+----
+
+MIT
