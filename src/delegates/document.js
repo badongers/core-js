@@ -7,53 +7,71 @@
         Core.call(this, opts);
     }
     Document.inherits(Core);
+    function contentLoaded(win, fn) {
 
+        var done = false, top = true,
+
+            doc = win.document, root = doc.documentElement,
+
+            add = doc.addEventListener ? 'addEventListener' : 'attachEvent',
+            rem = doc.addEventListener ? 'removeEventListener' : 'detachEvent',
+            pre = doc.addEventListener ? '' : 'on',
+
+            init = function(e) {
+                if (e.type == 'readystatechange' && doc.readyState != 'complete') return;
+                (e.type == 'load' ? win : doc)[rem](pre + e.type, init, false);
+                if (!done && (done = true)) fn.call(win, e.type || e);
+            },
+
+            poll = function() {
+                try { root.doScroll('left'); } catch(e) { setTimeout(poll, 50); return; }
+                init('poll');
+            };
+
+        if (doc.readyState == 'complete') fn.call(win, 'lazy');
+        else {
+            if (doc.createEventObject && root.doScroll) {
+                try { top = !win.frameElement; } catch(e) { }
+                if (top) poll();
+            }
+            doc[add](pre + 'DOMContentLoaded', init, false);
+            doc[add](pre + 'readystatechange', init, false);
+            win[add](pre + 'load', init, false);
+        }
+
+    }
     var proto = Document.prototype;
     proto.construct = function (opts) {
         //create
         __super__.construct.call(this, opts);
-        if(document){
-            $(document).on("ready", this.getProxyHandler("onDocumentReady"));
+        if(typeof document !== 'undefined'){
+            //$(document).on("ready", this.getProxyHandler("onDocumentReady"));
+            contentLoaded(window, this.getProxyHandler("onDocumentReady"));
         }
-        if(window){
-            $(window).on("resize", this.getProxyHandler("onWindowResize"));
-        }
+
 
     };
     proto.dispose = function () {
         //clear
         __super__.dispose.call(this);
     };
-    proto.onWindowResize = function(evt){
-
-    };
     var findRootClass = function(){
-        try{
-            var root = this.el.find("[data-root]");
-            if(!this[root.attr("id")]){
-                if(root.length > 1){
-                    throw new Error("ROOT CLASS ERROR: Only 1 root class is allowed per document delegate.");
-                }
-                var cls = Function.apply(scope, ["return "+root.attr("data-root")])();
-                var opts = root.attr("data-params") ? JSON.parse(root.attr("data-params")) : {};
-                opts.el = root;
-                this[root.attr("id")] = new cls(opts);
-            }
-        }catch(err){
-            throw new Error("ROOT CLASS ERROR: "+err);
+        var root = document.body;
+        var cls = Function.apply(scope, ["return "+root.getAttribute("data-root")])();
+        var opts = root.getAttribute("data-params") ? JSON.parse(root.getAttribute("data-params")) : {};
+        opts.el = root;
+        if(root.hasAttribute("id")){
+            this[root.getAttribute("id")] = new cls(opts);
+        }else{
+            new cls(opts);
         }
     };
-
     proto.onDocumentReady = function(automate){
         if(automate){
             findRootClass.call(this);
-
         }
-        if(window){
-            $(window).trigger("resize");
-        }
-
     };
-    core.registerNamespace("core.delegates.Document", Document);
+    core.registerNamespace("core.delegates.Document", new Document());
+
 
 })(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);

@@ -13,6 +13,7 @@
         //create
         __super__.construct.call(this, opts);
         findImmediateClasses.call(this, this.el, opts);
+
         try{
             this.initialized(opts);
         }catch(err){}
@@ -32,6 +33,34 @@
         targ.on(evt, isfunc ? Function.apply(window, ["return "+handler])() : this.getProxyHandler(handler));
         this[targ.attr("id")] = targ;
     }
+    function findImmediateClasses(main, opts) {
+
+        var recurse = function(modules) {
+            var len = modules.length-1;
+            var i = -1;
+            while(i++ < len){
+                var mod = modules[i];
+                if(mod.nodeType == 1){
+                    if(mod.getAttribute("data-module") && mod.getAttribute("id") && !this[mod.getAttribute("id")]){
+                        var cls = Function.apply(scope, ["return "+mod.getAttribute("data-module")])();
+                        var opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
+                        opts.el = mod;
+                        this[mod.getAttribute("id")] = new cls(opts);
+                    }
+                }else if(mod.getAttribute("data-module") && !mod.getAttribute("id")){
+                    var cls = Function.apply(scope, ["return "+mod.getAttribute("data-module")])();
+                    var opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
+                    opts.el = mod;
+                    new cls(opts); //do not assign to any property
+                }else{
+                    recurse(mod);
+                }
+            }
+        }
+        recurse(main.children);
+
+    }
+    /*
     var findImmediateClasses = function(el, opts){
 
         var children = el.find(">*");
@@ -59,7 +88,7 @@
             }
         }
 
-    };
+    };*/
     core.registerNamespace("core.delegates.Module", Module);
 
 })(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
