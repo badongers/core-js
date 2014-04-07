@@ -20,30 +20,25 @@
     };
     proto.dispose = function () {
         //clear
-        for(var prop in this){
-            try{
-                if(this[prop].attr("data-event")){
-                    this[prop].off(this[prop].attr("data-event"));
-                }
-            }catch(err){}
-        }
         __super__.dispose.call(this);
     };
 
     function findImmediateClasses(node) {
         var recurse = function(modules) {
-            var i = modules.length;
+            var i = modules.length,
+                cls,
+                opts;
             while(i--){
                 var mod = modules[i];
                 if(mod.nodeType == 1){
                     if(mod.getAttribute("data-module") && mod.getAttribute("id") && !this[mod.getAttribute("id")]){
-                        var cls = Function.apply(scope, ["return "+mod.getAttribute("data-module")])();
-                        var opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
+                        cls = Function.apply(scope, ["return "+mod.getAttribute("data-module")])();
+                        opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
                         opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
                         this[mod.getAttribute("id")] = new cls(opts);
                     }else if(mod.getAttribute("data-module") && !mod.getAttribute("id")){
-                        var cls = Function.apply(scope, ["return "+mod.getAttribute("data-module")])();
-                        var opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
+                        cls = Function.apply(scope, ["return "+mod.getAttribute("data-module")])();
+                        opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
                         opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
                         new cls(opts); //do not assign to any property
 
@@ -52,7 +47,7 @@
                     }
                 }
             }
-        }
+        };
         recurse(node.childNodes);
 
     }
