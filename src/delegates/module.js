@@ -12,10 +12,11 @@
     proto.delayedConstruct = function (opts) {
         //create
         __super__.delayedConstruct.call(this, opts);
+        findImmediateClasses.call(this, this.el);
         try{
             this.initialized(opts);
         }catch(err){}
-        findImmediateClasses.call(this, this.el);
+
     };
     proto.dispose = function () {
         //clear
@@ -41,12 +42,12 @@
                     if(mod.getAttribute("data-module") && mod.getAttribute("id") && !this[mod.getAttribute("id")]){
                         var cls = Function.apply(scope, ["return "+mod.getAttribute("data-module")])();
                         var opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
-                        opts.el = mod;
+                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
                         this[mod.getAttribute("id")] = new cls(opts);
                     }else if(mod.getAttribute("data-module") && !mod.getAttribute("id")){
                         var cls = Function.apply(scope, ["return "+mod.getAttribute("data-module")])();
                         var opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
-                        opts.el = mod;
+                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
                         new cls(opts); //do not assign to any property
 
                     }else if(mod.hasChildNodes()){
