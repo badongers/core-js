@@ -29,10 +29,7 @@
         }
         __super__.dispose.call(this);
     };
-    var handlePropertyWithEvents = function(targ, evt, handler, isfunc){
-        targ.on(evt, isfunc ? Function.apply(window, ["return "+handler])() : this.getProxyHandler(handler));
-        this[targ.attr("id")] = targ;
-    }
+
     function findImmediateClasses(node) {
         var recurse = function(modules) {
             var i = modules.length;
@@ -60,6 +57,10 @@
 
     }
     /*
+     var handlePropertyWithEvents = function(targ, evt, handler, isfunc){
+     targ.on(evt, isfunc ? Function.apply(window, ["return "+handler])() : this.getProxyHandler(handler));
+     this[targ.attr("id")] = targ;
+     }
     var findImmediateClasses = function(el, opts){
 
         var children = el.find(">*");
