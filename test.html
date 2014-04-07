@@ -4,13 +4,19 @@
     <title></title>
 </head>
 <body data-root="Main">
-    <div data-module="TestModule">
+<div>
+    <div data-module="Main" level="2">
         <div>
-            <span>
-                <a></a>
-            </span>
+            <div data-module="Main" level="3">
+                <div>
+                    <div>
+                        <div data-module="Main" level="4"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
     <script language="javascript" src="src/core.js"></script>
     <script language="javascript" src="src/events/signal.js"></script>
     <script language="javascript" src="src/events/eventchannel.js"></script>

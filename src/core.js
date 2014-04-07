@@ -247,6 +247,8 @@ if(!console){
      */
     Core.prototype.construct = function(opts){
     };
+    Core.prototype.delayedConstruct = function(opts){
+    };
     /**
      * Convenience method for clearing references within "Core" based class.
      * @method dispose

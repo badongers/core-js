@@ -38,7 +38,6 @@
             doc[add](pre + 'readystatechange', init, false);
             win[add](pre + 'load', init, false);
         }
-
     }
     var proto = Document.prototype;
     proto.construct = function (opts) {
@@ -48,8 +47,6 @@
             //$(document).on("ready", this.getProxyHandler("onDocumentReady"));
             contentLoaded(window, this.getProxyHandler("onDocumentReady"));
         }
-
-
     };
     proto.dispose = function () {
         //clear
@@ -57,13 +54,13 @@
     };
     var findRootClass = function(){
         var root = document.body;
-        var cls = Function.apply(scope, ["return "+root.getAttribute("data-root")])();
-        var opts = root.getAttribute("data-params") ? JSON.parse(root.getAttribute("data-params")) : {};
-        opts.el = root;
-        if(root.hasAttribute("id")){
-            this[root.getAttribute("id")] = new cls(opts);
+        if(root.hasAttribute("app-root") || root.hasAttribute("data-root")){
+            var cls = Function.apply(scope, ["return "+(root.hasAttribute("app-root") ? root.getAttribute("app-root") : root.getAttribute("data-root"))])();
+            var opts = root.getAttribute("data-params") ? JSON.parse(root.getAttribute("data-params")) : {};
+            opts.el = root;
+            window.__coreapp__ = new cls(opts);
         }else{
-            new cls(opts);
+            doc = null;
         }
     };
     proto.onDocumentReady = function(automate){
@@ -71,7 +68,8 @@
             findRootClass.call(this);
         }
     };
-    core.registerNamespace("core.delegates.Document", new Document());
+    var doc = new Document();
+    //core.registerNamespace("core.delegates.Document", new Document());
 
 
 })(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
