@@ -1,3 +1,7 @@
+// XHR
+// ----------------
+// Core implementation for XML HTTP Requests.<br>
+// Singleton object - access using `XHR.instance()`
 
 (function ($, scope) {
     var instance = null;
@@ -46,6 +50,21 @@
     proto.setConfig = function(o){
         this.settingsCache = o;
     };
+    //
+    //### XHR.request ######
+    //Creates an xml http request.<br>
+    //Parameter - object
+    //>  {
+    //>      url/location: the url requested
+    //>      format/dataType: json/xml/plain/html
+    //>      callback: function handler after a successful request
+    //>      error: function handler after an error
+    //>      nocache: appends a cachebuster when set
+    //>      method: post/get
+    //>      data: data sent through post
+    //>      queryString: query string sent through get
+    //>      async: sets whether to request asynchronously - true by default
+    //>  }
     proto.request = function(o) {
         if(o == undefined) throw new Error("XHR:Invalid parameters");
         o = applyConfig.call(this, o);
