@@ -19,7 +19,7 @@
     };
 
     proto.initialized = function(opts){
-        console.log("created test");
+        //console.log("created test module", this.el);
     };
 
     core.registerNamespace("window.TestModule");

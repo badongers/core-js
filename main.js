@@ -19,7 +19,7 @@
     };
 
     proto.initialized = function(opts){
-        console.log("created test", this.el);
+        //console.log("created test", this.el);
     };
 
     core.registerNamespace("window.Main");
