@@ -8,8 +8,9 @@ Version
 
 > Still a work in progress... 
 
-Installation
+Bower Installation
 --------------
+    bower install core-js
 
 
 Quickstart Guide
