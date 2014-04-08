@@ -1,7 +1,5 @@
 // Core Base Class
 // ----------------
-
-
 // This class contains the base object used throughout the core framework.
 // It also contains support for various common functionalities such as dom traversal, browser detection, etc.
 //

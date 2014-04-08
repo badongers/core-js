@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 
                 my_target:{
                     files:{
-                        '<%= pkg.name %>.min.js':[
+                        'dist/<%= pkg.name %>.min.js':[
                             'src/core.js',
                             'src/events/signal.js',
                             'src/events/eventchannel.js',
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
                             'src/delegates/module.js',
                             'src/utils/raf.js'
                         ],
-                        '<%= pkg.name %>.plugins.min.js':[
+                        'dist/<%= pkg.name %>.plugins.min.js':[
                             'addons/**/*.js'
                         ]
                     }
