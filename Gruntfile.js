@@ -23,11 +23,33 @@ module.exports = function(grunt) {
                     ]
                 }
             }
+        },
+        concat: {
+            options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
+            my_target:{
+                files:{
+                    'dist/<%= pkg.name %>.src.js':[
+                        'src/core.js',
+                        'src/events/signal.js',
+                        'src/events/eventchannel.js',
+                        'src/net/xhr.js',
+                        'src/delegates/document.js',
+                        'src/delegates/module.js',
+                        'src/utils/raf.js'
+                    ],
+                    'dist/<%= pkg.name %>.plugins.src.js':[
+                        'addons/{*,*/}/*.js'
+                    ]
+                }
+            }
         }
 
     });
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.registerTask('build', ['uglify']);
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.registerTask('build', ['uglify', 'concat']);
 
 
 };
