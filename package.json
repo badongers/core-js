@@ -10,7 +10,8 @@
     },
     "keywords": [
         "oop",
-        "framework"
+        "framework",
+        "javascript"
     ],
     "licenses": [
         {
@@ -19,7 +20,7 @@
         }
     ],
     "dependencies": {
-        "jquery": "1.11"
+
     },
     "bugs": "https://github.com/badongers/core-js/issues",
     "repository": {
