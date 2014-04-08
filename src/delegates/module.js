@@ -39,7 +39,6 @@
                         opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
                         opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
                         new cls(opts); //do not assign to any property
-
                     }else if(mod.hasChildNodes()){
                         recurse(mod.childNodes);
                     }
