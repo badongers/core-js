@@ -1,5 +1,5 @@
 
-(function ($, scope) {
+(function () {
     var instance = null;
     var Signal = core.events.Signal;
     var __super__ = Signal.prototype;
@@ -27,4 +27,4 @@
     };
     o.instance = o.init;
     core.registerNamespace("core.events.EventChannel", o);
-})(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+})();

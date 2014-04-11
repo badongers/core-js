@@ -44,7 +44,6 @@
         //create
         __super__.construct.call(this, opts);
         if(typeof document !== 'undefined'){
-            //$(document).on("ready", this.getProxyHandler("onDocumentReady"));
             contentLoaded(window, this.getProxyHandler("onDocumentReady"));
         }
     };
@@ -69,7 +68,4 @@
         }
     };
     var doc = new Document();
-    //core.registerNamespace("core.delegates.Document", new Document());
-
-
-})(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+})();

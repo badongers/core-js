@@ -1,4 +1,8 @@
-(function(scope){
+// Signal
+// ----------------
+// Core implementation for broadcaster/observer pattern<br>
+// Extends core.Core
+(function(){
     var Core = core.Core; //shorthand variable assignment.
     var __super__ = Core.prototype;
     function Signal(opts){
@@ -28,19 +32,8 @@
     };
     var register = function(evt, scope, method, once){
         var __sig_dispose__ = null;
-        //check if the scope being added already exists.
-
         var exists = containsScope.call(this, this.events[evt+(once ? "_once" : "")], scope);
-
-        //if scope doesnt exists. create proxy for dispose
-
         if(exists === -1 && scope.dispose){
-            /*
-             overrides scope and copies original implementation
-             calling dispose on this object will trigger the copied dispose
-             implements a clean up and removal of all the scope methods from the signal
-             */
-
             __sig_dispose__ = scope.dispose;
             scope.dispose = (function(){
                 var meth = Array.prototype.shift.call(arguments);
@@ -62,14 +55,9 @@
 
                 this.events[evt+(once ? "_once" : "")].push({method:method, scope:scope, dispose_orig:null});
             }
-            //skip adding if scope and method is already assigned.
-
         }
-
-
     };
     proto.on = proto.add = function(evt, scope, method){
-
         if(!this.events[evt]){
             this.events[evt] = [];
         }
@@ -174,4 +162,4 @@
         dis = null;
     };
     core.registerNamespace("core.events.Signal", Signal);
-})(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+})();

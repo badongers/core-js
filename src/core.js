@@ -15,19 +15,6 @@
     if(!scope.core){
         scope.core = {};
     }
-    if(!scope.core.selector){
-        try{
-            scope.core.selector = typeof jQuery !== 'undefined' ? jQuery : typeof $ !== 'undefined' ?  $ : Sizzle || null;
-        }catch(err){
-            scope.core.selector = document.querySelectorAll || null;
-        }
-    }
-
-    if(typeof String.prototype.trim !== 'function') {
-        String.prototype.trim = function() {
-            return this.replace(/^\s+|\s+$/g, '');
-        }
-    }
     if(!Function.prototype.bind) {
         //
         // ### Function.bind ######
@@ -209,7 +196,7 @@ if(!console){
     }
 }
 
-(function($, scope){
+(function(){
     // ### Core ######
     // Core Class
     // `Parameters : opts - object`
@@ -219,7 +206,7 @@ if(!console){
         if(opts && opts.__inheriting__) return;
         if(opts && opts.el){
             //`this.el property` a dom element context
-            this.el = (typeof opts.el == "string" && (typeof jQuery !== 'undefined' || typeof $ !== 'undefined')) ? $(opts.el) : (typeof opts.el === "string" && typeof jQuery !== 'undefined' && typeof $ !== 'undefined') ? document.querySelectorAll(opts.el) : opts.el;
+            this.el = opts.el;
         }
         this.proxyHandlers = {};
         this.construct(opts);
@@ -271,7 +258,16 @@ if(!console){
             delete this.proxyHandlers[prop];
         }
     };
+    // ### Core.construct ######
+    // Automatically called after instantiation of a class. Requires implementation on sub-classes
+    Core.prototype.find = function(selector){
+        return typeof jQuery !== 'undefined' ? jQuery(this.el).find(selector) : Sizzle(this.el, selector)
+    };
     //Method to expose classes created with Core
     core.registerNamespace("core.Core", Core);
 
-})(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+})();
+
+if(typeof module !== 'undefined' && module.exports){
+    module.exports = core;
+}

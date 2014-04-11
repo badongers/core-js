@@ -2,8 +2,9 @@
 // ----------------
 // Core implementation for XML HTTP Requests.<br>
 // Singleton object - access using `XHR.instance()`
+// Extends core.Core
 
-(function ($, scope) {
+(function () {
     var instance = null;
     var Core = core.Core;
     var __super__ = Core.prototype;
@@ -15,12 +16,10 @@
     XHR.inherits(Core);
     var proto = XHR.prototype;
     proto.construct = function (opts) {
-        //create
         __super__.construct.call(this, opts);
         this.settingsCache = {};
     };
     proto.dispose = function () {
-        //clear
         instance = null;
         this.settingsCache = null;
         delete this.settingsCache;
@@ -84,9 +83,7 @@
         if (method.toLowerCase() === 'post') req.setRequestHeader('Content-Type', o.contentType || 'application/x-www-form-urlencoded');
         var rstate = function() {
             if(req.readyState===4) {
-                //todo: handle other error codes
                 if(req.status === 0 || req.status===200){
-
                     o.callback(parseResponse.call(this, req.responseText, format));
                 }
                 if((/^[45]/).test(req.status)) {
@@ -131,7 +128,6 @@
         }
 
     };
-
     var o = {
         init:function () {
             if (instance == null) {
@@ -142,4 +138,4 @@
     };
     o.instance = o.init;
     core.registerNamespace("core.net.XHR", o);
-})(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+})();
