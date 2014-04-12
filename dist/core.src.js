@@ -1,4 +1,4 @@
-/*! core 2014-04-09 */
+/*! core 2014-04-13 */
 // Core Base Class
 // ----------------
 // This class contains the base object used throughout the core framework.
@@ -15,19 +15,6 @@
 (function(scope){
     if(!scope.core){
         scope.core = {};
-    }
-    if(!scope.core.selector){
-        try{
-            scope.core.selector = typeof jQuery !== 'undefined' ? jQuery : typeof $ !== 'undefined' ?  $ : Sizzle || null;
-        }catch(err){
-            scope.core.selector = document.querySelectorAll || null;
-        }
-    }
-
-    if(typeof String.prototype.trim !== 'function') {
-        String.prototype.trim = function() {
-            return this.replace(/^\s+|\s+$/g, '');
-        }
     }
     if(!Function.prototype.bind) {
         //
@@ -52,11 +39,15 @@
     // Convenience method for inheritance implementation.
     // Creates a temporary class that will hold the prototype before applying it to the inheriting class
     Function.prototype.inherits = function(obj){
+        /*
         var tmp = function(){};
         tmp.prototype = new obj({__inheriting__:true});
         this.prototype = tmp.prototype;
         this.prototype.constructor = this;
         tmp = null;
+        */
+        this.prototype = new obj({__inheriting__:true});
+        this.prototype.__super__ = obj.prototype;
     };
     //
     // ### Function.augment ######
@@ -168,6 +159,7 @@
     scope.core.registerNamespace = function(nspace, obj){
         var parts = nspace.split(".");
         var root = parts.shift();
+
         if(!scope[root]) { scope[root] = {}; }
         var temp = scope[root];
         while(parts.length > 1){
@@ -177,8 +169,17 @@
             }
             temp = temp[sp];
         }
-        var last =parts.shift();
-        temp[last] = obj || {};
+        if(!parts.length){
+            scope[root] = obj;
+        }else{
+            var last = parts.shift();
+            if(last){
+                temp[last] = obj || {};
+            }
+        }
+
+
+
     };
     // ### core.import ######
     // Utility method for importing a namespaced object
@@ -196,9 +197,45 @@
         }
         return sc;
     }
+    /** browser support implementations **/
+
     // ### JSON ######
     // JSON implementation for browsers without support
     if(!scope.JSON){scope.JSON={}}(function(){function f(n){return n<10?"0"+n:n}if(typeof Date.prototype.toJSON!=="function"){Date.prototype.toJSON=function(key){return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+f(this.getUTCMonth()+1)+"-"+f(this.getUTCDate())+"T"+f(this.getUTCHours())+":"+f(this.getUTCMinutes())+":"+f(this.getUTCSeconds())+"Z":null};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(key){return this.valueOf()}}var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={"\b":"\\b","\t":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"},rep;function quote(string){escapable.lastIndex=0;return escapable.test(string)?'"'+string.replace(escapable,function(a){var c=meta[a];return typeof c==="string"?c:"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+string+'"'}function str(key,holder){var i,k,v,length,mind=gap,partial,value=holder[key];if(value&&typeof value==="object"&&typeof value.toJSON==="function"){value=value.toJSON(key)}if(typeof rep==="function"){value=rep.call(holder,key,value)}switch(typeof value){case"string":return quote(value);case"number":return isFinite(value)?String(value):"null";case"boolean":case"null":return String(value);case"object":if(!value){return"null"}gap+=indent;partial=[];if(Object.prototype.toString.apply(value)==="[object Array]"){length=value.length;for(i=0;i<length;i+=1){partial[i]=str(i,value)||"null"}v=partial.length===0?"[]":gap?"[\n"+gap+partial.join(",\n"+gap)+"\n"+mind+"]":"["+partial.join(",")+"]";gap=mind;return v}if(rep&&typeof rep==="object"){length=rep.length;for(i=0;i<length;i+=1){k=rep[i];if(typeof k==="string"){v=str(k,value);if(v){partial.push(quote(k)+(gap?": ":":")+v)}}}}else{for(k in value){if(Object.hasOwnProperty.call(value,k)){v=str(k,value);if(v){partial.push(quote(k)+(gap?": ":":")+v)}}}}v=partial.length===0?"{}":gap?"{\n"+gap+partial.join(",\n"+gap)+"\n"+mind+"}":"{"+partial.join(",")+"}";gap=mind;return v}}if(typeof JSON.stringify!=="function"){JSON.stringify=function(value,replacer,space){var i;gap="";indent="";if(typeof space==="number"){for(i=0;i<space;i+=1){indent+=" "}}else{if(typeof space==="string"){indent=space}}rep=replacer;if(replacer&&typeof replacer!=="function"&&(typeof replacer!=="object"||typeof replacer.length!=="number")){throw new Error("JSON.stringify")}return str("",{"":value})}}if(typeof JSON.parse!=="function"){JSON.parse=function(text,reviver){var j;function walk(holder,key){var k,v,value=holder[key];if(value&&typeof value==="object"){for(k in value){if(Object.hasOwnProperty.call(value,k)){v=walk(value,k);if(v!==undefined){value[k]=v}else{delete value[k]}}}}return reviver.call(holder,key,value)}text=String(text);cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})}if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:\s*\[)+/g,""))){j=eval("("+text+")");return typeof reviver==="function"?walk({"":j},""):j}throw new SyntaxError("JSON.parse")}}}());
+
+    // ### addEventListener/removeEventListener/dispatchEvent ## //
+    // EventListener implementation for browsers without support
+    if(scope == window){
+        !window.addEventListener && (function (WindowPrototype, DocumentPrototype, ElementPrototype, addEventListener, removeEventListener, dispatchEvent, registry) {
+            WindowPrototype[addEventListener] = DocumentPrototype[addEventListener] = ElementPrototype[addEventListener] = function (type, listener) {
+                var target = this;
+
+                registry.unshift([target, type, listener, function (event) {
+                    event.currentTarget = target;
+                    event.preventDefault = function () { event.returnValue = false };
+                    event.stopPropagation = function () { event.cancelBubble = true };
+                    event.target = event.srcElement || target;
+
+                    listener.call(target, event);
+                }]);
+
+                this.attachEvent("on" + type, registry[0][3]);
+            };
+
+            WindowPrototype[removeEventListener] = DocumentPrototype[removeEventListener] = ElementPrototype[removeEventListener] = function (type, listener) {
+                for (var index = 0, register; register = registry[index]; ++index) {
+                    if (register[0] == this && register[1] == type && register[2] == listener) {
+                        return this.detachEvent("on" + type, registry.splice(index, 1)[0][3]);
+                    }
+                }
+            };
+
+            WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
+                return this.fireEvent("on" + eventObject.type, eventObject);
+            };
+        })(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);
+    }
+
 
 })(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window); //supports node js
 
@@ -210,7 +247,7 @@ if(!console){
     }
 }
 
-(function($, scope){
+(function(){
     // ### Core ######
     // Core Class
     // `Parameters : opts - object`
@@ -218,16 +255,18 @@ if(!console){
     function Core(opts){
         //skips all process when instantiated from Function.inherits
         if(opts && opts.__inheriting__) return;
-        if(opts && opts.el){
+        if(opts){
             //`this.el property` a dom element context
-            this.el = (typeof opts.el == "string" && (typeof jQuery !== 'undefined' || typeof $ !== 'undefined')) ? $(opts.el) : (typeof opts.el === "string" && typeof jQuery !== 'undefined' && typeof $ !== 'undefined') ? document.querySelectorAll(opts.el) : opts.el;
+            if(opts.el){
+                this.el = opts.el;
+            }
         }
         this.proxyHandlers = {};
-        this.construct(opts);
+        this.construct(opts || {});
         var ref = this;
         setTimeout(function(){
             if(ref.delayedConstruct){
-                ref.delayedConstruct(opts);
+                ref.delayedConstruct(opts || {});
             }
         }, 0);
 
@@ -272,18 +311,39 @@ if(!console){
             delete this.proxyHandlers[prop];
         }
     };
-    //Method to expose classes created with Core
+    // ### Core.find ######
+    // Search for nodes within its element context
+    Core.prototype.find = function(selector){
+        return typeof jQuery !== 'undefined' ? jQuery(this.el).find(selector) : Sizzle(selector, this.el)
+    };
+    // ### Core.findAll ######
+    // Search for nodes within the document context
+    Core.prototype.findAll = function(selector){
+        return typeof jQuery !== 'undefined' ? jQuery(selector) : Sizzle(selector)
+    };
+
     core.registerNamespace("core.Core", Core);
 
-})(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
-(function(scope){
+})();
+
+if(typeof module !== 'undefined' && module.exports){
+    module.exports = core;
+}
+// EventDispatcher
+// ----------------
+// Core implementation for broadcaster/observer/eventdispatcher pattern<br>
+// Uses the traditional syntax for addEventListener as well as jquery event listeners.
+// Requires additional parameter for handler scope, this provides a better way of managing memory when disposing objects that has
+// Extends core.Core
+(function(){
     var Core = core.Core; //shorthand variable assignment.
     var __super__ = Core.prototype;
-    function Signal(opts){
+    function EventDispatcher(opts){
+        if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
     }
-    Signal.inherits(Core);
-    var proto = Signal.prototype;
+    EventDispatcher.inherits(Core);
+    var proto = EventDispatcher.prototype;
     proto.construct = function(opts){
         __super__.construct.call(this, opts);
         this.events = {};
@@ -301,31 +361,22 @@ if(!console){
                 return arr[i];
             }
         }
-        scope.__signal__id = core.GUID();
+        scope.__core__signal__id__ = core.GUID();
         return -1;
     };
     var register = function(evt, scope, method, once){
         var __sig_dispose__ = null;
-        //check if the scope being added already exists.
-
         var exists = containsScope.call(this, this.events[evt+(once ? "_once" : "")], scope);
-
-        //if scope doesnt exists. create proxy for dispose
-
         if(exists === -1 && scope.dispose){
-            /*
-             overrides scope and copies original implementation
-             calling dispose on this object will trigger the copied dispose
-             implements a clean up and removal of all the scope methods from the signal
-             */
-
             __sig_dispose__ = scope.dispose;
+
             scope.dispose = (function(){
                 var meth = Array.prototype.shift.call(arguments);
                 var sig = Array.prototype.shift.call(arguments);
                 sig.removeScope(this, scope);
                 sig = null;
                 meth = null;
+
                 return __sig_dispose__.apply(this, arguments);
             }).bind(scope, method, this);
             //
@@ -340,21 +391,15 @@ if(!console){
 
                 this.events[evt+(once ? "_once" : "")].push({method:method, scope:scope, dispose_orig:null});
             }
-            //skip adding if scope and method is already assigned.
-
         }
-
-
     };
-    proto.on = proto.add = function(evt, scope, method){
-
+    proto.on = function(evt, method, scope){
         if(!this.events[evt]){
             this.events[evt] = [];
         }
         register.call(this, evt, scope, method);
     };
-    proto.onceOn = proto.addOnce = function(evt, scope, method){
-
+    proto.once = function(evt, method, scope){
         if(!this.events[evt+"_once"]){
             this.events[evt+"_once"] = [];
         }
@@ -369,7 +414,7 @@ if(!console){
                     if(o.scope.dispose && o.dispose_orig){
                         o.scope.dispose = o.dispose_orig;
                     }
-                    delete o.scope.__signal__id;
+                    delete o.scope.__core__signal__id__;
                     o.scope = null;
                     o.dispose_orig = null;
                     delete o.dispose_orig;
@@ -382,7 +427,7 @@ if(!console){
             }
         }
     };
-    proto.off = proto.remove = function(evt, scope, method){
+    proto.off = function(evt, method, scope){
         unregister.call(this, evt, scope, method);
         unregister.call(this, evt+"_once", scope, method);
     };
@@ -395,7 +440,7 @@ if(!console){
                     if(o.scope.dispose && o.dispose_orig){
                         o.scope.dispose = o.dispose_orig;
                     }
-                    delete o.scope.__signal__id;
+                    delete o.scope.__core__signal__id__;
                     o = null;
                 }
             }
@@ -412,7 +457,7 @@ if(!console){
                 if(o.scope.dispose && o.dispose_orig){
                     o.scope.dispose = o.dispose_orig;
                 }
-                delete o.__signal__id;
+                delete o.__core__signal__id__;
                 o = null;
             }
             if(this.events[prop].length === 0){
@@ -421,19 +466,17 @@ if(!console){
         }
         this.events = {};
     };
-    proto.dispatch = function(evt, vars){
+    proto.trigger = function(evt, vars){
         var dis = vars || {};
         if(!dis.type){
             dis.type = evt;
         }
-
         if(this.events && this.events[evt]){
-
             var sevents = this.events[evt];
             var len = sevents.length;
             for(var i = 0;i<len;i++){
                 var obj = sevents[i];
-                obj.scope[obj.method].call(obj.scope, dis);
+                obj.method.call(obj.scope, dis);
                 obj = null;
             }
         }
@@ -441,7 +484,7 @@ if(!console){
             var oevents = this.events[evt+"_once"];
             while(oevents.length){
                 var obj = oevents.shift();
-                obj.scope[obj.method].call(obj.scope, dis);
+                obj.method.call(obj.scope, dis);
                 obj = null;
             }
             if(!oevents.length){
@@ -451,19 +494,19 @@ if(!console){
 
         dis = null;
     };
-    core.registerNamespace("core.events.Signal", Signal);
-})(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+    core.registerNamespace("core.events.EventDispatcher", EventDispatcher);
+})();
 
-(function ($, scope) {
+(function () {
     var instance = null;
-    var Signal = core.events.Signal;
-    var __super__ = Signal.prototype;
-    function EventChannel(opts) {
+    var EventDispatcher = core.events.EventDispatcher;
+    var __super__ = EventDispatcher.prototype;
+    function EventBroadcaster(opts) {
         if (opts && opts.__inheriting__) return;
-        Signal.call(this, opts);
+        EventDispatcher.call(this, opts);
     }
-    EventChannel.inherits(Signal);
-    var proto = EventChannel.prototype;
+    EventBroadcaster.inherits(EventDispatcher);
+    var proto = EventBroadcaster.prototype;
     proto.construct = function (opts) {
         //create
         __super__.construct.call(this, opts);
@@ -475,20 +518,21 @@ if(!console){
     var o = {
         init:function () {
             if (instance == null) {
-                instance = new EventChannel();
+                instance = new EventBroadcaster();
             }
             return instance;
         }
     };
     o.instance = o.init;
-    core.registerNamespace("core.events.EventChannel", o);
-})(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+    core.registerNamespace("core.events.EventBroadcaster", o);
+})();
 // XHR
 // ----------------
 // Core implementation for XML HTTP Requests.<br>
 // Singleton object - access using `XHR.instance()`
+// Extends core.Core
 
-(function ($, scope) {
+(function () {
     var instance = null;
     var Core = core.Core;
     var __super__ = Core.prototype;
@@ -622,7 +666,7 @@ if(!console){
     };
     o.instance = o.init;
     core.registerNamespace("core.net.XHR", o);
-})(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+})();
 (function ($, scope) {
     var Core = core.import("core.Core"),
         __super__ = Core.prototype;
@@ -633,7 +677,6 @@ if(!console){
     }
     Document.inherits(Core);
     function contentLoaded(win, fn) {
-
         var done = false, top = true,
 
             doc = win.document, root = doc.documentElement,
@@ -669,7 +712,6 @@ if(!console){
         //create
         __super__.construct.call(this, opts);
         if(typeof document !== 'undefined'){
-            //$(document).on("ready", this.getProxyHandler("onDocumentReady"));
             contentLoaded(window, this.getProxyHandler("onDocumentReady"));
         }
     };
@@ -680,6 +722,7 @@ if(!console){
     var findRootClass = function(){
         var root = document.body;
         if(root.hasAttribute("core-app") || root.hasAttribute("data-root")){
+            var scope = typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window;
             var cls = Function.apply(scope, ["return "+(root.hasAttribute("core-app") ? root.getAttribute("core-app") : root.getAttribute("data-root"))])();
             var opts = root.getAttribute("data-params") ? JSON.parse(root.getAttribute("data-params")) : {};
             opts.el = root;
@@ -694,19 +737,19 @@ if(!console){
         }
     };
     var doc = new Document();
-    //core.registerNamespace("core.delegates.Document", new Document());
-
-
-})(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+})();
 
 (function ($, scope) {
-    var Core = core.Core,
-        __super__ = Core.prototype;
+    var EventDispatcher = core.events.EventDispatcher,
+        __super__ = EventDispatcher.prototype;
     function Module(opts) {
         if (opts && opts.__inheriting__) return;
-        Core.call(this, opts);
+        if(opts && opts.parent){
+            this.parent = opts.parent;
+        }
+        EventDispatcher.call(this, opts);
     }
-    Module.inherits(Core);
+    Module.inherits(EventDispatcher);
     var proto = Module.prototype;
     proto.delayedConstruct = function (opts) {
         //create
@@ -717,9 +760,6 @@ if(!console){
         //clear
         __super__.dispose.call(this);
     };
-    proto.find = function(selector){
-        return $(selector, this.el);
-    };
     function findImmediateClasses(node) {
         var recurse = function(modules) {
             var i = -1,
@@ -729,26 +769,43 @@ if(!console){
             while(i++ < len){
                 var mod = modules[i];
                 if(mod.nodeType == 1){
-                    if(mod.getAttribute("core-module") && mod.getAttribute("id") && !this[mod.getAttribute("id")]){
-                        cls = Function.apply(scope, ["return "+mod.getAttribute("core-module")])();
-                        opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
+                    var cmod = mod.getAttribute("core-module");
+                    var cid = mod.getAttribute("core-id");
+                    var params = mod.getAttribute("core-params");
+                    if(cmod && cid && !this[cid]){
+                        cls = Function.apply(scope, ["return "+cmod])();
+                        opts = params ? JSON.parse(params) : {};
                         opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
-                        this[mod.getAttribute("id")] = new cls(opts);
-                    }else if(mod.getAttribute("core-module") && !mod.getAttribute("id")){
-                        cls = Function.apply(scope, ["return "+mod.getAttribute("core-module")])();
-                        opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
+                        opts.parent = this;
+                        this[cid] = new cls(opts);
+                    }else if(cmod && !cid){
+                        cls = Function.apply(scope, ["return "+cmod])();
+                        opts = params ? JSON.parse(params) : {};
+                        opts.parent = this;
                         opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
                         new cls(opts); //do not assign to any property
+                    }else if(cmod && cid && this[cid]){
+                        cls = Function.apply(scope, ["return "+cmod])();
+                        opts = params ? JSON.parse(params) : {};
+                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
+                        opts.parent = this;
+                        var o = new cls(opts);
+                        try{
+                            this[cid].push(o);
+                        }catch(err){
+                            this[cid] = [this[cid]];
+                            this[cid].push(o);
+                        }
                     }else if(mod.hasChildNodes()){
-                        recurse(mod.childNodes);
+                        recurse.call(this, mod.childNodes);
                     }
                 }
             }
         };
-        recurse(node.childNodes);
+        recurse.call(this, node.childNodes);
     }
     core.registerNamespace("core.delegates.Module", Module);
-})(core.selector, typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+})();
 (function(scope) {
     // Overwrite requestAnimationFrame so it works across browsers
     var lastTime = 0;
