@@ -35,8 +35,8 @@
     ],
     "files": [
         "core.js",
-        "events/signal.js",
-        "events/eventchannel.js",
+        "events/eventdispatcher.js",
+        "events/eventbroadcaster.js",
         "delegates/document.js",
         "delegates/module.js",
         "net/xhr.js",

@@ -18,7 +18,6 @@
     };
     proto.dispose = function () {
         //clear
-        console.log(__super__);
         __super__.dispose.call(this);
     };
     function findImmediateClasses(node) {

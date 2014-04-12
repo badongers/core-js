@@ -11,8 +11,8 @@ module.exports = function(grunt) {
                 files:{
                     'dist/<%= pkg.name %>.min.js':[
                         'src/core.js',
-                        'src/events/signal.js',
-                        'src/events/eventchannel.js',
+                        'src/events/eventdispatcher.js',
+                        'src/events/eventbroadcaster.js',
                         'src/net/xhr.js',
                         'src/delegates/document.js',
                         'src/delegates/module.js',
@@ -32,8 +32,8 @@ module.exports = function(grunt) {
                 files:{
                     'dist/<%= pkg.name %>.src.js':[
                         'src/core.js',
-                        'src/events/signal.js',
-                        'src/events/eventchannel.js',
+                        'src/events/eventdispatcher.js',
+                        'src/events/eventbroadcaster.js',
                         'src/net/xhr.js',
                         'src/delegates/document.js',
                         'src/delegates/module.js',

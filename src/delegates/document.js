@@ -8,7 +8,6 @@
     }
     Document.inherits(Core);
     function contentLoaded(win, fn) {
-
         var done = false, top = true,
 
             doc = win.document, root = doc.documentElement,

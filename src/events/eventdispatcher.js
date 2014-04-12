@@ -8,6 +8,7 @@
     var Core = core.Core; //shorthand variable assignment.
     var __super__ = Core.prototype;
     function EventDispatcher(opts){
+        if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
     }
     EventDispatcher.inherits(Core);
