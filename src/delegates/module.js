@@ -1,12 +1,15 @@
 
 (function ($, scope) {
-    var Signal = core.events.Signal,
-        __super__ = Signal.prototype;
+    var EventDispatcher = core.events.EventDispatcher,
+        __super__ = EventDispatcher.prototype;
     function Module(opts) {
         if (opts && opts.__inheriting__) return;
-        Signal.call(this, opts);
+        if(opts && opts.parent){
+            this.parent = opts.parent;
+        }
+        EventDispatcher.call(this, opts);
     }
-    Module.inherits(Signal);
+    Module.inherits(EventDispatcher);
     var proto = Module.prototype;
     proto.delayedConstruct = function (opts) {
         //create
@@ -15,6 +18,7 @@
     };
     proto.dispose = function () {
         //clear
+        console.log(__super__);
         __super__.dispose.call(this);
     };
     function findImmediateClasses(node) {
@@ -26,32 +30,40 @@
             while(i++ < len){
                 var mod = modules[i];
                 if(mod.nodeType == 1){
-                    if(mod.getAttribute("core-module") && mod.getAttribute("core-id") && !this[mod.getAttribute("core-id")]){
-                        cls = Function.apply(scope, ["return "+mod.getAttribute("core-module")])();
-                        opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
+                    var cmod = mod.getAttribute("core-module");
+                    var cid = mod.getAttribute("core-id");
+                    var params = mod.getAttribute("core-params");
+                    if(cmod && cid && !this[cid]){
+                        cls = Function.apply(scope, ["return "+cmod])();
+                        opts = params ? JSON.parse(params) : {};
                         opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
-                        this[mod.getAttribute("core-id")] = new cls(opts);
-                    }else if(mod.getAttribute("core-module") && !mod.getAttribute("core-id")){
-                        cls = Function.apply(scope, ["return "+mod.getAttribute("core-module")])();
-                        opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
+                        opts.parent = this;
+                        this[cid] = new cls(opts);
+                    }else if(cmod && !cid){
+                        cls = Function.apply(scope, ["return "+cmod])();
+                        opts = params ? JSON.parse(params) : {};
+                        opts.parent = this;
                         opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
                         new cls(opts); //do not assign to any property
-                    }else if(mod.getAttribute("core-module") && mod.getAttribute("core-id") && this[mod.getAttribute("core-id")]){
-                        if(!this[mod.getAttribute("core-id")] instanceof Array){
-                            this[mod.getAttribute("core-id")] = [this[mod.getAttribute("core-id")]]
-                        }else{
-                            cls = Function.apply(scope, ["return "+mod.getAttribute("core-module")])();
-                            opts = mod.getAttribute("data-params") ? JSON.parse(mod.getAttribute("data-params")) : {};
-                            opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
-                            this[mod.getAttribute("core-id")].push(new cls(opts));
+                    }else if(cmod && cid && this[cid]){
+                        cls = Function.apply(scope, ["return "+cmod])();
+                        opts = params ? JSON.parse(params) : {};
+                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
+                        opts.parent = this;
+                        var o = new cls(opts);
+                        try{
+                            this[cid].push(o);
+                        }catch(err){
+                            this[cid] = [this[cid]];
+                            this[cid].push(o);
                         }
                     }else if(mod.hasChildNodes()){
-                        recurse(mod.childNodes);
+                        recurse.call(this, mod.childNodes);
                     }
                 }
             }
         };
-        recurse(node.childNodes);
+        recurse.call(this, node.childNodes);
     }
     core.registerNamespace("core.delegates.Module", Module);
 })();

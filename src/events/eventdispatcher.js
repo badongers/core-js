@@ -1,15 +1,17 @@
-// Signal
+// EventDispatcher
 // ----------------
-// Core implementation for broadcaster/observer pattern<br>
+// Core implementation for broadcaster/observer/eventdispatcher pattern<br>
+// Uses the traditional syntax for addEventListener as well as jquery event listeners.
+// Requires additional parameter for handler scope, this provides a better way of managing memory when disposing objects that has
 // Extends core.Core
 (function(){
     var Core = core.Core; //shorthand variable assignment.
     var __super__ = Core.prototype;
-    function Signal(opts){
+    function EventDispatcher(opts){
         Core.call(this, opts);
     }
-    Signal.inherits(Core);
-    var proto = Signal.prototype;
+    EventDispatcher.inherits(Core);
+    var proto = EventDispatcher.prototype;
     proto.construct = function(opts){
         __super__.construct.call(this, opts);
         this.events = {};
@@ -27,7 +29,7 @@
                 return arr[i];
             }
         }
-        scope.__signal__id = core.GUID();
+        scope.__core__signal__id__ = core.GUID();
         return -1;
     };
     var register = function(evt, scope, method, once){
@@ -35,12 +37,14 @@
         var exists = containsScope.call(this, this.events[evt+(once ? "_once" : "")], scope);
         if(exists === -1 && scope.dispose){
             __sig_dispose__ = scope.dispose;
+
             scope.dispose = (function(){
                 var meth = Array.prototype.shift.call(arguments);
                 var sig = Array.prototype.shift.call(arguments);
                 sig.removeScope(this, scope);
                 sig = null;
                 meth = null;
+
                 return __sig_dispose__.apply(this, arguments);
             }).bind(scope, method, this);
             //
@@ -57,14 +61,13 @@
             }
         }
     };
-    proto.on = proto.add = function(evt, scope, method){
+    proto.on = function(evt, method, scope){
         if(!this.events[evt]){
             this.events[evt] = [];
         }
         register.call(this, evt, scope, method);
     };
-    proto.onceOn = proto.addOnce = function(evt, scope, method){
-
+    proto.once = function(evt, method, scope){
         if(!this.events[evt+"_once"]){
             this.events[evt+"_once"] = [];
         }
@@ -79,7 +82,7 @@
                     if(o.scope.dispose && o.dispose_orig){
                         o.scope.dispose = o.dispose_orig;
                     }
-                    delete o.scope.__signal__id;
+                    delete o.scope.__core__signal__id__;
                     o.scope = null;
                     o.dispose_orig = null;
                     delete o.dispose_orig;
@@ -92,7 +95,7 @@
             }
         }
     };
-    proto.off = proto.remove = function(evt, scope, method){
+    proto.off = function(evt, method, scope){
         unregister.call(this, evt, scope, method);
         unregister.call(this, evt+"_once", scope, method);
     };
@@ -105,7 +108,7 @@
                     if(o.scope.dispose && o.dispose_orig){
                         o.scope.dispose = o.dispose_orig;
                     }
-                    delete o.scope.__signal__id;
+                    delete o.scope.__core__signal__id__;
                     o = null;
                 }
             }
@@ -122,7 +125,7 @@
                 if(o.scope.dispose && o.dispose_orig){
                     o.scope.dispose = o.dispose_orig;
                 }
-                delete o.__signal__id;
+                delete o.__core__signal__id__;
                 o = null;
             }
             if(this.events[prop].length === 0){
@@ -131,19 +134,17 @@
         }
         this.events = {};
     };
-    proto.dispatch = function(evt, vars){
+    proto.trigger = function(evt, vars){
         var dis = vars || {};
         if(!dis.type){
             dis.type = evt;
         }
-
         if(this.events && this.events[evt]){
-
             var sevents = this.events[evt];
             var len = sevents.length;
             for(var i = 0;i<len;i++){
                 var obj = sevents[i];
-                obj.scope[obj.method].call(obj.scope, dis);
+                obj.method.call(obj.scope, dis);
                 obj = null;
             }
         }
@@ -151,7 +152,7 @@
             var oevents = this.events[evt+"_once"];
             while(oevents.length){
                 var obj = oevents.shift();
-                obj.scope[obj.method].call(obj.scope, dis);
+                obj.method.call(obj.scope, dis);
                 obj = null;
             }
             if(!oevents.length){
@@ -161,5 +162,5 @@
 
         dis = null;
     };
-    core.registerNamespace("core.events.Signal", Signal);
+    core.registerNamespace("core.events.EventDispatcher", EventDispatcher);
 })();

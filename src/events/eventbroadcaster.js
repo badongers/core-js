@@ -1,14 +1,14 @@
 
 (function () {
     var instance = null;
-    var Signal = core.events.Signal;
-    var __super__ = Signal.prototype;
-    function EventChannel(opts) {
+    var EventDispatcher = core.events.EventDispatcher;
+    var __super__ = EventDispatcher.prototype;
+    function EventBroadcaster(opts) {
         if (opts && opts.__inheriting__) return;
-        Signal.call(this, opts);
+        EventDispatcher.call(this, opts);
     }
-    EventChannel.inherits(Signal);
-    var proto = EventChannel.prototype;
+    EventBroadcaster.inherits(EventDispatcher);
+    var proto = EventBroadcaster.prototype;
     proto.construct = function (opts) {
         //create
         __super__.construct.call(this, opts);
@@ -20,11 +20,11 @@
     var o = {
         init:function () {
             if (instance == null) {
-                instance = new EventChannel();
+                instance = new EventBroadcaster();
             }
             return instance;
         }
     };
     o.instance = o.init;
-    core.registerNamespace("core.events.EventChannel", o);
+    core.registerNamespace("core.events.EventBroadcaster", o);
 })();

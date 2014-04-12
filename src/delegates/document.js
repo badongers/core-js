@@ -54,6 +54,7 @@
     var findRootClass = function(){
         var root = document.body;
         if(root.hasAttribute("core-app") || root.hasAttribute("data-root")){
+            var scope = typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window;
             var cls = Function.apply(scope, ["return "+(root.hasAttribute("core-app") ? root.getAttribute("core-app") : root.getAttribute("data-root"))])();
             var opts = root.getAttribute("data-params") ? JSON.parse(root.getAttribute("data-params")) : {};
             opts.el = root;
