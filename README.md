@@ -9,7 +9,7 @@ Core JS
 + Event dispatching/Observer-broadcaster model (with memory management and scoping)
 + XHR implementation
 + Singleton patterns
-+ Mixin implementations
++ Mixin implementation
 + Automated object instantiation from HTML DOM
 + Add-ons (work in progress)
 
