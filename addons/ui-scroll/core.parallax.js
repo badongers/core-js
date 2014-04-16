@@ -36,18 +36,13 @@
         }
         this.tick = false;
     };
-    proto.onWindowScroll = function(){
-        if(!this.supportTouch && core.browser.touch) return;
-        if(!this.tick){
-            requestAnimationFrame(this._("update"));
-            this.tick = true;
-        }
-    };
+
     proto.initialize = function(){
-        this.elements = this.findAll("[parallax]");
-        window.addEventListener("scroll", this._("onWindowScroll"));
-        requestAnimationFrame(this._("update"));
+        this.elements = this.findAll("[core-parallax]");
+        CoreWindow.instance().on("window.scroll", this._("update"), this);
         this.tick = true;
+        this.update();
+
     }
     var instance;
     var o = {

@@ -20,8 +20,9 @@
         //console.log("created test", this.el);
 
         CoreParallax.init(); //test parallax scrolling
-        this.tmodule.once("test.event", this.onTestEvent, this);
-        core.events.EventBroadcaster.instance().on("global.test.event", this.onTestEvent, this)
+        CoreSnap.init();
+        //this.tmodule.once("test.event", this.onTestEvent, this);
+        //core.events.EventBroadcaster.instance().on("global.test.event", this.onTestEvent, this)
     };
     proto.onTestEvent = function(evt){
         console.log("event test");

@@ -313,12 +313,12 @@ if(!console){
     // ### Core.find ######
     // Search for nodes within its element context
     Core.prototype.find = function(selector){
-        return typeof jQuery !== 'undefined' ? jQuery(this.el).find(selector) : Sizzle(selector, this.el)
+        return Sizzle(selector, this.el)
     };
     // ### Core.findAll ######
     // Search for nodes within the document context
     Core.prototype.findAll = function(selector){
-        return typeof jQuery !== 'undefined' ? jQuery(selector) : Sizzle(selector)
+        return Sizzle(selector)
     };
 
     core.registerNamespace("core.Core", Core);

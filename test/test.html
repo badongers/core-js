@@ -8,15 +8,20 @@
 
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
-<!--<div class="responsive-bg-parallax" style="height:400px;background:url('http://amex.lav.net.au/platinum_charge/assets/css/img/bg-1.jpg') no-repeat;background-attachment: fixed;" scroll-offset=".1" parallax></div>-->
+
+<div class="responsive-bg-parallax" style="height:400px;background:url('http://amex.lav.net.au/platinum_charge/assets/css/img/bg-1.jpg') no-repeat;background-attachment: fixed;" scroll-offset=".1" core-parallax></div>
 <div core-module="TestModule" level="7" core-id="tmodule"></div>
+<div class="snapper" core-snap style="color:#000000;display:block;height:40px;background-color: #ff0000" core-snap-style="snapped">SNAP ME</div>
 <div style="height:3000px;"></div>
+
 <script language="javascript" src="qunit/qunit/qunit.js"></script>
 <script language="javascript" src="../src/core.js"></script>
 <script language="javascript" src="../src/events/eventdispatcher.js"></script>
 <script language="javascript" src="../src/events/eventbroadcaster.js"></script>
 <script language="javascript" src="../src/delegates/document.js"></script>
 <script language="javascript" src="../src/delegates/module.js"></script>
+<script language="javascript" src="../addons/core.window.js"></script>
+<script language="javascript" src="../addons/ui-scroll/core.snap.js"></script>
 <script language="javascript" src="../addons/ui-scroll/core.parallax.js"></script>
 <script language="javascript" src="testmodule.js"></script>
 <script language="javascript" src="main.js"></script>

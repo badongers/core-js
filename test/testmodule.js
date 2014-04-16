@@ -19,7 +19,7 @@
     };
 
     proto.initialized = function(opts){
-        console.log("created test module", this.el);
+
         setInterval((function(){
             this.trigger("test.event", {somevalue:"value"})
             EventBroadcaster.instance().trigger("global.test.event", {somevalue:"value"});

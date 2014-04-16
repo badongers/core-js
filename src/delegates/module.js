@@ -35,19 +35,19 @@
                     if(cmod && cid && !this[cid]){
                         cls = Function.apply(scope, ["return "+cmod])();
                         opts = params ? JSON.parse(params) : {};
-                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
+                        opts.el = mod;
                         opts.parent = this;
                         this[cid] = new cls(opts);
                     }else if(cmod && !cid){
                         cls = Function.apply(scope, ["return "+cmod])();
                         opts = params ? JSON.parse(params) : {};
                         opts.parent = this;
-                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
+                        opts.el = mod;
                         new cls(opts); //do not assign to any property
                     }else if(cmod && cid && this[cid]){
                         cls = Function.apply(scope, ["return "+cmod])();
                         opts = params ? JSON.parse(params) : {};
-                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
+                        opts.el = mod;
                         opts.parent = this;
                         var o = new cls(opts);
                         try{
