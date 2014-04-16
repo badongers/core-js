@@ -1,4 +1,4 @@
-/*! core 2014-04-16 */
+/*! core 2014-04-17 */
 /**
  * Created by donaldmartinez on 16/04/2014.
  */
@@ -163,7 +163,7 @@
                 if(style){
                     if(this.elements[len].className.indexOf(style) == -1){
                         toggleClass(this.elements[len], this.elements[len].getAttribute("core-snap-style"));
-
+                        this.elements[len].snapped = true;
                     }
                 }
             }else{
@@ -172,6 +172,7 @@
                     if(this.elements[len].className.indexOf(style) != -1){
                         toggleClass(this.elements[len], this.elements[len].getAttribute("core-snap-style"));
                         this.elements[len].style.top = "";
+                        this.elements[len].snapped = false;
                     }
 
                 }
@@ -179,17 +180,10 @@
 
         }
     };
-    proto.reset = function(){
-        var len = this.elements.length;
-        while(len--){
-            this.elements[len]["origTop"] = null;
-        }
-        this.update({scrollTop:CoreWindow.instance().scrollTop, scrollLeft:CoreWindow.instance().scrollLeft});
-    };
+
     proto.initialize = function(){
         this.elements = this.findAll("[core-snap]");
         CoreWindow.instance().on("window.scroll", this._("update"), this);
-        CoreWindow.instance().on("window.resize", this._("reset"), this);
     };
     function toggleClass(element, className){
         if (!element || !className){

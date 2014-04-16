@@ -1,4 +1,4 @@
-/*! core 2014-04-16 */
+/*! core 2014-04-17 */
 // Core Base Class
 // ----------------
 // This class contains the base object used throughout the core framework.
