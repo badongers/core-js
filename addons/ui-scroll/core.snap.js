@@ -20,30 +20,29 @@
         __super__.dispose.call(this);
     };
     proto.update = function(evt){
-
         var len = this.elements.length;
         while(len--){
             var top = core.rect(this.elements[len]).top;
+            var offset = Number(this.elements[len].getAttribute("core-snap-offset")) || 0;
             if(!this.elements[len]["origTop"]){
                 this.elements[len]["origTop"] = top;
             }
             var style = this.elements[len].getAttribute("core-snap-style");
-            if(evt.scrollTop >= this.elements[len]["origTop"]){
+            if(evt.scrollTop+offset >= this.elements[len]["origTop"]){
                 this.elements[len].style.position = "fixed";
-                this.elements[len].style.top = 0;
-
+                this.elements[len].style.top = offset+"px";
                 if(style){
                     if(this.elements[len].className.indexOf(style) == -1){
                         toggleClass(this.elements[len], this.elements[len].getAttribute("core-snap-style"));
+
                     }
-
                 }
-
             }else{
                 this.elements[len].style.position = "relative";
                 if(style){
                     if(this.elements[len].className.indexOf(style) != -1){
                         toggleClass(this.elements[len], this.elements[len].getAttribute("core-snap-style"));
+                        this.elements[len].style.top = "";
                     }
 
                 }

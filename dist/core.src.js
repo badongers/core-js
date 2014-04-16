@@ -1,4 +1,4 @@
-/*! core 2014-04-13 */
+/*! core 2014-04-16 */
 // Core Base Class
 // ----------------
 // This class contains the base object used throughout the core framework.
@@ -314,12 +314,12 @@ if(!console){
     // ### Core.find ######
     // Search for nodes within its element context
     Core.prototype.find = function(selector){
-        return typeof jQuery !== 'undefined' ? jQuery(this.el).find(selector) : Sizzle(selector, this.el)
+        return Sizzle(selector, this.el)
     };
     // ### Core.findAll ######
     // Search for nodes within the document context
     Core.prototype.findAll = function(selector){
-        return typeof jQuery !== 'undefined' ? jQuery(selector) : Sizzle(selector)
+        return Sizzle(selector)
     };
 
     core.registerNamespace("core.Core", Core);
@@ -775,19 +775,19 @@ if(typeof module !== 'undefined' && module.exports){
                     if(cmod && cid && !this[cid]){
                         cls = Function.apply(scope, ["return "+cmod])();
                         opts = params ? JSON.parse(params) : {};
-                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
+                        opts.el = mod;
                         opts.parent = this;
                         this[cid] = new cls(opts);
                     }else if(cmod && !cid){
                         cls = Function.apply(scope, ["return "+cmod])();
                         opts = params ? JSON.parse(params) : {};
                         opts.parent = this;
-                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
+                        opts.el = mod;
                         new cls(opts); //do not assign to any property
                     }else if(cmod && cid && this[cid]){
                         cls = Function.apply(scope, ["return "+cmod])();
                         opts = params ? JSON.parse(params) : {};
-                        opts.el = typeof jQuery !== 'undefined' ? $(mod) : mod;
+                        opts.el = mod;
                         opts.parent = this;
                         var o = new cls(opts);
                         try{

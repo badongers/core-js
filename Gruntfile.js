@@ -19,6 +19,7 @@ module.exports = function(grunt) {
                         'src/utils/raf.js'
                     ],
                     'dist/<%= pkg.name %>.plugins.min.js':[
+                        'addons/core.window.js',
                         'addons/{*,*/}/*.js'
                     ]
                 }
@@ -40,6 +41,7 @@ module.exports = function(grunt) {
                         'src/utils/raf.js'
                     ],
                     'dist/<%= pkg.name %>.plugins.src.js':[
+                        'addons/core.window.js',
                         'addons/{*,*/}/*.js'
                     ]
                 }
