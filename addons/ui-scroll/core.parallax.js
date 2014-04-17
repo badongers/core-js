@@ -36,14 +36,17 @@
         }
         this.tick = false;
     };
-
+    proto.updateAcceleration = function(evt){
+        //console.log(evt);
+        //untested
+    };
     proto.initialize = function(){
         this.elements = this.findAll("[core-parallax]");
         CoreWindow.instance().on("window.scroll", this._("update"), this);
+        CoreWindow.instance().on("window.device.motion", this._("updateAcceleration"), this);
         this.tick = true;
         this.update();
-
-    }
+    };
     var instance;
     var o = {
         init:function (opts) {
