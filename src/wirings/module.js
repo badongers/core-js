@@ -64,5 +64,5 @@
         };
         recurse.call(this, node.childNodes);
     }
-    core.registerNamespace("core.delegates.Module", Module);
+    core.registerNamespace("core.wirings.Module", Module);
 })();

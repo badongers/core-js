@@ -7,7 +7,7 @@
         Core.call(this, opts);
     }
     Document.inherits(Core);
-    function contentLoaded(win, fn) {
+    function _isready(win, fn) {
         var done = false, top = true,
 
             doc = win.document, root = doc.documentElement,
@@ -43,7 +43,7 @@
         //create
         __super__.construct.call(this, opts);
         if(typeof document !== 'undefined'){
-            contentLoaded(window, this.getProxyHandler("onDocumentReady"));
+            _isready(window, this.getProxyHandler("onDocumentReady"));
         }
     };
     proto.dispose = function () {

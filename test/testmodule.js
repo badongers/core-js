@@ -1,5 +1,5 @@
 (function ($) {
-    var Module = core.delegates.Module,
+    var Module = core.wirings.Module,
         __super__ = Module.prototype,
         EventBroadcaster = core.events.EventBroadcaster;
 

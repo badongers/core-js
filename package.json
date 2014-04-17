@@ -37,8 +37,8 @@
         "core.js",
         "events/eventdispatcher.js",
         "events/eventbroadcaster.js",
-        "delegates/document.js",
-        "delegates/module.js",
+        "wirings/document.js",
+        "wirings/module.js",
         "net/xhr.js",
         "utils/raf.js"
     ],

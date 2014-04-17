@@ -1,5 +1,5 @@
 (function ($) {
-    var Module = core.delegates.Module;
+    var Module = core.wirings.Module;
     function Main(opts) {
         if (opts && opts.__inheriting__) return;
         Module.call(this, opts);

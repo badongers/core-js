@@ -804,7 +804,7 @@ if(typeof module !== 'undefined' && module.exports){
         };
         recurse.call(this, node.childNodes);
     }
-    core.registerNamespace("core.delegates.Module", Module);
+    core.registerNamespace("core.wirings.Module", Module);
 })();
 (function(scope) {
     // Overwrite requestAnimationFrame so it works across browsers

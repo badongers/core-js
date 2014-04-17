@@ -14,8 +14,8 @@ module.exports = function(grunt) {
                         'src/events/eventdispatcher.js',
                         'src/events/eventbroadcaster.js',
                         'src/net/xhr.js',
-                        'src/delegates/document.js',
-                        'src/delegates/module.js',
+                        'src/wirings/document.js',
+                        'src/wirings/module.js',
                         'src/utils/raf.js',
                         'src/utils/math.js',
                         'src/utils/string.js'
@@ -38,8 +38,8 @@ module.exports = function(grunt) {
                         'src/events/eventdispatcher.js',
                         'src/events/eventbroadcaster.js',
                         'src/net/xhr.js',
-                        'src/delegates/document.js',
-                        'src/delegates/module.js',
+                        'src/wirings/document.js',
+                        'src/wirings/module.js',
                         'src/utils/raf.js',
                         'src/utils/math.js',
                         'src/utils/string.js'
