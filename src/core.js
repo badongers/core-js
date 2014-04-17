@@ -15,6 +15,7 @@
     if(!scope.core){
         scope.core = {};
     }
+	
     if(!Function.prototype.bind) {
         //
         // ### Function.bind ######
@@ -183,7 +184,7 @@
     // ### core.import ######
     // Utility method for importing a namespaced object
     // Mainly used for shorthand coding
-    scope.core.import = function(pack){
+    scope.core._import = function(pack){
         var parts = pack.split(".");
         var sc = scope;
         while(parts.length){

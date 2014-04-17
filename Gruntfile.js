@@ -16,7 +16,9 @@ module.exports = function(grunt) {
                         'src/net/xhr.js',
                         'src/delegates/document.js',
                         'src/delegates/module.js',
-                        'src/utils/raf.js'
+                        'src/utils/raf.js',
+                        'src/utils/math.js',
+                        'src/utils/string.js'
                     ],
                     'dist/<%= pkg.name %>.plugins.min.js':[
                         'addons/core.window.js',
@@ -38,7 +40,9 @@ module.exports = function(grunt) {
                         'src/net/xhr.js',
                         'src/delegates/document.js',
                         'src/delegates/module.js',
-                        'src/utils/raf.js'
+                        'src/utils/raf.js',
+                        'src/utils/math.js',
+                        'src/utils/string.js'
                     ],
                     'dist/<%= pkg.name %>.plugins.src.js':[
                         'addons/core.window.js',

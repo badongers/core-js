@@ -1,5 +1,5 @@
 (function ($, scope) {
-    var Core = core.import("core.Core"),
+    var Core = core._import("core.Core"),
         __super__ = Core.prototype;
 
     function Document(opts) {
