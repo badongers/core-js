@@ -1,12 +1,13 @@
-// EventDispatcher
-// ----------------
-// Core implementation for broadcaster/observer/eventdispatcher pattern<br>
-// Uses the traditional syntax for addEventListener as well as jquery event listeners.
-// Requires additional parameter for handler scope, this provides a better way of managing memory when disposing objects that has
-// Extends core.Core
+
 (function(){
     var Core = core.Core; //shorthand variable assignment.
     var __super__ = Core.prototype;
+    /**
+     * Testing
+     * @constructor
+     * @param opts {object}
+     *
+     */
     function EventDispatcher(opts){
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);

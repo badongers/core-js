@@ -1,4 +1,3 @@
-
 (function () {
     var instance = null;
     var EventDispatcher = core.events.EventDispatcher;

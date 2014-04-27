@@ -1,4 +1,4 @@
-/*! core 2014-04-17 */
+/*! core 2014-04-28 */
 // Core Base Class
 // ----------------
 // This class contains the base object used throughout the core framework.
@@ -16,6 +16,7 @@
     if(!scope.core){
         scope.core = {};
     }
+	
     if(!Function.prototype.bind) {
         //
         // ### Function.bind ######
@@ -184,7 +185,7 @@
     // ### core.import ######
     // Utility method for importing a namespaced object
     // Mainly used for shorthand coding
-    scope.core.import = function(pack){
+    scope.core._import = function(pack){
         var parts = pack.split(".");
         var sc = scope;
         while(parts.length){
@@ -239,7 +240,7 @@
 
 })(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window); //supports node js
 
-if(!console){
+if(!("console" in window)){
     console = {
         log:function(){},
         warn:function(){},
@@ -248,10 +249,12 @@ if(!console){
 }
 
 (function(){
-    // ### Core ######
-    // Core Class
-    // `Parameters : opts - object`
-
+    /**
+     * The base object of all core based classes.
+     * @constructor
+     * @param opts {object}
+     *
+    */
     function Core(opts){
         //skips all process when instantiated from Function.inherits
         if(opts && opts.__inheriting__) return;
@@ -329,15 +332,16 @@ if(!console){
 if(typeof module !== 'undefined' && module.exports){
     module.exports = core;
 }
-// EventDispatcher
-// ----------------
-// Core implementation for broadcaster/observer/eventdispatcher pattern<br>
-// Uses the traditional syntax for addEventListener as well as jquery event listeners.
-// Requires additional parameter for handler scope, this provides a better way of managing memory when disposing objects that has
-// Extends core.Core
+
 (function(){
     var Core = core.Core; //shorthand variable assignment.
     var __super__ = Core.prototype;
+    /**
+     * Testing
+     * @constructor
+     * @param opts {object}
+     *
+     */
     function EventDispatcher(opts){
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
@@ -496,7 +500,6 @@ if(typeof module !== 'undefined' && module.exports){
     };
     core.registerNamespace("core.events.EventDispatcher", EventDispatcher);
 })();
-
 (function () {
     var instance = null;
     var EventDispatcher = core.events.EventDispatcher;
@@ -526,17 +529,18 @@ if(typeof module !== 'undefined' && module.exports){
     o.instance = o.init;
     core.registerNamespace("core.events.EventBroadcaster", o);
 })();
-// XHR
-// ----------------
-// Core implementation for XML HTTP Requests.<br>
-// Singleton object - access using `XHR.instance()`
-// Extends core.Core
-
 (function () {
     var instance = null;
     var Core = core.Core;
     var __super__ = Core.prototype;
-    var __xhr__ = function( a ){ for(a=0;a<4;a++) try { return a ? new ActiveXObject([,"Msxml2", "Msxml3", "Microsoft"][a] + ".XMLHTTP" ) : new XMLHttpRequest } catch(e){} };
+    var __xhr__ = function( a ){
+        for(a=0;a<4;a++)
+            try {
+                return a ? new ActiveXObject([,"Msxml2", "Msxml3", "Microsoft"][a] + ".XMLHTTP" ) : new XMLHttpRequest
+            } catch(e){
+
+            }
+    };
     function XHR(opts) {
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
@@ -577,21 +581,7 @@ if(typeof module !== 'undefined' && module.exports){
     proto.setConfig = function(o){
         this.settingsCache = o;
     };
-    //
-    //### XHR.request ######
-    //Creates an xml http request.<br>
-    //Parameter - object
-    //>  {
-    //>      url/location: the url requested
-    //>      format/dataType: json/xml/plain/html
-    //>      callback: function handler after a successful request
-    //>      error: function handler after an error
-    //>      nocache: appends a cachebuster when set
-    //>      method: post/get
-    //>      data: data sent through post
-    //>      queryString: query string sent through get
-    //>      async: sets whether to request asynchronously - true by default
-    //>  }
+
     proto.request = function(o) {
         if(o == undefined) throw new Error("XHR:Invalid parameters");
         o = applyConfig.call(this, o);
@@ -614,17 +604,17 @@ if(typeof module !== 'undefined' && module.exports){
                 if(req.status === 0 || req.status===200){
                     o.callback(parseResponse.call(this, req.responseText, format));
                 }
+                /*
                 if((/^[45]/).test(req.status)) {
                     try{
                         o.error();
                     }catch(err){
                     }
 
-                }
+                }*/
                 req = null;
                 o = null;
             }else{
-                //
                 switch(req.readyState){
                     case 1:
                         try{
@@ -668,7 +658,7 @@ if(typeof module !== 'undefined' && module.exports){
     core.registerNamespace("core.net.XHR", o);
 })();
 (function ($, scope) {
-    var Core = core.import("core.Core"),
+    var Core = core._import("core.Core"),
         __super__ = Core.prototype;
 
     function Document(opts) {
@@ -676,7 +666,7 @@ if(typeof module !== 'undefined' && module.exports){
         Core.call(this, opts);
     }
     Document.inherits(Core);
-    function contentLoaded(win, fn) {
+    function _isready(win, fn) {
         var done = false, top = true,
 
             doc = win.document, root = doc.documentElement,
@@ -712,7 +702,7 @@ if(typeof module !== 'undefined' && module.exports){
         //create
         __super__.construct.call(this, opts);
         if(typeof document !== 'undefined'){
-            contentLoaded(window, this.getProxyHandler("onDocumentReady"));
+            _isready(window, this.getProxyHandler("onDocumentReady"));
         }
     };
     proto.dispose = function () {
@@ -842,3 +832,45 @@ if(typeof module !== 'undefined' && module.exports){
         };
     }
 }(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window));
+// Math prototypes
+// ----------------
+// Additional methods to the Math prototype.
+(function(){
+    //
+    //### Math.randomFloat ######
+    //Generates a random float<br>
+
+    Math.prototype.randomFloat = function(min, max){
+        return (Math.random() * (max - min)) + min;
+    };
+    //
+    //### Math.randomFloat ######
+    //Generates a random int<br>
+    Math.prototype.randomInt = function(min, max){
+        return Math.min(max, Math.floor(Math.random() * (1 + max - min)) + min);
+    };
+    //
+    //### Math.aspectScaleHeight ######
+    //Maintains scale ratio resizing using a target/intended height<br>
+    Math.prototype.aspectScaleHeight = function(origW, origH, targH){
+        return {height:targH, width:(targH/origH)*origW};
+    };
+    //### Math.aspectScaleWidth ######
+    //Maintains scale ratio resizing using a target/intended width<br>
+    Math.prototype.aspectScaleWidth = function(origW, origH, targW){
+        return {height:(targW/origH)*oh, width:targW};
+    };
+})();
+
+// String prototypes
+// ----------------
+// Additional methods to the String prototype.
+(function(){
+
+    if(typeof String.prototype.trim !== 'function') {
+        String.prototype.trim = function() {
+            return this.replace(/^\s+|\s+$/g, '');
+        }
+    }
+
+})();

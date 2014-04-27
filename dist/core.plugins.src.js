@@ -1,4 +1,4 @@
-/*! core 2014-04-17 */
+/*! core 2014-04-28 */
 /**
  * Created by donaldmartinez on 16/04/2014.
  */
@@ -34,7 +34,20 @@
         var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         this.trigger("window.resize", {width:h, height:h});
         this.tickResize = false;
-    }
+    };
+    proto.dispatchMotion = function(){
+        var evt = this.motionEvent;
+        var accelX = evt.accelerationIncludingGravity.x;
+        var accelY = evt.accelerationIncludingGravity.y;
+        var accelZ = evt.accelerationIncludingGravity.z;
+        var rotationAlpha = evt.rotationRate.alpha;
+        var rotationGamma = evt.rotationRate.gamma;
+        var rotationBeta = evt.rotationRate.beta;
+        this.trigger("window.device.motion", {accelX:accelX, accelY:accelY, accelZ:accelZ, rotationAlpha:rotationAlpha, rotationBeta:rotationBeta, rotationGamma:rotationGamma});
+        this.tickMotion = false;
+        this.motionEvent = null;
+
+    };
     proto.onWindowScroll = function(){
         if(!this.tick){
             this.tick = true;
@@ -47,11 +60,22 @@
             requestAnimationFrame(this._("dispatchResize"));
         }
     };
+    proto.onDeviceMotion = function(evt){
+        this.motionEvent = evt;
+        if(!this.tickMotion){
+            this.tickMotion = true;
+            requestAnimationFrame(this._("dispatchMotion"));
+        }
+    };
     proto.initialize = function(){
         this.scrollTop = 0;
         this.scrollLeft = 0;
         window.addEventListener("scroll", this._("onWindowScroll"));
         window.addEventListener("resize", this._("onWindowResize"));
+        if(core.browser.touch){
+            window.addEventListener("devicemotion", this._("onDeviceMotion"));
+        }
+
     };
     var instance;
     var o = {
@@ -105,14 +129,17 @@
         }
         this.tick = false;
     };
-
+    proto.updateAcceleration = function(evt){
+        //console.log(evt);
+        //untested
+    };
     proto.initialize = function(){
         this.elements = this.findAll("[core-parallax]");
         CoreWindow.instance().on("window.scroll", this._("update"), this);
+        CoreWindow.instance().on("window.device.motion", this._("updateAcceleration"), this);
         this.tick = true;
         this.update();
-
-    }
+    };
     var instance;
     var o = {
         init:function (opts) {

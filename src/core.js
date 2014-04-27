@@ -239,7 +239,7 @@
 
 })(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window); //supports node js
 
-if(!console){
+if(!("console" in window)){
     console = {
         log:function(){},
         warn:function(){},
@@ -248,10 +248,12 @@ if(!console){
 }
 
 (function(){
-    // ### Core ######
-    // Core Class
-    // `Parameters : opts - object`
-
+    /**
+     * The base object of all core based classes.
+     * @constructor
+     * @param opts {object}
+     *
+    */
     function Core(opts){
         //skips all process when instantiated from Function.inherits
         if(opts && opts.__inheriting__) return;

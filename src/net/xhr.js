@@ -1,14 +1,15 @@
-// XHR
-// ----------------
-// Core implementation for XML HTTP Requests.<br>
-// Singleton object - access using `XHR.instance()`
-// Extends core.Core
-
 (function () {
     var instance = null;
     var Core = core.Core;
     var __super__ = Core.prototype;
-    var __xhr__ = function( a ){ for(a=0;a<4;a++) try { return a ? new ActiveXObject([,"Msxml2", "Msxml3", "Microsoft"][a] + ".XMLHTTP" ) : new XMLHttpRequest } catch(e){} };
+    var __xhr__ = function( a ){
+        for(a=0;a<4;a++)
+            try {
+                return a ? new ActiveXObject([,"Msxml2", "Msxml3", "Microsoft"][a] + ".XMLHTTP" ) : new XMLHttpRequest
+            } catch(e){
+
+            }
+    };
     function XHR(opts) {
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
@@ -49,21 +50,7 @@
     proto.setConfig = function(o){
         this.settingsCache = o;
     };
-    //
-    //### XHR.request ######
-    //Creates an xml http request.<br>
-    //Parameter - object
-    //>  {
-    //>      url/location: the url requested
-    //>      format/dataType: json/xml/plain/html
-    //>      callback: function handler after a successful request
-    //>      error: function handler after an error
-    //>      nocache: appends a cachebuster when set
-    //>      method: post/get
-    //>      data: data sent through post
-    //>      queryString: query string sent through get
-    //>      async: sets whether to request asynchronously - true by default
-    //>  }
+
     proto.request = function(o) {
         if(o == undefined) throw new Error("XHR:Invalid parameters");
         o = applyConfig.call(this, o);
@@ -86,17 +73,17 @@
                 if(req.status === 0 || req.status===200){
                     o.callback(parseResponse.call(this, req.responseText, format));
                 }
+                /*
                 if((/^[45]/).test(req.status)) {
                     try{
                         o.error();
                     }catch(err){
                     }
 
-                }
+                }*/
                 req = null;
                 o = null;
             }else{
-                //
                 switch(req.readyState){
                     case 1:
                         try{
