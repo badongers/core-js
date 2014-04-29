@@ -16,9 +16,9 @@
         findImmediateClasses.call(this, this.el);
         this.initialized(opts);
     };
-    proto.dispose = function () {
+    proto.dispose = function (removeNode) {
         //clear
-        __super__.dispose.call(this);
+        __super__.dispose.call(this, removeNode);
     };
     function findImmediateClasses(node) {
         var recurse = function(modules) {

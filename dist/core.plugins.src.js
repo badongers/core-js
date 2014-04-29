@@ -1,4 +1,4 @@
-/*! core 2014-04-29 */
+/*! core 2014-04-30 */
 /**
  * Created by donaldmartinez on 16/04/2014.
  */
@@ -240,3 +240,31 @@
     core.registerNamespace("CoreSnap", o);
 
 })();
+(function ($) {
+    var Module = core.wirings.Module,
+        __super__ = Module.prototype;
+    function OfflineModule(opts) {
+        if (opts && opts.__inheriting__) return;
+        __super__.constructor.call(this, opts);
+        prepare.call(this);
+    }
+    OfflineModule.inherits(Module);
+    var proto = OfflineModule.prototype;
+
+    proto.dispose = function () {
+        //clear
+        __super__.dispose.call(this);
+    };
+    proto.construct = function(opts){
+        __super__.construct.call(this, opts);
+    };
+    proto.initialized = function(opts){
+        console.warn("OfflineModule subclass requires initialized method.");
+    };
+    var prepare = function(){
+
+    };
+    core.registerNamespace("core.wirings.OfflineModule", OfflineModule);
+
+
+})(core.selector);

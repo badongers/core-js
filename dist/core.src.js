@@ -1,4 +1,4 @@
-/*! core 2014-04-29 */
+/*! core 2014-04-30 */
 // Core Base Class
 // ----------------
 // This class contains the base object used throughout the core framework.
@@ -307,7 +307,12 @@ if(!("console" in window)){
     };
     // ### Core.dispose ######
     // Memory clean up method. Clears all proxied references. Requires implementation on sub-classes.
-    Core.prototype.dispose = function(){
+    Core.prototype.dispose = function(removeNode){
+        if(removeNode && this.el){
+            try{
+                this.el.parentNode.removeChild(this.el);
+            }catch(err){}
+        }
         this.el = null;
         for(var prop in this.proxyHandlers){
             this.proxyHandlers[prop] = null;
@@ -705,9 +710,9 @@ if(typeof module !== 'undefined' && module.exports){
             _isready(window, this.getProxyHandler("onDocumentReady"));
         }
     };
-    proto.dispose = function () {
+    proto.dispose = function (removeNode) {
         //clear
-        __super__.dispose.call(this);
+        __super__.dispose.call(this, removeNode);
     };
     var findRootClass = function(){
         var root = document.body;
@@ -746,9 +751,9 @@ if(typeof module !== 'undefined' && module.exports){
         findImmediateClasses.call(this, this.el);
         this.initialized(opts);
     };
-    proto.dispose = function () {
+    proto.dispose = function (removeNode) {
         //clear
-        __super__.dispose.call(this);
+        __super__.dispose.call(this, removeNode);
     };
     function findImmediateClasses(node) {
         var recurse = function(modules) {
@@ -821,16 +826,6 @@ if(typeof module !== 'undefined' && module.exports){
             clearTimeout(id);
         };
 
-    if(!Math.randomFloat){
-        Math.randomFloat = function(min, max){
-            return (Math.random() * (max - min)) + min;
-        };
-    }
-    if(!Math.randomInt){
-        Math.randomInt = function(min, max){
-            return Math.min(max, Math.floor(Math.random() * (1 + max - min)) + min);
-        };
-    }
 }(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window));
 // Math prototypes
 // ----------------

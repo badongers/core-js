@@ -46,9 +46,9 @@
             _isready(window, this.getProxyHandler("onDocumentReady"));
         }
     };
-    proto.dispose = function () {
+    proto.dispose = function (removeNode) {
         //clear
-        __super__.dispose.call(this);
+        __super__.dispose.call(this, removeNode);
     };
     var findRootClass = function(){
         var root = document.body;

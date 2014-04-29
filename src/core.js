@@ -306,7 +306,12 @@ if(!("console" in window)){
     };
     // ### Core.dispose ######
     // Memory clean up method. Clears all proxied references. Requires implementation on sub-classes.
-    Core.prototype.dispose = function(){
+    Core.prototype.dispose = function(removeNode){
+        if(removeNode && this.el){
+            try{
+                this.el.parentNode.removeChild(this.el);
+            }catch(err){}
+        }
         this.el = null;
         for(var prop in this.proxyHandlers){
             this.proxyHandlers[prop] = null;
