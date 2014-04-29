@@ -23,14 +23,4 @@
             clearTimeout(id);
         };
 
-    if(!Math.randomFloat){
-        Math.randomFloat = function(min, max){
-            return (Math.random() * (max - min)) + min;
-        };
-    }
-    if(!Math.randomInt){
-        Math.randomInt = function(min, max){
-            return Math.min(max, Math.floor(Math.random() * (1 + max - min)) + min);
-        };
-    }
 }(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window));
