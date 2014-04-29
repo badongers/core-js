@@ -1,8 +1,10 @@
 (function ($) {
-    var Module = core.wirings.Module;
+    var Module = core.wirings.Module,
+        __super__ = Module.prototype;
     function Main(opts) {
         if (opts && opts.__inheriting__) return;
-        Module.call(this, opts);
+
+        __super__.constructor.call(this, opts);
 
     }
     Main.inherits(Module);
@@ -10,10 +12,10 @@
 
     proto.dispose = function () {
         //clear
-        this.__super__.dispose.call(this);
+        __super__.dispose.call(this);
     };
     proto.construct = function(opts){
-        this.__super__.construct.call(this, opts);
+        __super__.construct.call(this, opts);
     };
 
     proto.initialized = function(opts){
@@ -21,6 +23,7 @@
 
         CoreParallax.init(); //test parallax scrolling
         CoreSnap.init();
+
         //this.tmodule.once("test.event", this.onTestEvent, this);
         //core.events.EventBroadcaster.instance().on("global.test.event", this.onTestEvent, this)
     };
