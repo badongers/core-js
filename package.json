@@ -1,51 +1,50 @@
 {
-    "name": "core",
-    "title": "Core Javascript",
-    "version": "0.0.2",
-    "description": "Micro-framework for object oriented javascript",
-    "homepage": "http://www.eightfolds.com.au",
-    "author": {
-        "name": "Donald Martinez",
-        "url": "http://www.eightfolds.com.au"
-    },
-    "keywords": [
-        "oop",
-        "framework",
-        "javascript"
-    ],
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/badongers/core-js/blob/master/LICENSE"
-        }
-    ],
-    "dependencies": {
-
-    },
-    "bugs": "https://github.com/badongers/core-js/issues",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/badongers/core-js.git"
-    },
-    "maintainers": [
-        {
-            "name": "Donald Martinez",
-            "url": "http://www.eightfolds.com.aum"
-        }
-    ],
-    "files": [
-        "core.js",
-        "events/eventdispatcher.js",
-        "events/eventbroadcaster.js",
-        "wirings/document.js",
-        "wirings/module.js",
-        "net/xhr.js",
-        "utils/raf.js"
-    ],
-    "devDependencies": {
-        "grunt": "~0.4.2",
-        "grunt-contrib-concat": "~0.3.0",
-        "grunt-contrib-nodeunit": "~0.2.0",
-        "grunt-contrib-uglify": "~0.2.2"
+  "name": "core",
+  "title": "Core Javascript",
+  "version": "0.0.2",
+  "description": "Micro-framework for object oriented javascript",
+  "homepage": "http://www.eightfolds.com.au",
+  "author": {
+    "name": "Donald Martinez",
+    "url": "http://www.eightfolds.com.au"
+  },
+  "keywords": [
+    "oop",
+    "framework",
+    "javascript"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/badongers/core-js/blob/master/LICENSE"
     }
+  ],
+  "dependencies": {},
+  "bugs": "https://github.com/badongers/core-js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/badongers/core-js.git"
+  },
+  "maintainers": [
+    {
+      "name": "Donald Martinez",
+      "url": "http://www.eightfolds.com.aum"
+    }
+  ],
+  "files": [
+    "core.js",
+    "events/eventdispatcher.js",
+    "events/eventbroadcaster.js",
+    "wirings/document.js",
+    "wirings/module.js",
+    "net/xhr.js",
+    "utils/raf.js"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-yuidoc": "~0.5.2"
+  }
 }
