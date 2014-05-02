@@ -47,17 +47,24 @@
         tmp = null;
         */
         this.prototype = new obj({__inheriting__:true});
-        this.prototype.__super__ = obj.prototype;
+
     };
     //
     // ### Function.augment ######
     // Convenience method for mixin implementation.
     // Copies the prototype methods of an object into another.
-    Function.prototype.augment = function(obj){
-        for(var prop in obj){
-            this.prototype[prop] = obj[prop];
+    Function.prototype.augment = Function.prototype.mixin = Function.prototype.partial = function(obj){
+        if(typeof obj == "function"){
+            for(var prop in obj.prototype){
+                this.prototype[prop] = obj.prototype[prop];
+            }
         }
-    };
+        if(typeof obj == "object"){
+            for(var prop in obj){
+                this.prototype[prop] = obj[prop];
+            }
+        }
+    }
     if(typeof navigator !== 'undefined'){
         var N= navigator.appName, ua=navigator.userAgent, tem;
         var M= ua.match(/(opera|chrome|safari|firefox|msie|trident)\/?\s*(\.?\d+(\.\d+)*)/i);
@@ -177,9 +184,6 @@
                 temp[last] = obj || {};
             }
         }
-
-
-
     };
     // ### core.import ######
     // Utility method for importing a namespaced object
@@ -196,7 +200,12 @@
             }
         }
         return sc;
-    }
+    };
+    scope.core.dependency = function(obj, message){
+        if(!scope[obj]){
+            console.warn(message);
+        }
+    };
     /** browser support implementations **/
 
     // ### JSON ######
