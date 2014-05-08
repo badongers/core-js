@@ -1,12 +1,24 @@
-/*! core 2014-05-02 */
+/*! core 2014-05-09 */
 /**
- * Created by donaldmartinez on 16/04/2014.
+ * The base module for the Core JS framework.
+ * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
+ *
+ * @module addons
  */
-
 (function () {
     var EventDispatcher = core.events.EventDispatcher,
         __super__ = EventDispatcher.prototype;
-
+    /**
+     * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
+     *
+     * @class CoreWindow
+     * @extends core.Core
+     * @namespace core.addons
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
     function CoreWindow(opts) {
         if (opts && opts.__inheriting__) return;
         EventDispatcher.call(this, opts);
@@ -88,7 +100,7 @@
     };
     o.instance = o.init;
 
-    core.registerNamespace("CoreWindow", o);
+    core.registerNamespace("core.addons.CoreWindow", o);
 
 })();
 
@@ -99,58 +111,121 @@
     function StoryBoard(opts) {
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
+
     }
-
     StoryBoard.inherits(Core);
-
-    core.dependency("TweenMax", "StoryBoard class has TweenMax as dependency. Please ensure that this is included in your assets.");
-    core.dependency("jQuery", "StoryBoard class has jQuery as dependency. Please ensure that this is included in your assets.");
-
+    core.dependency("TweenMax", "StoryBoard class requires TweenMax. Please ensure that this is included in your assets.");
+    core.dependency("jQuery", "StoryBoard class requires jQuery. Please ensure that this is included in your assets.");
+    $ = jQuery;
     var proto = StoryBoard.prototype;
     proto.construct = function (opts) {
         //create
         __super__.construct.call(this, opts);
         this.supportTouch = opts.supportTouch || false;
-        this.initialize();
+        this.initialize(opts);
+
     };
     proto.dispose = function () {
         //clear
-
         __super__.dispose.call(this);
     };
     proto.update = function(){
-
-
-    };
-    proto.updateAcceleration = function(evt){
-        //console.log(evt);
-        //untested
-    };
-    proto.initialize = function(){
-        this.elements = this.findAll("[core-story]");
-        CoreWindow.instance().on("window.scroll", this._("update"), this);
-        CoreWindow.instance().on("window.device.motion", this._("updateAcceleration"), this);
-        this.update();
-    };
-    var instance;
-    var o = {
-        init:function (opts) {
-            if (instance == null) {
-                instance = new StoryBoard(opts);
-            }
-            return instance;
+        if(this.timeline){
+            var offset = core.rect(this.heightOffset[0]);
+            var pct = Math.abs(offset.top)/(offset.height-$(window).height());
+            this.timeline.seek(pct * this.timeline.duration());
         }
     };
-    o.instance = o.init;
+    proto.resizeElements = function(){
+        var w = $(window).width();
+        var h = $(window).height();
 
-    core.registerNamespace("StoryBoard", o);
+        this.elements.css({
+            width:w,
+            height:h,
+            position:"fixed",
+            top:0,
+            left:0
+        });
+        this.checkOffset(h);
+        this.update();
+    };
+    proto.checkOffset = function(h){
+        h *= this.timeScale;
+        if(!this.heightOffset){
+            this.heightOffset = $("<div></div>");
+            $("body").append(this.heightOffset);
+        }
+        this.heightOffset.css({
+            width:1,
+            height:h*this.elements.length,
+            position:"absolute",
+            top:0,
+            left:0
+        });
+    };
+    proto.initialize = function(opts){
+        this.timeScale = opts && opts.timeScale ? opts.timeScale : 1;
+        this.elements = $("[core-story]");
+        core.addons.CoreWindow.instance().on("window.scroll", this._("update"), this);
+        core.addons.CoreWindow.instance().on("window.resize", this._("resizeElements"), this);
+        this.resizeElements();
+        this.timeline = new TimelineMax();
+        this.configureStory();
+        this.update();
+    };
+    proto.configureStory = function(){
+        var len = -1;
+        var len2 = this.elements.length;
+        while(len++ < len2){
+            var current = $(this.elements[len]);
+            var config = current.attr("core-story-animation");
+            var label = current.attr("core-story");
+            if(config){
+                var configObj = new Function("return "+config)();
+                if(configObj.speed){
+                    var speed = configObj.speed;
+                    delete configObj.speed;
+                }
+                this.timeline.add(TweenMax.from(current, speed || 1, configObj));
+            }
+            var children = current.find("[core-element-animation]");
+            var i = -1;
+            var clen = children.length;
+            while(i++ < clen){
+                var config = $(children[i]).attr("core-element-animation");
+                if(config){
+                    var configObj = new Function("return "+config)();
+                    if(configObj.speed){
+                        var speed = configObj.speed;
+                        delete configObj.speed;
+                    }
+                    this.timeline.add(TweenMax.from(children[i], speed || 1, configObj));
+                }
+            }
+
+        }
+        this.timeline.pause();
+    };
+    core.registerNamespace("core.addons.storyboard.StoryBoard", StoryBoard);
 
 })();
 
 (function () {
     var Core = core.Core,
         __super__ = Core.prototype;
-
+    /**
+     * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
+     *
+     * @class CoreParallax
+     * @module addons
+     * @namespace core.addons.uiscroll
+     * @extends core.Core
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
     function CoreParallax(opts) {
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
@@ -190,8 +265,8 @@
     };
     proto.initialize = function(){
         this.elements = this.findAll("[core-parallax]");
-        CoreWindow.instance().on("window.scroll", this._("update"), this);
-        CoreWindow.instance().on("window.device.motion", this._("updateAcceleration"), this);
+        core.addons.CoreWindow.instance().on("window.scroll", this._("update"), this);
+        core.addons.CoreWindow.instance().on("window.device.motion", this._("updateAcceleration"), this);
         this.tick = true;
         this.update();
     };
@@ -206,14 +281,25 @@
     };
     o.instance = o.init;
 
-    core.registerNamespace("CoreParallax", o);
+    core.registerNamespace("core.addons.uiscroll.CoreParallax", o);
 
 })();
 
 (function () {
     var Core = core.Core,
         __super__ = Core.prototype;
-
+    /**
+     * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
+     *
+     * @class CoreSnap
+     * @module addons
+     * @namespace core.addons.uiscroll
+     * @extends core.Core
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
     function CoreSnap(opts) {
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
@@ -265,7 +351,7 @@
 
     proto.initialize = function(){
         this.elements = this.findAll("[core-snap]");
-        CoreWindow.instance().on("window.scroll", this._("update"), this);
+        core.addons.CoreWindow.instance().on("window.scroll", this._("update"), this);
     };
     function toggleClass(element, className){
         if (!element || !className){
@@ -292,12 +378,28 @@
     };
     o.instance = o.init;
 
-    core.registerNamespace("CoreSnap", o);
+    core.registerNamespace("core.addons.uiscroll.CoreSnap", o);
 
 })();
 (function () {
     var Core = core.Core,
         __super__ = Core.prototype;
+    /**
+     * ** Singleton. ** <br>The main class that implements local storage functionalities on a web application.
+     * This class wraps multiple storage mechanisms for storing information on the client side.
+     * <br><br>** This class supports the following: **<br>
+     * - SessionStorage
+     * - LocalStorage
+     * - WebSQL
+     * @class LocalStorage
+     * @module addons
+     * @extends core.Core
+     * @namespace core.addons.webapp
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
     function LocalStorage(opts) {
         if (opts && opts.__inheriting__) return;
         __super__.constructor.call(this, opts);
@@ -315,28 +417,63 @@
         this.hasSessionStorage = "sessionStorage" in window;
         this.hasSQL = "openDatabase" in window;
     };
+    /**
+     * Method for storing key/value pair using local storage.
+     *
+     * @method storeLocal
+     * @param {String} key The key to use when storing values
+     * @param {Object} value The value to store paired with the key parameter
+     */
     proto.storeLocal = function(key, value){
         if(this.hasLocalStorage){
             localStorage[key] = value;
         }
 
     };
+    /**
+     * Method for retrieving values in local storage.
+     *
+     * @method retrieveLocal
+     * @param {String} key The key pair to use when retrieving values
+     *
+     */
     proto.retrieveLocal = function(key){
         if(this.hasLocalStorage){
             return localStorage[key];
         }
         return null;
     };
+    /**
+     * Method for storing key/value pair using session storage.
+     *
+     * @method storeSession
+     * @param {String} key The key to use when storing values
+     * @param {Object} value The value to store paired with the key parameter
+     */
     proto.storeSession = function(key, value){
         if(this.hasSessionStorage){
             sessionStorage[key] = value;
         }
     };
+    /**
+     * Method for retrieving values in session storage.
+     *
+     * @method retrieveSession
+     * @param {String} key The key pair to use when retrieving values
+     *
+     */
     proto.retrieveSession = function(key){
         if(this.hasSessionStorage){
             return sessionStorage[key];
         }
     };
+    /**
+     * Method for creating tables on WebSQL
+     *
+     * @method createTable
+     * @param {String} tablename The table name to use upon creation
+     * @param {String} structure The columns to use when creating table
+     */
     proto.createTable = function(tablename, struct){
         if(this.hasSQL){
             if(typeof this.sqlDB !== 'undefined'){
@@ -346,17 +483,40 @@
             }
         }
     };
-
+    /**
+     * Method for inserting data on WebSQL
+     *
+     * @method insertSql
+     * @param {String} query The string INSERT query to use upon insertion
+     *
+     */
     proto.updateSql = proto.insertSql = function(query){
         this.sqlDB.transaction((function(sql){
             sql.executeSql(query);
         }));
     };
+    /**
+     * Method for retrieving data on WebSQL
+     *
+     * @method retrieveSql
+     * @param {String} query The string SELECT query to use upon retrieval
+     *
+     */
     proto.retrieveSql = function(query, callback){
         this.sqlDB.transaction((function(sql){
             sql.executeSql(query, [], callback);
         }))
     };
+    /**
+     * Method for configuring WebSQL, this includes database creation and all other meta information required on creation
+     *
+     * @method configureSQL
+     * @param {String} dbname The name of the database to create
+     * @param {String} version The version of the database to create
+     * @param {String} desc The description of the database to create
+     * @param {Number} size The size of the database to create, uses bytes. (ie. 1024*1024 * [intended mb size])
+     *
+     */
     proto.configureSQL = function(dbname, version, desc, size){
         if(this.hasSQL){
             this.sqlDB = openDatabase(dbname, version, desc, size);
@@ -373,12 +533,25 @@
     };
     o.instance = o.init;
 
-    core.registerNamespace("core.LocalStorage", o);
+    core.registerNamespace("core.addons.webapp.LocalStorage", o);
 
 })();
 (function ($) {
     var Module = core.wirings.Module,
         __super__ = Module.prototype;
+    /**
+     * The main class that implements offline webapp functionalities using application cache and local storage.
+     * Extends core.wirings.Module to have the ability to be instantiated in the same fashion.
+     *
+     * @class OfflineModule
+     * @module addons
+     * @namespace core.wirings
+     * @extends core.wirings.Module
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
     function OfflineModule(opts) {
         if (opts && opts.__inheriting__) return;
         __super__.constructor.call(this, opts);
@@ -398,6 +571,12 @@
     proto.initialized = function(opts){
         console.warn("OfflineModule subclass requires initialized method.");
     };
+    /**
+     * The main method handler for checking the application status. Also determines if a web application has gone offline/online
+     *
+     * @method onApplicationCacheStatus
+     * @param {Object} event Contains the information about the current application cache status.
+     */
     proto.onApplicationCacheStatus = function(evt){
 
         switch(evt.type){
@@ -449,9 +628,21 @@
                 break;
         }
     };
+    /**
+     * Virtual protected function. Should be overridden on subclasses. Called automatically when the cache status has changed.
+     *
+     * @method cacheStatus
+     * @param {String} status The status of the application cache.
+     */
     proto.cacheStatus = function(status){
 
     };
+    /**
+     * Virtual protected function. Should be overridden on subclasses. Called automatically when the online/offline state of the application changes.
+     *
+     * @method onlineStatus
+     * @param {Boolean} isonline True/false depending on the applications online/offline state.
+     */
     proto.onlineStatus = function(isonline){
 
     };
@@ -471,7 +662,7 @@
                 window.applicationCache.update();
             }, 3000);
         }
-        this.localStorage = core.LocalStorage.init();
+        this.localStorage = core.addons.webapp.LocalStorage.init();
 
     };
     core.registerNamespace("core.wirings.OfflineModule", OfflineModule);

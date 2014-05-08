@@ -1,5 +1,15 @@
-
-(function ($, scope) {
+/**
+ * The base object of all core based classes. Every object created within the Core framework derives from this class.
+ *
+ * @class Module
+ * @namespace core.wirings
+ * @extends core.events.EventDispatcher
+ * @constructor
+ * @param {Object} opts An object containing configurations required by the Core derived class.
+ * @param {HTMLElement} opts.el The node element included in the class composition.
+ *
+ */
+(function () {
     var EventDispatcher = core.events.EventDispatcher,
         __super__ = EventDispatcher.prototype;
     function Module(opts) {

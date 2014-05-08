@@ -2,7 +2,18 @@
 (function () {
     var Core = core.Core,
         __super__ = Core.prototype;
-
+    /**
+     * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
+     *
+     * @class CoreSnap
+     * @module addons
+     * @namespace core.addons.uiscroll
+     * @extends core.Core
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
     function CoreSnap(opts) {
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
@@ -54,7 +65,7 @@
 
     proto.initialize = function(){
         this.elements = this.findAll("[core-snap]");
-        CoreWindow.instance().on("window.scroll", this._("update"), this);
+        core.addons.CoreWindow.instance().on("window.scroll", this._("update"), this);
     };
     function toggleClass(element, className){
         if (!element || !className){
@@ -81,6 +92,6 @@
     };
     o.instance = o.init;
 
-    core.registerNamespace("CoreSnap", o);
+    core.registerNamespace("core.addons.uiscroll.CoreSnap", o);
 
 })();

@@ -1,0 +1,11 @@
+{
+    "name": "Lavender Core JS",
+    "description": "Lavender Core JS",
+    "version": "1.0.0",
+    "url": "http://lavender.ad",
+    "options": {
+        "outdir": "./documentation",
+        "paths":["./src", "./addons"],
+        "themedir":"./yuidoc-bootstrap"
+    }
+}

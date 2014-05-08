@@ -50,12 +50,27 @@ module.exports = function(grunt) {
                     ]
                 }
             }
+        },
+        yuidoc: {
+            compile: {
+                name: '<%= pkg.name %>',
+                description: '<%= pkg.description %>',
+                version: '<%= pkg.version %>',
+                url: '<%= pkg.homepage %>',
+                options: {
+                    paths: ["./src", "./addons"],
+                    themedir: './yuidoc-bootstrap',
+                    outdir: './documentation'
+                }
+            }
         }
+
 
     });
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.registerTask('build', ['uglify', 'concat']);
+    grunt.loadNpmTasks('grunt-contrib-yuidoc');
+    grunt.registerTask('build', ['uglify', 'concat', 'yuidoc']);
 
 
 };

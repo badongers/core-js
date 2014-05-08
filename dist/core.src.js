@@ -1,27 +1,29 @@
-/*! core 2014-05-02 */
-// Core Base Class
-// ----------------
-// This class contains the base object used throughout the core framework.
-// It also contains support for various common functionalities such as dom traversal, browser detection, etc.
-//
-// **Supports:**
-// + Standard web projects (HTML/JS/CSS)
-// + NodeJS projects
-//
-// **Browser support:**
-// + IE8+
-// + everyone else
+/*! core 2014-05-09 */
+/**
+ * The base module for the Core JS framework.
+ * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
+ *
+ * @module core
+ */
 !function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u="sizzle"+-new Date,v=a.document,w=0,x=0,y=gb(),z=gb(),A=gb(),B=function(a,b){return a===b&&(l=!0),0},C="undefined",D=1<<31,E={}.hasOwnProperty,F=[],G=F.pop,H=F.push,I=F.push,J=F.slice,K=F.indexOf||function(a){for(var b=0,c=this.length;c>b;b++)if(this[b]===a)return b;return-1},L="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",M="[\\x20\\t\\r\\n\\f]",N="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",O=N.replace("w","w#"),P="\\["+M+"*("+N+")"+M+"*(?:([*^$|!~]?=)"+M+"*(?:(['\"])((?:\\\\.|[^\\\\])*?)\\3|("+O+")|)|)"+M+"*\\]",Q=":("+N+")(?:\\(((['\"])((?:\\\\.|[^\\\\])*?)\\3|((?:\\\\.|[^\\\\()[\\]]|"+P.replace(3,8)+")*)|.*)\\)|)",R=new RegExp("^"+M+"+|((?:^|[^\\\\])(?:\\\\.)*)"+M+"+$","g"),S=new RegExp("^"+M+"*,"+M+"*"),T=new RegExp("^"+M+"*([>+~]|"+M+")"+M+"*"),U=new RegExp("="+M+"*([^\\]'\"]*?)"+M+"*\\]","g"),V=new RegExp(Q),W=new RegExp("^"+O+"$"),X={ID:new RegExp("^#("+N+")"),CLASS:new RegExp("^\\.("+N+")"),TAG:new RegExp("^("+N.replace("w","w*")+")"),ATTR:new RegExp("^"+P),PSEUDO:new RegExp("^"+Q),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+M+"*(even|odd|(([+-]|)(\\d*)n|)"+M+"*(?:([+-]|)"+M+"*(\\d+)|))"+M+"*\\)|)","i"),bool:new RegExp("^(?:"+L+")$","i"),needsContext:new RegExp("^"+M+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+M+"*((?:-\\d)?\\d*)"+M+"*\\)|)(?=[^-]|$)","i")},Y=/^(?:input|select|textarea|button)$/i,Z=/^h\d$/i,$=/^[^{]+\{\s*\[native \w/,_=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,ab=/[+~]/,bb=/'|\\/g,cb=new RegExp("\\\\([\\da-f]{1,6}"+M+"?|("+M+")|.)","ig"),db=function(a,b,c){var d="0x"+b-65536;return d!==d||c?b:0>d?String.fromCharCode(d+65536):String.fromCharCode(d>>10|55296,1023&d|56320)};try{I.apply(F=J.call(v.childNodes),v.childNodes),F[v.childNodes.length].nodeType}catch(eb){I={apply:F.length?function(a,b){H.apply(a,J.call(b))}:function(a,b){var c=a.length,d=0;while(a[c++]=b[d++]);a.length=c-1}}}function fb(a,b,d,e){var f,h,j,k,l,o,r,s,w,x;if((b?b.ownerDocument||b:v)!==n&&m(b),b=b||n,d=d||[],!a||"string"!=typeof a)return d;if(1!==(k=b.nodeType)&&9!==k)return[];if(p&&!e){if(f=_.exec(a))if(j=f[1]){if(9===k){if(h=b.getElementById(j),!h||!h.parentNode)return d;if(h.id===j)return d.push(h),d}else if(b.ownerDocument&&(h=b.ownerDocument.getElementById(j))&&t(b,h)&&h.id===j)return d.push(h),d}else{if(f[2])return I.apply(d,b.getElementsByTagName(a)),d;if((j=f[3])&&c.getElementsByClassName&&b.getElementsByClassName)return I.apply(d,b.getElementsByClassName(j)),d}if(c.qsa&&(!q||!q.test(a))){if(s=r=u,w=b,x=9===k&&a,1===k&&"object"!==b.nodeName.toLowerCase()){o=g(a),(r=b.getAttribute("id"))?s=r.replace(bb,"\\$&"):b.setAttribute("id",s),s="[id='"+s+"'] ",l=o.length;while(l--)o[l]=s+qb(o[l]);w=ab.test(a)&&ob(b.parentNode)||b,x=o.join(",")}if(x)try{return I.apply(d,w.querySelectorAll(x)),d}catch(y){}finally{r||b.removeAttribute("id")}}}return i(a.replace(R,"$1"),b,d,e)}function gb(){var a=[];function b(c,e){return a.push(c+" ")>d.cacheLength&&delete b[a.shift()],b[c+" "]=e}return b}function hb(a){return a[u]=!0,a}function ib(a){var b=n.createElement("div");try{return!!a(b)}catch(c){return!1}finally{b.parentNode&&b.parentNode.removeChild(b),b=null}}function jb(a,b){var c=a.split("|"),e=a.length;while(e--)d.attrHandle[c[e]]=b}function kb(a,b){var c=b&&a,d=c&&1===a.nodeType&&1===b.nodeType&&(~b.sourceIndex||D)-(~a.sourceIndex||D);if(d)return d;if(c)while(c=c.nextSibling)if(c===b)return-1;return a?1:-1}function lb(a){return function(b){var c=b.nodeName.toLowerCase();return"input"===c&&b.type===a}}function mb(a){return function(b){var c=b.nodeName.toLowerCase();return("input"===c||"button"===c)&&b.type===a}}function nb(a){return hb(function(b){return b=+b,hb(function(c,d){var e,f=a([],c.length,b),g=f.length;while(g--)c[e=f[g]]&&(c[e]=!(d[e]=c[e]))})})}function ob(a){return a&&typeof a.getElementsByTagName!==C&&a}c=fb.support={},f=fb.isXML=function(a){var b=a&&(a.ownerDocument||a).documentElement;return b?"HTML"!==b.nodeName:!1},m=fb.setDocument=function(a){var b,e=a?a.ownerDocument||a:v,g=e.defaultView;return e!==n&&9===e.nodeType&&e.documentElement?(n=e,o=e.documentElement,p=!f(e),g&&g!==g.top&&(g.addEventListener?g.addEventListener("unload",function(){m()},!1):g.attachEvent&&g.attachEvent("onunload",function(){m()})),c.attributes=ib(function(a){return a.className="i",!a.getAttribute("className")}),c.getElementsByTagName=ib(function(a){return a.appendChild(e.createComment("")),!a.getElementsByTagName("*").length}),c.getElementsByClassName=$.test(e.getElementsByClassName)&&ib(function(a){return a.innerHTML="<div class='a'></div><div class='a i'></div>",a.firstChild.className="i",2===a.getElementsByClassName("i").length}),c.getById=ib(function(a){return o.appendChild(a).id=u,!e.getElementsByName||!e.getElementsByName(u).length}),c.getById?(d.find.ID=function(a,b){if(typeof b.getElementById!==C&&p){var c=b.getElementById(a);return c&&c.parentNode?[c]:[]}},d.filter.ID=function(a){var b=a.replace(cb,db);return function(a){return a.getAttribute("id")===b}}):(delete d.find.ID,d.filter.ID=function(a){var b=a.replace(cb,db);return function(a){var c=typeof a.getAttributeNode!==C&&a.getAttributeNode("id");return c&&c.value===b}}),d.find.TAG=c.getElementsByTagName?function(a,b){return typeof b.getElementsByTagName!==C?b.getElementsByTagName(a):void 0}:function(a,b){var c,d=[],e=0,f=b.getElementsByTagName(a);if("*"===a){while(c=f[e++])1===c.nodeType&&d.push(c);return d}return f},d.find.CLASS=c.getElementsByClassName&&function(a,b){return typeof b.getElementsByClassName!==C&&p?b.getElementsByClassName(a):void 0},r=[],q=[],(c.qsa=$.test(e.querySelectorAll))&&(ib(function(a){a.innerHTML="<select class=''><option selected=''></option></select>",a.querySelectorAll("[class^='']").length&&q.push("[*^$]="+M+"*(?:''|\"\")"),a.querySelectorAll("[selected]").length||q.push("\\["+M+"*(?:value|"+L+")"),a.querySelectorAll(":checked").length||q.push(":checked")}),ib(function(a){var b=e.createElement("input");b.setAttribute("type","hidden"),a.appendChild(b).setAttribute("name","D"),a.querySelectorAll("[name=d]").length&&q.push("name"+M+"*[*^$|!~]?="),a.querySelectorAll(":enabled").length||q.push(":enabled",":disabled"),a.querySelectorAll("*,:x"),q.push(",.*:")})),(c.matchesSelector=$.test(s=o.matches||o.webkitMatchesSelector||o.mozMatchesSelector||o.oMatchesSelector||o.msMatchesSelector))&&ib(function(a){c.disconnectedMatch=s.call(a,"div"),s.call(a,"[s!='']:x"),r.push("!=",Q)}),q=q.length&&new RegExp(q.join("|")),r=r.length&&new RegExp(r.join("|")),b=$.test(o.compareDocumentPosition),t=b||$.test(o.contains)?function(a,b){var c=9===a.nodeType?a.documentElement:a,d=b&&b.parentNode;return a===d||!(!d||1!==d.nodeType||!(c.contains?c.contains(d):a.compareDocumentPosition&&16&a.compareDocumentPosition(d)))}:function(a,b){if(b)while(b=b.parentNode)if(b===a)return!0;return!1},B=b?function(a,b){if(a===b)return l=!0,0;var d=!a.compareDocumentPosition-!b.compareDocumentPosition;return d?d:(d=(a.ownerDocument||a)===(b.ownerDocument||b)?a.compareDocumentPosition(b):1,1&d||!c.sortDetached&&b.compareDocumentPosition(a)===d?a===e||a.ownerDocument===v&&t(v,a)?-1:b===e||b.ownerDocument===v&&t(v,b)?1:k?K.call(k,a)-K.call(k,b):0:4&d?-1:1)}:function(a,b){if(a===b)return l=!0,0;var c,d=0,f=a.parentNode,g=b.parentNode,h=[a],i=[b];if(!f||!g)return a===e?-1:b===e?1:f?-1:g?1:k?K.call(k,a)-K.call(k,b):0;if(f===g)return kb(a,b);c=a;while(c=c.parentNode)h.unshift(c);c=b;while(c=c.parentNode)i.unshift(c);while(h[d]===i[d])d++;return d?kb(h[d],i[d]):h[d]===v?-1:i[d]===v?1:0},e):n},fb.matches=function(a,b){return fb(a,null,null,b)},fb.matchesSelector=function(a,b){if((a.ownerDocument||a)!==n&&m(a),b=b.replace(U,"='$1']"),!(!c.matchesSelector||!p||r&&r.test(b)||q&&q.test(b)))try{var d=s.call(a,b);if(d||c.disconnectedMatch||a.document&&11!==a.document.nodeType)return d}catch(e){}return fb(b,n,null,[a]).length>0},fb.contains=function(a,b){return(a.ownerDocument||a)!==n&&m(a),t(a,b)},fb.attr=function(a,b){(a.ownerDocument||a)!==n&&m(a);var e=d.attrHandle[b.toLowerCase()],f=e&&E.call(d.attrHandle,b.toLowerCase())?e(a,b,!p):void 0;return void 0!==f?f:c.attributes||!p?a.getAttribute(b):(f=a.getAttributeNode(b))&&f.specified?f.value:null},fb.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)},fb.uniqueSort=function(a){var b,d=[],e=0,f=0;if(l=!c.detectDuplicates,k=!c.sortStable&&a.slice(0),a.sort(B),l){while(b=a[f++])b===a[f]&&(e=d.push(f));while(e--)a.splice(d[e],1)}return k=null,a},e=fb.getText=function(a){var b,c="",d=0,f=a.nodeType;if(f){if(1===f||9===f||11===f){if("string"==typeof a.textContent)return a.textContent;for(a=a.firstChild;a;a=a.nextSibling)c+=e(a)}else if(3===f||4===f)return a.nodeValue}else while(b=a[d++])c+=e(b);return c},d=fb.selectors={cacheLength:50,createPseudo:hb,match:X,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(a){return a[1]=a[1].replace(cb,db),a[3]=(a[4]||a[5]||"").replace(cb,db),"~="===a[2]&&(a[3]=" "+a[3]+" "),a.slice(0,4)},CHILD:function(a){return a[1]=a[1].toLowerCase(),"nth"===a[1].slice(0,3)?(a[3]||fb.error(a[0]),a[4]=+(a[4]?a[5]+(a[6]||1):2*("even"===a[3]||"odd"===a[3])),a[5]=+(a[7]+a[8]||"odd"===a[3])):a[3]&&fb.error(a[0]),a},PSEUDO:function(a){var b,c=!a[5]&&a[2];return X.CHILD.test(a[0])?null:(a[3]&&void 0!==a[4]?a[2]=a[4]:c&&V.test(c)&&(b=g(c,!0))&&(b=c.indexOf(")",c.length-b)-c.length)&&(a[0]=a[0].slice(0,b),a[2]=c.slice(0,b)),a.slice(0,3))}},filter:{TAG:function(a){var b=a.replace(cb,db).toLowerCase();return"*"===a?function(){return!0}:function(a){return a.nodeName&&a.nodeName.toLowerCase()===b}},CLASS:function(a){var b=y[a+" "];return b||(b=new RegExp("(^|"+M+")"+a+"("+M+"|$)"))&&y(a,function(a){return b.test("string"==typeof a.className&&a.className||typeof a.getAttribute!==C&&a.getAttribute("class")||"")})},ATTR:function(a,b,c){return function(d){var e=fb.attr(d,a);return null==e?"!="===b:b?(e+="","="===b?e===c:"!="===b?e!==c:"^="===b?c&&0===e.indexOf(c):"*="===b?c&&e.indexOf(c)>-1:"$="===b?c&&e.slice(-c.length)===c:"~="===b?(" "+e+" ").indexOf(c)>-1:"|="===b?e===c||e.slice(0,c.length+1)===c+"-":!1):!0}},CHILD:function(a,b,c,d,e){var f="nth"!==a.slice(0,3),g="last"!==a.slice(-4),h="of-type"===b;return 1===d&&0===e?function(a){return!!a.parentNode}:function(b,c,i){var j,k,l,m,n,o,p=f!==g?"nextSibling":"previousSibling",q=b.parentNode,r=h&&b.nodeName.toLowerCase(),s=!i&&!h;if(q){if(f){while(p){l=b;while(l=l[p])if(h?l.nodeName.toLowerCase()===r:1===l.nodeType)return!1;o=p="only"===a&&!o&&"nextSibling"}return!0}if(o=[g?q.firstChild:q.lastChild],g&&s){k=q[u]||(q[u]={}),j=k[a]||[],n=j[0]===w&&j[1],m=j[0]===w&&j[2],l=n&&q.childNodes[n];while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if(1===l.nodeType&&++m&&l===b){k[a]=[w,n,m];break}}else if(s&&(j=(b[u]||(b[u]={}))[a])&&j[0]===w)m=j[1];else while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if((h?l.nodeName.toLowerCase()===r:1===l.nodeType)&&++m&&(s&&((l[u]||(l[u]={}))[a]=[w,m]),l===b))break;return m-=e,m===d||m%d===0&&m/d>=0}}},PSEUDO:function(a,b){var c,e=d.pseudos[a]||d.setFilters[a.toLowerCase()]||fb.error("unsupported pseudo: "+a);return e[u]?e(b):e.length>1?(c=[a,a,"",b],d.setFilters.hasOwnProperty(a.toLowerCase())?hb(function(a,c){var d,f=e(a,b),g=f.length;while(g--)d=K.call(a,f[g]),a[d]=!(c[d]=f[g])}):function(a){return e(a,0,c)}):e}},pseudos:{not:hb(function(a){var b=[],c=[],d=h(a.replace(R,"$1"));return d[u]?hb(function(a,b,c,e){var f,g=d(a,null,e,[]),h=a.length;while(h--)(f=g[h])&&(a[h]=!(b[h]=f))}):function(a,e,f){return b[0]=a,d(b,null,f,c),!c.pop()}}),has:hb(function(a){return function(b){return fb(a,b).length>0}}),contains:hb(function(a){return function(b){return(b.textContent||b.innerText||e(b)).indexOf(a)>-1}}),lang:hb(function(a){return W.test(a||"")||fb.error("unsupported lang: "+a),a=a.replace(cb,db).toLowerCase(),function(b){var c;do if(c=p?b.lang:b.getAttribute("xml:lang")||b.getAttribute("lang"))return c=c.toLowerCase(),c===a||0===c.indexOf(a+"-");while((b=b.parentNode)&&1===b.nodeType);return!1}}),target:function(b){var c=a.location&&a.location.hash;return c&&c.slice(1)===b.id},root:function(a){return a===o},focus:function(a){return a===n.activeElement&&(!n.hasFocus||n.hasFocus())&&!!(a.type||a.href||~a.tabIndex)},enabled:function(a){return a.disabled===!1},disabled:function(a){return a.disabled===!0},checked:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&!!a.checked||"option"===b&&!!a.selected},selected:function(a){return a.parentNode&&a.parentNode.selectedIndex,a.selected===!0},empty:function(a){for(a=a.firstChild;a;a=a.nextSibling)if(a.nodeType<6)return!1;return!0},parent:function(a){return!d.pseudos.empty(a)},header:function(a){return Z.test(a.nodeName)},input:function(a){return Y.test(a.nodeName)},button:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&"button"===a.type||"button"===b},text:function(a){var b;return"input"===a.nodeName.toLowerCase()&&"text"===a.type&&(null==(b=a.getAttribute("type"))||"text"===b.toLowerCase())},first:nb(function(){return[0]}),last:nb(function(a,b){return[b-1]}),eq:nb(function(a,b,c){return[0>c?c+b:c]}),even:nb(function(a,b){for(var c=0;b>c;c+=2)a.push(c);return a}),odd:nb(function(a,b){for(var c=1;b>c;c+=2)a.push(c);return a}),lt:nb(function(a,b,c){for(var d=0>c?c+b:c;--d>=0;)a.push(d);return a}),gt:nb(function(a,b,c){for(var d=0>c?c+b:c;++d<b;)a.push(d);return a})}},d.pseudos.nth=d.pseudos.eq;for(b in{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})d.pseudos[b]=lb(b);for(b in{submit:!0,reset:!0})d.pseudos[b]=mb(b);function pb(){}pb.prototype=d.filters=d.pseudos,d.setFilters=new pb,g=fb.tokenize=function(a,b){var c,e,f,g,h,i,j,k=z[a+" "];if(k)return b?0:k.slice(0);h=a,i=[],j=d.preFilter;while(h){(!c||(e=S.exec(h)))&&(e&&(h=h.slice(e[0].length)||h),i.push(f=[])),c=!1,(e=T.exec(h))&&(c=e.shift(),f.push({value:c,type:e[0].replace(R," ")}),h=h.slice(c.length));for(g in d.filter)!(e=X[g].exec(h))||j[g]&&!(e=j[g](e))||(c=e.shift(),f.push({value:c,type:g,matches:e}),h=h.slice(c.length));if(!c)break}return b?h.length:h?fb.error(a):z(a,i).slice(0)};function qb(a){for(var b=0,c=a.length,d="";c>b;b++)d+=a[b].value;return d}function rb(a,b,c){var d=b.dir,e=c&&"parentNode"===d,f=x++;return b.first?function(b,c,f){while(b=b[d])if(1===b.nodeType||e)return a(b,c,f)}:function(b,c,g){var h,i,j=[w,f];if(g){while(b=b[d])if((1===b.nodeType||e)&&a(b,c,g))return!0}else while(b=b[d])if(1===b.nodeType||e){if(i=b[u]||(b[u]={}),(h=i[d])&&h[0]===w&&h[1]===f)return j[2]=h[2];if(i[d]=j,j[2]=a(b,c,g))return!0}}}function sb(a){return a.length>1?function(b,c,d){var e=a.length;while(e--)if(!a[e](b,c,d))return!1;return!0}:a[0]}function tb(a,b,c){for(var d=0,e=b.length;e>d;d++)fb(a,b[d],c);return c}function ub(a,b,c,d,e){for(var f,g=[],h=0,i=a.length,j=null!=b;i>h;h++)(f=a[h])&&(!c||c(f,d,e))&&(g.push(f),j&&b.push(h));return g}function vb(a,b,c,d,e,f){return d&&!d[u]&&(d=vb(d)),e&&!e[u]&&(e=vb(e,f)),hb(function(f,g,h,i){var j,k,l,m=[],n=[],o=g.length,p=f||tb(b||"*",h.nodeType?[h]:h,[]),q=!a||!f&&b?p:ub(p,m,a,h,i),r=c?e||(f?a:o||d)?[]:g:q;if(c&&c(q,r,h,i),d){j=ub(r,n),d(j,[],h,i),k=j.length;while(k--)(l=j[k])&&(r[n[k]]=!(q[n[k]]=l))}if(f){if(e||a){if(e){j=[],k=r.length;while(k--)(l=r[k])&&j.push(q[k]=l);e(null,r=[],j,i)}k=r.length;while(k--)(l=r[k])&&(j=e?K.call(f,l):m[k])>-1&&(f[j]=!(g[j]=l))}}else r=ub(r===g?r.splice(o,r.length):r),e?e(null,g,r,i):I.apply(g,r)})}function wb(a){for(var b,c,e,f=a.length,g=d.relative[a[0].type],h=g||d.relative[" "],i=g?1:0,k=rb(function(a){return a===b},h,!0),l=rb(function(a){return K.call(b,a)>-1},h,!0),m=[function(a,c,d){return!g&&(d||c!==j)||((b=c).nodeType?k(a,c,d):l(a,c,d))}];f>i;i++)if(c=d.relative[a[i].type])m=[rb(sb(m),c)];else{if(c=d.filter[a[i].type].apply(null,a[i].matches),c[u]){for(e=++i;f>e;e++)if(d.relative[a[e].type])break;return vb(i>1&&sb(m),i>1&&qb(a.slice(0,i-1).concat({value:" "===a[i-2].type?"*":""})).replace(R,"$1"),c,e>i&&wb(a.slice(i,e)),f>e&&wb(a=a.slice(e)),f>e&&qb(a))}m.push(c)}return sb(m)}function xb(a,b){var c=b.length>0,e=a.length>0,f=function(f,g,h,i,k){var l,m,o,p=0,q="0",r=f&&[],s=[],t=j,u=f||e&&d.find.TAG("*",k),v=w+=null==t?1:Math.random()||.1,x=u.length;for(k&&(j=g!==n&&g);q!==x&&null!=(l=u[q]);q++){if(e&&l){m=0;while(o=a[m++])if(o(l,g,h)){i.push(l);break}k&&(w=v)}c&&((l=!o&&l)&&p--,f&&r.push(l))}if(p+=q,c&&q!==p){m=0;while(o=b[m++])o(r,s,g,h);if(f){if(p>0)while(q--)r[q]||s[q]||(s[q]=G.call(i));s=ub(s)}I.apply(i,s),k&&!f&&s.length>0&&p+b.length>1&&fb.uniqueSort(i)}return k&&(w=v,j=t),r};return c?hb(f):f}h=fb.compile=function(a,b){var c,d=[],e=[],f=A[a+" "];if(!f){b||(b=g(a)),c=b.length;while(c--)f=wb(b[c]),f[u]?d.push(f):e.push(f);f=A(a,xb(e,d)),f.selector=a}return f},i=fb.select=function(a,b,e,f){var i,j,k,l,m,n="function"==typeof a&&a,o=!f&&g(a=n.selector||a);if(e=e||[],1===o.length){if(j=o[0]=o[0].slice(0),j.length>2&&"ID"===(k=j[0]).type&&c.getById&&9===b.nodeType&&p&&d.relative[j[1].type]){if(b=(d.find.ID(k.matches[0].replace(cb,db),b)||[])[0],!b)return e;n&&(b=b.parentNode),a=a.slice(j.shift().value.length)}i=X.needsContext.test(a)?0:j.length;while(i--){if(k=j[i],d.relative[l=k.type])break;if((m=d.find[l])&&(f=m(k.matches[0].replace(cb,db),ab.test(j[0].type)&&ob(b.parentNode)||b))){if(j.splice(i,1),a=f.length&&qb(j),!a)return I.apply(e,f),e;break}}}return(n||h(a,o))(f,b,!p,e,ab.test(a)&&ob(b.parentNode)||b),e},c.sortStable=u.split("").sort(B).join("")===u,c.detectDuplicates=!!l,m(),c.sortDetached=ib(function(a){return 1&a.compareDocumentPosition(n.createElement("div"))}),ib(function(a){return a.innerHTML="<a href='#'></a>","#"===a.firstChild.getAttribute("href")})||jb("type|href|height|width",function(a,b,c){return c?void 0:a.getAttribute(b,"type"===b.toLowerCase()?1:2)}),c.attributes&&ib(function(a){return a.innerHTML="<input/>",a.firstChild.setAttribute("value",""),""===a.firstChild.getAttribute("value")})||jb("value",function(a,b,c){return c||"input"!==a.nodeName.toLowerCase()?void 0:a.defaultValue}),ib(function(a){return null==a.getAttribute("disabled")})||jb(L,function(a,b,c){var d;return c?void 0:a[b]===!0?b.toLowerCase():(d=a.getAttributeNode(b))&&d.specified?d.value:null}),"function"==typeof define&&define.amd?define(function(){return fb}):"undefined"!=typeof module&&module.exports?module.exports=fb:a.Sizzle=fb}(window);
 (function(scope){
-    if(!scope.core){
-        scope.core = {};
-    }
-	
-    if(!Function.prototype.bind) {
-        //
-        // ### Function.bind ######
-        // Function bind implementation for browsers without support.
 
+    /**
+     * Function prototype extension in the core framework.
+     *
+     * @class Function
+     * @constructor
+     *
+     */
+    if(!Function.prototype.bind) {
+
+        /**
+         * Added support for older browser. Only applied when the method is not available. Returns a scope bound function.
+         *
+         * @method bind
+         * @param {Object} scope The scope where the function is bound to
+         * @return {Function} A scope bound function
+         */
         Function.prototype.bind = function(oThis) {
             if( typeof this !== "function") {
                 throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
@@ -35,25 +37,25 @@
             return fBound;
         };
     }
-    //
-    // ### Function.inherits ######
-    // Convenience method for inheritance implementation.
-    // Creates a temporary class that will hold the prototype before applying it to the inheriting class
+    /**
+     * Utility method for implementing prototypal inheritance within the core framework.
+     *
+     * @method inherits
+     * @param {Object} obj The object where the prototype is going to be derived from.
+     *
+     */
     Function.prototype.inherits = function(obj){
-        /*
-        var tmp = function(){};
-        tmp.prototype = new obj({__inheriting__:true});
-        this.prototype = tmp.prototype;
-        this.prototype.constructor = this;
-        tmp = null;
-        */
+
         this.prototype = new obj({__inheriting__:true});
 
     };
-    //
-    // ### Function.augment ######
-    // Convenience method for mixin implementation.
-    // Copies the prototype methods of an object into another.
+    /**
+     * Utility method for implementing mixins/augmentation/partial in the core framework
+     *
+     * @method mixin
+     * @param {Object} obj The object where the prototype is going to be mix with.
+     *
+     */
     Function.prototype.augment = Function.prototype.mixin = Function.prototype.partial = function(obj){
         if(typeof obj == "function"){
             for(var prop in obj.prototype){
@@ -65,6 +67,16 @@
                 this.prototype[prop] = obj[prop];
             }
         }
+    }
+    if(!scope.core){
+        /**
+         * The main module and namespace used within the core framework.
+         *
+         * @class core
+         *
+         *
+         */
+        scope.core = {};
     }
     if(typeof navigator !== 'undefined'){
         var N= navigator.appName, ua=navigator.userAgent, tem;
@@ -125,6 +137,11 @@
             }
         }
         scope.core.browser = br;
+        /**
+         * Stored browser information based on the detection algorithm implemented within core.
+         * @property browser
+         * @type Object
+         */
         scope.core.browser[M[0].toLowerCase() == "trident" ? "msie" : M[0].toLowerCase()] = {version:M[1].split(".")[0]};
         //
         // ### core.browser ######
@@ -132,9 +149,11 @@
         // Creates a browser object in the core object containing browser information.
 
     }
-    //
-    // ### core.GUID ######
-    // Basic GUID generator
+    /**
+     * Utility method for generating GUID
+     * @method GUID
+     * @returns String Returns a GUID string
+     */
     scope.core.GUID = function() {
         var s = [];
         var hexDigits = "0123456789abcdef";
@@ -147,8 +166,11 @@
         var uuid = s.join("");
         return uuid;
     };
-    // ### core.rect ######
-    // Utility method for getting the bounding rect of the dom element - also adds support for IE8
+    /**
+     * Utility method for getting the bounding rect of the dom element - also adds support for IE8
+     * @method rect
+     * @returns Object Contains the rectangular information of a HTMLElement
+     */
     scope.core.rect = function(targ){
         var o = {};
         if(targ instanceof Array){
@@ -162,8 +184,10 @@
         }
         return o;
     };
-    // ### core.registerNamespace ######
-    // Utility method for exposing an object into a namespaced scope
+    /**
+     * Utility method for exposing objects in a namespaced fashion.
+     * @method registerNamespace
+     */
     scope.core.registerNamespace = function(nspace, obj){
         var parts = nspace.split(".");
         var root = parts.shift();
@@ -186,9 +210,12 @@
             }
         }
     };
-    // ### core.import ######
-    // Utility method for importing a namespaced object
-    // Mainly used for shorthand coding
+    /**
+     * Utility method for referencing objects within the core framework. This also adds existence checking for the objects being referenced on import.
+     * @method import
+     * @param {String} package The namespace of the object being imported.
+     * @returns Object The object being imported
+     */
     scope.core._import = function(pack){
         var parts = pack.split(".");
         var sc = scope;
@@ -202,6 +229,13 @@
         }
         return sc;
     };
+    /**
+     * Utility method for performing dependency checks on core classes.
+     * @method dependency
+     * @param {String} object The object to check if its defined.
+     * @param {String} message The message to display on warning when the object passed for checking is undefined.
+     * @returns Object The object being imported
+     */
     scope.core.dependency = function(obj, message){
         if(!scope[obj]){
             console.warn(message);
@@ -259,9 +293,13 @@ if(!("console" in window)){
 
 (function(){
     /**
-     * The base object of all core based classes.
+     * The base object of all core based classes. Every object created within the Core framework derives from this class.
+     *
+     * @class Core
+     * @namespace core
      * @constructor
-     * @param opts {object}
+     * @param {Object} opts An object containing configurations required by the Core class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
      *
     */
     function Core(opts){
@@ -270,9 +308,23 @@ if(!("console" in window)){
         if(opts){
             //`this.el property` a dom element context
             if(opts.el){
+                /**
+                 * The selected HTML element node reference.
+                 *
+                 * @property el
+                 * @type HTMLElement
+                 *
+                 */
                 this.el = opts.el;
             }
         }
+        /**
+         * Property for storing proxied function/methods
+         *
+         * @property proxyHandlers
+         * @type Object
+         *
+         */
         this.proxyHandlers = {};
         this.construct(opts || {});
         var ref = this;
@@ -283,9 +335,13 @@ if(!("console" in window)){
         }, 0);
 
     }
-    // ### Core.getProxyHandler ######
-    // Core method for creating function methods that retains the scope of the class/object.
-    // `can be written as Core._("methodName") for shorthand coding`
+    /**
+     * Returns a scope bound function and stores it on the proxyHandlers property.
+     *
+     * @method getProxyHandler
+     * @param {String} method The string equivalent of the defined method name of the class.
+     * @return {Function} The scope bound function defined on the parameter.
+     */
     Core.prototype._ = Core.prototype.getProxyHandler = function(str){
         if(!this.proxyHandlers[str]){
             if(typeof this[str] === "function" ){
@@ -299,6 +355,12 @@ if(!("console" in window)){
     }
     // ### Core.clearProxyHandler ######
     // Core method for clearing proxied function methods.
+    /**
+     * Core method for clearing proxied function methods.
+     *
+     * @method clearProxyHandler
+     * @param {String} method The string equivalent of the defined method to clear.
+     */
     Core.prototype.clearProxyHandler = function(str){
         var ret = this.proxyHandlers[str];
         if(ret === null){
@@ -308,14 +370,29 @@ if(!("console" in window)){
         delete this.proxyHandlers[str];
         return ret;
     }
-    // ### Core.construct ######
-    // Automatically called after instantiation of a class. Requires implementation on sub-classes
+    /**
+     * Core method initialization. This is called automatically on core sub classes.
+     *
+     * @method construct
+     * @param {Object} options The object passed on the constructor of a core based class.
+     */
     Core.prototype.construct = function(opts){
     };
+    /**
+     * Core method initialization. This is called automatically on core sub classes. Adds delay when being called automatically, this allows
+     * time to setup all the other classes and manage the sequence of instantiations.
+     *
+     * @method delayedConstruct
+     * @param {Object} options The object passed on the constructor of a core based class.
+     */
     Core.prototype.delayedConstruct = function(opts){
     };
-    // ### Core.dispose ######
-    // Memory clean up method. Clears all proxied references. Requires implementation on sub-classes.
+    /**
+     * Core method for destroying/cleaning up objects.
+     *
+     * @method dispose
+     * @param {Boolean} removeNode If true and there is a node attached in the class (el property) that element is going to be removed upon disposal.
+     */
     Core.prototype.dispose = function(removeNode){
         if(removeNode && this.el){
             try{
@@ -328,13 +405,23 @@ if(!("console" in window)){
             delete this.proxyHandlers[prop];
         }
     };
-    // ### Core.find ######
-    // Search for nodes within its element context
+    /**
+     * Core method for searching sub node elements.
+     *
+     * @method find
+     * @param {String} selector The selector used for searching sub nodes.
+     * @returns {NodeList} An array of HTMLElements, please note that this is not jQuery selected nodes.
+     */
     Core.prototype.find = function(selector){
         return Sizzle(selector, this.el)
     };
-    // ### Core.findAll ######
-    // Search for nodes within the document context
+    /**
+     * Core method for searching sub node elements within the document context.
+     *
+     * @method findAll
+     * @param {String} selector The selector used for searching sub nodes within the document.
+     * @returns {NodeList} An array of HTMLElements, please note that this is not jQuery selected nodes.
+     */
     Core.prototype.findAll = function(selector){
         return Sizzle(selector)
     };
@@ -346,16 +433,20 @@ if(!("console" in window)){
 if(typeof module !== 'undefined' && module.exports){
     module.exports = core;
 }
-
+/**
+ * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
+ *
+ * @class EventDispatcher
+ * @namespace core.events
+ * @extends core.Core
+ * @constructor
+ * @param {Object} opts An object containing configurations required by the Core derived class.
+ * @param {HTMLElement} opts.el The node element included in the class composition.
+ *
+ */
 (function(){
     var Core = core.Core; //shorthand variable assignment.
     var __super__ = Core.prototype;
-    /**
-     * Testing
-     * @constructor
-     * @param opts {object}
-     *
-     */
     function EventDispatcher(opts){
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
@@ -372,6 +463,15 @@ if(typeof module !== 'undefined' && module.exports){
         this.events = null;
 
     };
+    /**
+     * Checks the array of listeners for existing scopes.
+     *
+     * @method containsScope
+     * @param {Array} list Reference to the array of subscribed listeners
+     * @param {Object} scope Reference to the scope being queried for existence
+     * @private
+     * @return {Booleans} Returns boolean indicating the existence of the scope passed on the parameters
+     */
     var containsScope = function(arr, scope){
         var len = arr.length;
         for(var i = 0;i<len;i++){
@@ -382,6 +482,16 @@ if(typeof module !== 'undefined' && module.exports){
         scope.__core__signal__id__ = core.GUID();
         return -1;
     };
+    /**
+     * Private method handler for event registration.
+     *
+     * @method register
+     * @param {String} eventName The event name being added on the listener list.
+     * @param {Object} scope Reference to the scope of the event handler
+     * @param {Function} method The method used by the scope to handle the event being broadcasted
+     * @param {Boolean} once Specify whether the event should only be handled once by the scope and its event handler
+     * @private
+     */
     var register = function(evt, scope, method, once){
         var __sig_dispose__ = null;
         var exists = containsScope.call(this, this.events[evt+(once ? "_once" : "")], scope);
@@ -411,18 +521,44 @@ if(typeof module !== 'undefined' && module.exports){
             }
         }
     };
+    /**
+     * Subscribe function. Called when adding a subscriber to the broadcasting object.
+     *
+     * @method on
+     * @param {String} eventName The event name being subscribed to
+     * @param {Function} method The method handler to trigger when the event specified is dispatched.
+     * @param {core.Core} scope Reference to the scope of the event handler
+     */
     proto.on = function(evt, method, scope){
         if(!this.events[evt]){
             this.events[evt] = [];
         }
         register.call(this, evt, scope, method);
     };
+    /**
+     * Subscribe once function. Called when adding a subscriber to the broadcasting object.
+     *
+     * @method once
+     * @param {String} eventName The event name being subscribed to
+     * @param {Function} method The method handler to trigger when the event specified is dispatched.
+     * @param {core.Core} scope Reference to the scope of the event handler
+     */
     proto.once = function(evt, method, scope){
         if(!this.events[evt+"_once"]){
             this.events[evt+"_once"] = [];
         }
         register.call(this, evt, scope, method, true);
     };
+    /**
+     * Private method handler for unregistering events
+     *
+     * @method unregister
+     * @param {String} eventName The event name being added on the listener list.
+     * @param {Object} scope Reference to the scope of the event handler
+     * @param {Function} method The method used by the scope to handle the event being broadcasted
+     * @param {Boolean} once Specify whether the event should only be handled once by the scope and its event handler
+     * @private
+     */
     var unregister = function(evt, scope, method){
         if(this.events[evt]){
             var len = this.events[evt].length;
@@ -445,10 +581,24 @@ if(typeof module !== 'undefined' && module.exports){
             }
         }
     };
+    /**
+     * Unsubscribe function. Called when removing a subscriber from the broadcasting object.
+     *
+     * @method off
+     * @param {String} eventName The event name unsubscribing from.
+     * @param {Function} method The method handler to trigger when the event specified is dispatched.
+     * @param {core.Core} scope Reference to the scope of the event handler
+     */
     proto.off = function(evt, method, scope){
         unregister.call(this, evt, scope, method);
         unregister.call(this, evt+"_once", scope, method);
     };
+    /**
+     * Unsubscribe function - scope context. Unsubscribes a specific scope from ALL events
+     *
+     * @method removeScope
+     * @param {core.Core} scope Reference to the scope subscriber being removed.
+     */
     proto.removeScope = function(scope){
         for(var prop in this.events){
             var len = this.events[prop].length;
@@ -467,6 +617,11 @@ if(typeof module !== 'undefined' && module.exports){
             }
         }
     };
+    /**
+     * Removes all items from the listener list.
+     *
+     * @method removeAll
+     */
     proto.removeAll = function(){
         for(var prop in this.events){
             var len = this.events[prop].length;
@@ -484,6 +639,13 @@ if(typeof module !== 'undefined' && module.exports){
         }
         this.events = {};
     };
+    /**
+     * Broadcast functions. Triggers a broadcast on the EventDispatcher/derived object.
+     *
+     * @method trigger
+     * @param {String} eventName The event name to trigger/broadcast.
+     * @param {Object} variables An object to send upon broadcast
+     */
     proto.trigger = function(evt, vars){
         var dis = vars || {};
         if(!dis.type){
@@ -514,6 +676,16 @@ if(typeof module !== 'undefined' && module.exports){
     };
     core.registerNamespace("core.events.EventDispatcher", EventDispatcher);
 })();
+/**
+ * ** Singleton. ** <br>Allows a global object to be utilized for broadcasting events.<br><br>
+ * ** Example: ** <br> <pre>EventBroadcaster.instance().on("eventName", scope._("someEvent"), scope);</pre>
+ * @class EventBroadcaster
+ * @namespace core.events
+ * @extends core.events.EventDispatcher
+ * @constructor
+ * @param {Object} opts An object containing configurations required by the Core derived class.
+ *
+ */
 (function () {
     var instance = null;
     var EventDispatcher = core.events.EventDispatcher;
@@ -543,6 +715,17 @@ if(typeof module !== 'undefined' && module.exports){
     o.instance = o.init;
     core.registerNamespace("core.events.EventBroadcaster", o);
 })();
+/**
+ * ** Singleton. ** <br>The base object of all core based classes. Every object created within the Core framework derives from this class.
+ *
+ * @class XHR
+ * @namespace core.net
+ * @extends core.Core
+ * @constructor
+ * @param {Object} opts An object containing configurations required by the Core class.
+ * @param {Object} opts.el The node element included in the class composition.
+ *
+ */
 (function () {
     var instance = null;
     var Core = core.Core;
@@ -595,7 +778,21 @@ if(typeof module !== 'undefined' && module.exports){
     proto.setConfig = function(o){
         this.settingsCache = o;
     };
-
+    /**
+     * Create and send http request using XHR (XMLHttpRequest).
+     *
+     * @method request
+     * @param {Object} config The configuration object containing required properties for creating xml http requests.
+     * @param {String} config.url The URL where the request is to be made.
+     * @param {String} config.method "post"/"get"
+     * @param {Object|String} config.data The data to send to the requested end point (string will be converted to "get")
+     * @param {Boolean} config.async true/false whether to request asynchronously or synchronously respectively.
+     * @param {String} config.dataType "plain"|"html"|"json" The data format to expect as a response from the request.
+     * @param {String} config.contentType The content type to set on the request headers (i.e. "application/x-www-form-urlencoded")
+     * @param {Function} config.callback The method handler to call after a successful request.
+     * @param {Function} config.error The method handler to call after an error on the request.
+     *
+     */
     proto.request = function(o) {
         if(o == undefined) throw new Error("XHR:Invalid parameters");
         o = applyConfig.call(this, o);
@@ -671,7 +868,18 @@ if(typeof module !== 'undefined' && module.exports){
     o.instance = o.init;
     core.registerNamespace("core.net.XHR", o);
 })();
-(function ($, scope) {
+/**
+ * The base object of all core based classes. Every object created within the Core framework derives from this class.
+ *
+ * @class Document
+ * @namespace core.wirings
+ * @extends core.events.EventDispatcher
+ * @constructor
+ * @param {Object} opts An object containing configurations required by the Core derived class.
+ * @param {HTMLElement} opts.el The node element included in the class composition.
+ *
+ */
+(function () {
     var Core = core._import("core.Core"),
         __super__ = Core.prototype;
 
@@ -742,8 +950,18 @@ if(typeof module !== 'undefined' && module.exports){
     };
     var doc = new Document();
 })();
-
-(function ($, scope) {
+/**
+ * The base object of all core based classes. Every object created within the Core framework derives from this class.
+ *
+ * @class Module
+ * @namespace core.wirings
+ * @extends core.events.EventDispatcher
+ * @constructor
+ * @param {Object} opts An object containing configurations required by the Core derived class.
+ * @param {HTMLElement} opts.el The node element included in the class composition.
+ *
+ */
+(function () {
     var EventDispatcher = core.events.EventDispatcher,
         __super__ = EventDispatcher.prototype;
     function Module(opts) {

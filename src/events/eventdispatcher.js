@@ -1,13 +1,17 @@
-
+/**
+ * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
+ *
+ * @class EventDispatcher
+ * @namespace core.events
+ * @extends core.Core
+ * @constructor
+ * @param {Object} opts An object containing configurations required by the Core derived class.
+ * @param {HTMLElement} opts.el The node element included in the class composition.
+ *
+ */
 (function(){
     var Core = core.Core; //shorthand variable assignment.
     var __super__ = Core.prototype;
-    /**
-     * Testing
-     * @constructor
-     * @param opts {object}
-     *
-     */
     function EventDispatcher(opts){
         if (opts && opts.__inheriting__) return;
         Core.call(this, opts);
@@ -24,6 +28,15 @@
         this.events = null;
 
     };
+    /**
+     * Checks the array of listeners for existing scopes.
+     *
+     * @method containsScope
+     * @param {Array} list Reference to the array of subscribed listeners
+     * @param {Object} scope Reference to the scope being queried for existence
+     * @private
+     * @return {Booleans} Returns boolean indicating the existence of the scope passed on the parameters
+     */
     var containsScope = function(arr, scope){
         var len = arr.length;
         for(var i = 0;i<len;i++){
@@ -34,6 +47,16 @@
         scope.__core__signal__id__ = core.GUID();
         return -1;
     };
+    /**
+     * Private method handler for event registration.
+     *
+     * @method register
+     * @param {String} eventName The event name being added on the listener list.
+     * @param {Object} scope Reference to the scope of the event handler
+     * @param {Function} method The method used by the scope to handle the event being broadcasted
+     * @param {Boolean} once Specify whether the event should only be handled once by the scope and its event handler
+     * @private
+     */
     var register = function(evt, scope, method, once){
         var __sig_dispose__ = null;
         var exists = containsScope.call(this, this.events[evt+(once ? "_once" : "")], scope);
@@ -63,18 +86,44 @@
             }
         }
     };
+    /**
+     * Subscribe function. Called when adding a subscriber to the broadcasting object.
+     *
+     * @method on
+     * @param {String} eventName The event name being subscribed to
+     * @param {Function} method The method handler to trigger when the event specified is dispatched.
+     * @param {core.Core} scope Reference to the scope of the event handler
+     */
     proto.on = function(evt, method, scope){
         if(!this.events[evt]){
             this.events[evt] = [];
         }
         register.call(this, evt, scope, method);
     };
+    /**
+     * Subscribe once function. Called when adding a subscriber to the broadcasting object.
+     *
+     * @method once
+     * @param {String} eventName The event name being subscribed to
+     * @param {Function} method The method handler to trigger when the event specified is dispatched.
+     * @param {core.Core} scope Reference to the scope of the event handler
+     */
     proto.once = function(evt, method, scope){
         if(!this.events[evt+"_once"]){
             this.events[evt+"_once"] = [];
         }
         register.call(this, evt, scope, method, true);
     };
+    /**
+     * Private method handler for unregistering events
+     *
+     * @method unregister
+     * @param {String} eventName The event name being added on the listener list.
+     * @param {Object} scope Reference to the scope of the event handler
+     * @param {Function} method The method used by the scope to handle the event being broadcasted
+     * @param {Boolean} once Specify whether the event should only be handled once by the scope and its event handler
+     * @private
+     */
     var unregister = function(evt, scope, method){
         if(this.events[evt]){
             var len = this.events[evt].length;
@@ -97,10 +146,24 @@
             }
         }
     };
+    /**
+     * Unsubscribe function. Called when removing a subscriber from the broadcasting object.
+     *
+     * @method off
+     * @param {String} eventName The event name unsubscribing from.
+     * @param {Function} method The method handler to trigger when the event specified is dispatched.
+     * @param {core.Core} scope Reference to the scope of the event handler
+     */
     proto.off = function(evt, method, scope){
         unregister.call(this, evt, scope, method);
         unregister.call(this, evt+"_once", scope, method);
     };
+    /**
+     * Unsubscribe function - scope context. Unsubscribes a specific scope from ALL events
+     *
+     * @method removeScope
+     * @param {core.Core} scope Reference to the scope subscriber being removed.
+     */
     proto.removeScope = function(scope){
         for(var prop in this.events){
             var len = this.events[prop].length;
@@ -119,6 +182,11 @@
             }
         }
     };
+    /**
+     * Removes all items from the listener list.
+     *
+     * @method removeAll
+     */
     proto.removeAll = function(){
         for(var prop in this.events){
             var len = this.events[prop].length;
@@ -136,6 +204,13 @@
         }
         this.events = {};
     };
+    /**
+     * Broadcast functions. Triggers a broadcast on the EventDispatcher/derived object.
+     *
+     * @method trigger
+     * @param {String} eventName The event name to trigger/broadcast.
+     * @param {Object} variables An object to send upon broadcast
+     */
     proto.trigger = function(evt, vars){
         var dis = vars || {};
         if(!dis.type){

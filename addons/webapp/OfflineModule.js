@@ -1,6 +1,19 @@
 (function ($) {
     var Module = core.wirings.Module,
         __super__ = Module.prototype;
+    /**
+     * The main class that implements offline webapp functionalities using application cache and local storage.
+     * Extends core.wirings.Module to have the ability to be instantiated in the same fashion.
+     *
+     * @class OfflineModule
+     * @module addons
+     * @namespace core.wirings
+     * @extends core.wirings.Module
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
     function OfflineModule(opts) {
         if (opts && opts.__inheriting__) return;
         __super__.constructor.call(this, opts);
@@ -20,6 +33,12 @@
     proto.initialized = function(opts){
         console.warn("OfflineModule subclass requires initialized method.");
     };
+    /**
+     * The main method handler for checking the application status. Also determines if a web application has gone offline/online
+     *
+     * @method onApplicationCacheStatus
+     * @param {Object} event Contains the information about the current application cache status.
+     */
     proto.onApplicationCacheStatus = function(evt){
 
         switch(evt.type){
@@ -71,9 +90,21 @@
                 break;
         }
     };
+    /**
+     * Virtual protected function. Should be overridden on subclasses. Called automatically when the cache status has changed.
+     *
+     * @method cacheStatus
+     * @param {String} status The status of the application cache.
+     */
     proto.cacheStatus = function(status){
 
     };
+    /**
+     * Virtual protected function. Should be overridden on subclasses. Called automatically when the online/offline state of the application changes.
+     *
+     * @method onlineStatus
+     * @param {Boolean} isonline True/false depending on the applications online/offline state.
+     */
     proto.onlineStatus = function(isonline){
 
     };
@@ -93,7 +124,7 @@
                 window.applicationCache.update();
             }, 3000);
         }
-        this.localStorage = core.LocalStorage.init();
+        this.localStorage = core.addons.webapp.LocalStorage.init();
 
     };
     core.registerNamespace("core.wirings.OfflineModule", OfflineModule);

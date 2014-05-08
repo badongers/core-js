@@ -1,11 +1,23 @@
 /**
- * Created by donaldmartinez on 16/04/2014.
+ * The base module for the Core JS framework.
+ * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
+ *
+ * @module addons
  */
-
 (function () {
     var EventDispatcher = core.events.EventDispatcher,
         __super__ = EventDispatcher.prototype;
-
+    /**
+     * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
+     *
+     * @class CoreWindow
+     * @extends core.Core
+     * @namespace core.addons
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
     function CoreWindow(opts) {
         if (opts && opts.__inheriting__) return;
         EventDispatcher.call(this, opts);
@@ -87,6 +99,6 @@
     };
     o.instance = o.init;
 
-    core.registerNamespace("CoreWindow", o);
+    core.registerNamespace("core.addons.CoreWindow", o);
 
 })();

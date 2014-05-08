@@ -1,3 +1,14 @@
+/**
+ * ** Singleton. ** <br>The base object of all core based classes. Every object created within the Core framework derives from this class.
+ *
+ * @class XHR
+ * @namespace core.net
+ * @extends core.Core
+ * @constructor
+ * @param {Object} opts An object containing configurations required by the Core class.
+ * @param {Object} opts.el The node element included in the class composition.
+ *
+ */
 (function () {
     var instance = null;
     var Core = core.Core;
@@ -50,7 +61,21 @@
     proto.setConfig = function(o){
         this.settingsCache = o;
     };
-
+    /**
+     * Create and send http request using XHR (XMLHttpRequest).
+     *
+     * @method request
+     * @param {Object} config The configuration object containing required properties for creating xml http requests.
+     * @param {String} config.url The URL where the request is to be made.
+     * @param {String} config.method "post"/"get"
+     * @param {Object|String} config.data The data to send to the requested end point (string will be converted to "get")
+     * @param {Boolean} config.async true/false whether to request asynchronously or synchronously respectively.
+     * @param {String} config.dataType "plain"|"html"|"json" The data format to expect as a response from the request.
+     * @param {String} config.contentType The content type to set on the request headers (i.e. "application/x-www-form-urlencoded")
+     * @param {Function} config.callback The method handler to call after a successful request.
+     * @param {Function} config.error The method handler to call after an error on the request.
+     *
+     */
     proto.request = function(o) {
         if(o == undefined) throw new Error("XHR:Invalid parameters");
         o = applyConfig.call(this, o);
