@@ -879,7 +879,7 @@ if(typeof module !== 'undefined' && module.exports){
  * @param {HTMLElement} opts.el The node element included in the class composition.
  *
  */
-(function () {
+(function (scope) {
     var Core = core._import("core.Core"),
         __super__ = Core.prototype;
 
@@ -949,7 +949,7 @@ if(typeof module !== 'undefined' && module.exports){
         }
     };
     var doc = new Document();
-})();
+})(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
 /**
  * The base object of all core based classes. Every object created within the Core framework derives from this class.
  *
@@ -961,7 +961,7 @@ if(typeof module !== 'undefined' && module.exports){
  * @param {HTMLElement} opts.el The node element included in the class composition.
  *
  */
-(function () {
+(function (scope) {
     var EventDispatcher = core.events.EventDispatcher,
         __super__ = EventDispatcher.prototype;
     function Module(opts) {
@@ -1027,7 +1027,7 @@ if(typeof module !== 'undefined' && module.exports){
         recurse.call(this, node.childNodes);
     }
     core.registerNamespace("core.wirings.Module", Module);
-})();
+})(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
 (function(scope) {
     // Overwrite requestAnimationFrame so it works across browsers
     var lastTime = 0;

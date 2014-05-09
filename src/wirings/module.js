@@ -9,7 +9,7 @@
  * @param {HTMLElement} opts.el The node element included in the class composition.
  *
  */
-(function () {
+(function (scope) {
     var EventDispatcher = core.events.EventDispatcher,
         __super__ = EventDispatcher.prototype;
     function Module(opts) {
@@ -75,4 +75,4 @@
         recurse.call(this, node.childNodes);
     }
     core.registerNamespace("core.wirings.Module", Module);
-})();
+})(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);

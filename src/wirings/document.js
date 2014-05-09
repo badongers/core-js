@@ -9,7 +9,7 @@
  * @param {HTMLElement} opts.el The node element included in the class composition.
  *
  */
-(function () {
+(function (scope) {
     var Core = core._import("core.Core"),
         __super__ = Core.prototype;
 
@@ -79,4 +79,4 @@
         }
     };
     var doc = new Document();
-})();
+})(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
