@@ -174,6 +174,9 @@
     proto.getDistanceFromLocations = function(point1, point2){
         return calculateDistance(point1, point2);
     };
+    proto.update = function(){
+        navigator.geolocation.getCurrentPosition(this._("onLocationRetrieved"), this._("onErrorLocation"));
+    };
     var instance;
     var o = {
         init:function (opts) {
