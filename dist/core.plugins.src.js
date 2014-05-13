@@ -1,4 +1,4 @@
-/*! core 2014-05-13 */
+/*! core 2014-05-14 */
 /**
  * The base module for the Core JS framework.
  * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
