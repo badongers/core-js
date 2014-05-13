@@ -743,8 +743,16 @@
             ac.addEventListener("obsolete", this._("onApplicationCacheStatus"));
             ac.addEventListener("progress", this._("onApplicationCacheStatus"));
             ac.addEventListener("ready", this._("onApplicationCacheStatus"));
+            var ref = this;
             this.cacheStatusTimer = setInterval(function(){
-                window.applicationCache.update();
+                try{
+                    window.applicationCache.update();
+                }catch(err){
+                    console.warn("Using application cache without a manifest. Cache update check and online status check will not work.");
+                    clearInterval(ref.cacheStatusTimer);
+
+                }
+
             }, 3000);
         }
         this.localStorage = core.addons.webapp.LocalStorage.init();
