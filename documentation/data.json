@@ -1,0 +1,1484 @@
+{
+    "project": {
+        "name": "core",
+        "description": "Micro-framework for object oriented javascript",
+        "version": "0.0.2",
+        "url": "http://www.eightfolds.com.au"
+    },
+    "files": {
+        "src/events/eventbroadcaster.js": {
+            "name": "src/events/eventbroadcaster.js",
+            "modules": {},
+            "classes": {
+                "core.events.EventBroadcaster": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.events": 1
+            }
+        },
+        "src/events/eventdispatcher.js": {
+            "name": "src/events/eventdispatcher.js",
+            "modules": {},
+            "classes": {
+                "core.events.EventDispatcher": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.events": 1
+            }
+        },
+        "src/net/xhr.js": {
+            "name": "src/net/xhr.js",
+            "modules": {},
+            "classes": {
+                "core.net.XHR": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.net": 1
+            }
+        },
+        "src/wirings/document.js": {
+            "name": "src/wirings/document.js",
+            "modules": {},
+            "classes": {
+                "core.wirings.Document": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.wirings": 1
+            }
+        },
+        "src/wirings/module.js": {
+            "name": "src/wirings/module.js",
+            "modules": {},
+            "classes": {
+                "core.wirings.Module": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.wirings": 1
+            }
+        },
+        "src/core.js": {
+            "name": "src/core.js",
+            "modules": {
+                "core": 1
+            },
+            "classes": {
+                "Function": 1,
+                "core": 1,
+                "core.Core": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core": 1
+            }
+        },
+        "addons/location/geo.location.js": {
+            "name": "addons/location/geo.location.js",
+            "modules": {
+                "addons": 1
+            },
+            "classes": {
+                "core.addons.CoreLocation": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons": 1
+            }
+        },
+        "addons/ui-scroll/core.parallax.js": {
+            "name": "addons/ui-scroll/core.parallax.js",
+            "modules": {},
+            "classes": {
+                "core.addons.uiscroll.CoreParallax": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons.uiscroll": 1
+            }
+        },
+        "addons/ui-scroll/core.snap.js": {
+            "name": "addons/ui-scroll/core.snap.js",
+            "modules": {},
+            "classes": {
+                "core.addons.uiscroll.CoreSnap": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons.uiscroll": 1
+            }
+        },
+        "addons/webapp/LocalStorage.js": {
+            "name": "addons/webapp/LocalStorage.js",
+            "modules": {},
+            "classes": {
+                "core.addons.webapp.LocalStorage": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons.webapp": 1
+            }
+        },
+        "addons/webapp/OfflineModule.js": {
+            "name": "addons/webapp/OfflineModule.js",
+            "modules": {},
+            "classes": {
+                "core.wirings.OfflineModule": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.wirings": 1
+            }
+        },
+        "addons/core.window.js": {
+            "name": "addons/core.window.js",
+            "modules": {},
+            "classes": {
+                "core.addons.CoreWindow": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons": 1
+            }
+        }
+    },
+    "modules": {
+        "core": {
+            "name": "core",
+            "submodules": {},
+            "classes": {
+                "core.events.EventBroadcaster": 1,
+                "core.events.EventDispatcher": 1,
+                "core.net.XHR": 1,
+                "core.wirings.Document": 1,
+                "core.wirings.Module": 1,
+                "Function": 1,
+                "core": 1,
+                "core.Core": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core": 1
+            },
+            "tag": "module",
+            "file": "src/core.js",
+            "line": 294,
+            "description": "The base module for the Core JS framework.\nIt provides helper methods for implementing OOP methodologies and basic utilities such as browser detection."
+        },
+        "addons": {
+            "name": "addons",
+            "submodules": {},
+            "classes": {
+                "core.addons.CoreLocation": 1,
+                "core.addons.uiscroll.CoreParallax": 1,
+                "core.addons.uiscroll.CoreSnap": 1,
+                "core.addons.webapp.LocalStorage": 1,
+                "core.wirings.OfflineModule": 1,
+                "core.addons.CoreWindow": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons": 1,
+                "core.addons.uiscroll": 1,
+                "core.addons.webapp": 1,
+                "core.wirings": 1
+            },
+            "tag": "module",
+            "file": "addons/core.window.js",
+            "line": 10,
+            "description": "The base module for the Core JS framework.\nIt provides helper methods for implementing OOP methodologies and basic utilities such as browser detection."
+        }
+    },
+    "classes": {
+        "core.events.EventBroadcaster": {
+            "name": "core.events.EventBroadcaster",
+            "shortname": "core.events.EventBroadcaster",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "core",
+            "namespace": "core.events",
+            "file": "src/events/eventbroadcaster.js",
+            "line": 1,
+            "description": "** Singleton. ** <br>Allows a global object to be utilized for broadcasting events.<br><br>\n** Example: ** <br> <pre>EventBroadcaster.instance().on(\"eventName\", scope._(\"someEvent\"), scope);</pre>",
+            "extends": "core.events.EventDispatcher",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object"
+                }
+            ]
+        },
+        "core.events.EventDispatcher": {
+            "name": "core.events.EventDispatcher",
+            "shortname": "core.events.EventDispatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "core",
+            "namespace": "core.events",
+            "file": "src/events/eventdispatcher.js",
+            "line": 1,
+            "description": "The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.",
+            "extends": "core.Core",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.net.XHR": {
+            "name": "core.net.XHR",
+            "shortname": "core.net.XHR",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "core",
+            "namespace": "core.net",
+            "file": "src/net/xhr.js",
+            "line": 1,
+            "description": "** Singleton. ** <br>The base object of all core based classes. Every object created within the Core framework derives from this class.",
+            "extends": "core.Core",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "Object"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.wirings.Document": {
+            "name": "core.wirings.Document",
+            "shortname": "core.wirings.Document",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "core",
+            "namespace": "core.wirings",
+            "file": "src/wirings/document.js",
+            "line": 1,
+            "description": "The base object of all core based classes. Every object created within the Core framework derives from this class.",
+            "extends": "core.events.EventDispatcher",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.wirings.Module": {
+            "name": "core.wirings.Module",
+            "shortname": "core.wirings.Module",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "core",
+            "namespace": "core.wirings",
+            "file": "src/wirings/module.js",
+            "line": 1,
+            "description": "The base object of all core based classes. Every object created within the Core framework derives from this class.",
+            "extends": "core.events.EventDispatcher",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "Function": {
+            "name": "Function",
+            "shortname": "Function",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "core",
+            "namespace": "",
+            "file": "src/core.js",
+            "line": 10,
+            "description": "Function prototype extension in the core framework.",
+            "is_constructor": 1
+        },
+        "core": {
+            "name": "core",
+            "shortname": "core",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "core",
+            "namespace": "",
+            "file": "src/core.js",
+            "line": 71,
+            "description": "The main module and namespace used within the core framework."
+        },
+        "core.Core": {
+            "name": "core.Core",
+            "shortname": "core.Core",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "core",
+            "namespace": "core",
+            "file": "src/core.js",
+            "line": 294,
+            "description": "The base object of all core based classes. Every object created within the Core framework derives from this class.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.addons.CoreLocation": {
+            "name": "core.addons.CoreLocation",
+            "shortname": "core.addons.CoreLocation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.addons",
+            "file": "addons/location/geo.location.js",
+            "line": 10,
+            "description": "The main class that implements HTML5 Geolocation functions.",
+            "extends": "core.events.EventDispatcher",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.addons.uiscroll.CoreParallax": {
+            "name": "core.addons.uiscroll.CoreParallax",
+            "shortname": "core.addons.uiscroll.CoreParallax",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.addons.uiscroll",
+            "file": "addons/ui-scroll/core.parallax.js",
+            "line": 5,
+            "description": "The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.",
+            "extends": "core.Core",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.addons.uiscroll.CoreSnap": {
+            "name": "core.addons.uiscroll.CoreSnap",
+            "shortname": "core.addons.uiscroll.CoreSnap",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.addons.uiscroll",
+            "file": "addons/ui-scroll/core.snap.js",
+            "line": 5,
+            "description": "The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.",
+            "extends": "core.Core",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.addons.webapp.LocalStorage": {
+            "name": "core.addons.webapp.LocalStorage",
+            "shortname": "core.addons.webapp.LocalStorage",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.addons.webapp",
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 4,
+            "description": "** Singleton. ** <br>The main class that implements local storage functionalities on a web application.\nThis class wraps multiple storage mechanisms for storing information on the client side.\n<br><br>** This class supports the following: **<br>\n- SessionStorage\n- LocalStorage\n- WebSQL",
+            "extends": "core.Core",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.wirings.OfflineModule": {
+            "name": "core.wirings.OfflineModule",
+            "shortname": "core.wirings.OfflineModule",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.wirings",
+            "file": "addons/webapp/OfflineModule.js",
+            "line": 4,
+            "description": "The main class that implements offline webapp functionalities using application cache and local storage.\nExtends core.wirings.Module to have the ability to be instantiated in the same fashion.",
+            "extends": "core.wirings.Module",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.addons.CoreWindow": {
+            "name": "core.addons.CoreWindow",
+            "shortname": "core.addons.CoreWindow",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.addons",
+            "file": "addons/core.window.js",
+            "line": 10,
+            "description": "The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.",
+            "extends": "core.Core",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/events/eventdispatcher.js",
+            "line": 31,
+            "description": "Checks the array of listeners for existing scopes.",
+            "itemtype": "method",
+            "name": "containsScope",
+            "params": [
+                {
+                    "name": "list",
+                    "description": "Reference to the array of subscribed listeners",
+                    "type": "Array"
+                },
+                {
+                    "name": "scope",
+                    "description": "Reference to the scope being queried for existence",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "Returns boolean indicating the existence of the scope passed on the parameters",
+                "type": "Booleans"
+            },
+            "class": "core.events.EventDispatcher",
+            "namespace": "core.events"
+        },
+        {
+            "file": "src/events/eventdispatcher.js",
+            "line": 50,
+            "description": "Private method handler for event registration.",
+            "itemtype": "method",
+            "name": "register",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The event name being added on the listener list.",
+                    "type": "String"
+                },
+                {
+                    "name": "scope",
+                    "description": "Reference to the scope of the event handler",
+                    "type": "Object"
+                },
+                {
+                    "name": "method",
+                    "description": "The method used by the scope to handle the event being broadcasted",
+                    "type": "Function"
+                },
+                {
+                    "name": "once",
+                    "description": "Specify whether the event should only be handled once by the scope and its event handler",
+                    "type": "Boolean"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "core.events.EventDispatcher",
+            "namespace": "core.events"
+        },
+        {
+            "file": "src/events/eventdispatcher.js",
+            "line": 89,
+            "description": "Subscribe function. Called when adding a subscriber to the broadcasting object.",
+            "itemtype": "method",
+            "name": "on",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The event name being subscribed to",
+                    "type": "String"
+                },
+                {
+                    "name": "method",
+                    "description": "The method handler to trigger when the event specified is dispatched.",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "Reference to the scope of the event handler",
+                    "type": "core.Core"
+                }
+            ],
+            "class": "core.events.EventDispatcher",
+            "namespace": "core.events"
+        },
+        {
+            "file": "src/events/eventdispatcher.js",
+            "line": 103,
+            "description": "Subscribe once function. Called when adding a subscriber to the broadcasting object.",
+            "itemtype": "method",
+            "name": "once",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The event name being subscribed to",
+                    "type": "String"
+                },
+                {
+                    "name": "method",
+                    "description": "The method handler to trigger when the event specified is dispatched.",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "Reference to the scope of the event handler",
+                    "type": "core.Core"
+                }
+            ],
+            "class": "core.events.EventDispatcher",
+            "namespace": "core.events"
+        },
+        {
+            "file": "src/events/eventdispatcher.js",
+            "line": 117,
+            "description": "Private method handler for unregistering events",
+            "itemtype": "method",
+            "name": "unregister",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The event name being added on the listener list.",
+                    "type": "String"
+                },
+                {
+                    "name": "scope",
+                    "description": "Reference to the scope of the event handler",
+                    "type": "Object"
+                },
+                {
+                    "name": "method",
+                    "description": "The method used by the scope to handle the event being broadcasted",
+                    "type": "Function"
+                },
+                {
+                    "name": "once",
+                    "description": "Specify whether the event should only be handled once by the scope and its event handler",
+                    "type": "Boolean"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "core.events.EventDispatcher",
+            "namespace": "core.events"
+        },
+        {
+            "file": "src/events/eventdispatcher.js",
+            "line": 149,
+            "description": "Unsubscribe function. Called when removing a subscriber from the broadcasting object.",
+            "itemtype": "method",
+            "name": "off",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The event name unsubscribing from.",
+                    "type": "String"
+                },
+                {
+                    "name": "method",
+                    "description": "The method handler to trigger when the event specified is dispatched.",
+                    "type": "Function"
+                },
+                {
+                    "name": "scope",
+                    "description": "Reference to the scope of the event handler",
+                    "type": "core.Core"
+                }
+            ],
+            "class": "core.events.EventDispatcher",
+            "namespace": "core.events"
+        },
+        {
+            "file": "src/events/eventdispatcher.js",
+            "line": 161,
+            "description": "Unsubscribe function - scope context. Unsubscribes a specific scope from ALL events",
+            "itemtype": "method",
+            "name": "removeScope",
+            "params": [
+                {
+                    "name": "scope",
+                    "description": "Reference to the scope subscriber being removed.",
+                    "type": "core.Core"
+                }
+            ],
+            "class": "core.events.EventDispatcher",
+            "namespace": "core.events"
+        },
+        {
+            "file": "src/events/eventdispatcher.js",
+            "line": 185,
+            "description": "Removes all items from the listener list.",
+            "itemtype": "method",
+            "name": "removeAll",
+            "class": "core.events.EventDispatcher",
+            "namespace": "core.events"
+        },
+        {
+            "file": "src/events/eventdispatcher.js",
+            "line": 207,
+            "description": "Broadcast functions. Triggers a broadcast on the EventDispatcher/derived object.",
+            "itemtype": "method",
+            "name": "trigger",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "The event name to trigger/broadcast.",
+                    "type": "String"
+                },
+                {
+                    "name": "variables",
+                    "description": "An object to send upon broadcast",
+                    "type": "Object"
+                }
+            ],
+            "class": "core.events.EventDispatcher",
+            "namespace": "core.events"
+        },
+        {
+            "file": "src/net/xhr.js",
+            "line": 64,
+            "description": "Create and send http request using XHR (XMLHttpRequest).",
+            "itemtype": "method",
+            "name": "request",
+            "params": [
+                {
+                    "name": "config",
+                    "description": "The configuration object containing required properties for creating xml http requests.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "url",
+                            "description": "The URL where the request is to be made.",
+                            "type": "String"
+                        },
+                        {
+                            "name": "method",
+                            "description": "\"post\"/\"get\"",
+                            "type": "String"
+                        },
+                        {
+                            "name": "data",
+                            "description": "The data to send to the requested end point (string will be converted to \"get\")",
+                            "type": "Object|String"
+                        },
+                        {
+                            "name": "async",
+                            "description": "true/false whether to request asynchronously or synchronously respectively.",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "dataType",
+                            "description": "\"plain\"|\"html\"|\"json\" The data format to expect as a response from the request.",
+                            "type": "String"
+                        },
+                        {
+                            "name": "contentType",
+                            "description": "The content type to set on the request headers (i.e. \"application/x-www-form-urlencoded\")",
+                            "type": "String"
+                        },
+                        {
+                            "name": "callback",
+                            "description": "The method handler to call after a successful request.",
+                            "type": "Function"
+                        },
+                        {
+                            "name": "error",
+                            "description": "The method handler to call after an error on the request.",
+                            "type": "Function"
+                        }
+                    ]
+                }
+            ],
+            "class": "core.net.XHR",
+            "namespace": "core.net"
+        },
+        {
+            "file": "src/core.js",
+            "line": 19,
+            "description": "Added support for older browser. Only applied when the method is not available. Returns a scope bound function.",
+            "itemtype": "method",
+            "name": "bind",
+            "params": [
+                {
+                    "name": "scope",
+                    "description": "The scope where the function is bound to",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "A scope bound function",
+                "type": "Function"
+            },
+            "class": "Function",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 39,
+            "description": "Utility method for implementing prototypal inheritance within the core framework.",
+            "itemtype": "method",
+            "name": "inherits",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object where the prototype is going to be derived from.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Function",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 51,
+            "description": "Utility method for implementing mixins/augmentation/partial in the core framework",
+            "itemtype": "method",
+            "name": "mixin",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object where the prototype is going to be mix with.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Function",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 139,
+            "description": "Stored browser information based on the detection algorithm implemented within core.",
+            "itemtype": "property",
+            "name": "browser",
+            "type": "Object",
+            "class": "core",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 151,
+            "description": "Utility method for generating GUID",
+            "itemtype": "method",
+            "name": "GUID",
+            "return": {
+                "description": "String Returns a GUID string"
+            },
+            "class": "core",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 168,
+            "description": "Utility method for getting the bounding rect of the dom element - also adds support for IE8",
+            "itemtype": "method",
+            "name": "rect",
+            "return": {
+                "description": "Object Contains the rectangular information of a HTMLElement"
+            },
+            "class": "core",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 186,
+            "description": "Utility method for exposing objects in a namespaced fashion.",
+            "itemtype": "method",
+            "name": "registerNamespace",
+            "class": "core",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 212,
+            "description": "Utility method for referencing objects within the core framework. This also adds existence checking for the objects being referenced on import.",
+            "itemtype": "method",
+            "name": "import",
+            "params": [
+                {
+                    "name": "package",
+                    "description": "The namespace of the object being imported.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Object The object being imported"
+            },
+            "class": "core",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 231,
+            "description": "Utility method for performing dependency checks on core classes.",
+            "itemtype": "method",
+            "name": "dependency",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "The object to check if its defined.",
+                    "type": "String"
+                },
+                {
+                    "name": "message",
+                    "description": "The message to display on warning when the object passed for checking is undefined.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Object The object being imported"
+            },
+            "class": "core",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 243,
+            "class": "core",
+            "module": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 310,
+            "description": "The selected HTML element node reference.",
+            "itemtype": "property",
+            "name": "el",
+            "type": "HTMLElement",
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 320,
+            "description": "Property for storing proxied function/methods",
+            "itemtype": "property",
+            "name": "proxyHandlers",
+            "type": "Object",
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 337,
+            "description": "Returns a scope bound function and stores it on the proxyHandlers property.",
+            "itemtype": "method",
+            "name": "getProxyHandler",
+            "params": [
+                {
+                    "name": "method",
+                    "description": "The string equivalent of the defined method name of the class.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The scope bound function defined on the parameter.",
+                "type": "Function"
+            },
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 357,
+            "description": "Core method for clearing proxied function methods.",
+            "itemtype": "method",
+            "name": "clearProxyHandler",
+            "params": [
+                {
+                    "name": "method",
+                    "description": "The string equivalent of the defined method to clear.",
+                    "type": "String"
+                }
+            ],
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 372,
+            "description": "Core method initialization. This is called automatically on core sub classes.",
+            "itemtype": "method",
+            "name": "construct",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "The object passed on the constructor of a core based class.",
+                    "type": "Object"
+                }
+            ],
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 380,
+            "description": "Core method initialization. This is called automatically on core sub classes. Adds delay when being called automatically, this allows\ntime to setup all the other classes and manage the sequence of instantiations.",
+            "itemtype": "method",
+            "name": "delayedConstruct",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "The object passed on the constructor of a core based class.",
+                    "type": "Object"
+                }
+            ],
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 389,
+            "description": "Core method for destroying/cleaning up objects.",
+            "itemtype": "method",
+            "name": "dispose",
+            "params": [
+                {
+                    "name": "removeNode",
+                    "description": "If true and there is a node attached in the class (el property) that element is going to be removed upon disposal.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 407,
+            "description": "Core method for searching sub node elements.",
+            "itemtype": "method",
+            "name": "find",
+            "params": [
+                {
+                    "name": "selector",
+                    "description": "The selector used for searching sub nodes.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "An array of HTMLElements, please note that this is not jQuery selected nodes.",
+                "type": "NodeList"
+            },
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "src/core.js",
+            "line": 417,
+            "description": "Core method for searching sub node elements within the document context.",
+            "itemtype": "method",
+            "name": "findAll",
+            "params": [
+                {
+                    "name": "selector",
+                    "description": "The selector used for searching sub nodes within the document.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "An array of HTMLElements, please note that this is not jQuery selected nodes.",
+                "type": "NodeList"
+            },
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "addons/location/geo.location.js",
+            "line": 66,
+            "description": "Retrieves the distance from the last detected position. Returns distance result in km.",
+            "itemtype": "method",
+            "name": "getDistanceFromCurrentLocation",
+            "params": [
+                {
+                    "name": "point",
+                    "description": "An object containing latitude and longitude properties.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "latitude",
+                            "description": "The latitude of the value to calculate distance width.",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "longitude",
+                            "description": "The longitude of the value to calculate distance width.",
+                            "type": "Number"
+                        }
+                    ]
+                }
+            ],
+            "class": "core.addons.CoreLocation",
+            "module": "addons",
+            "namespace": "core.addons"
+        },
+        {
+            "file": "addons/location/geo.location.js",
+            "line": 78,
+            "description": "Calculates the distance between 2 coordinates.",
+            "itemtype": "method",
+            "name": "getDistanceFromLocations",
+            "params": [
+                {
+                    "name": "point1",
+                    "description": "An object containing latitude and longitude properties.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "latitude",
+                            "description": "The latitude of the value to calculate distance width.",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "longitude",
+                            "description": "The longitude of the value to calculate distance width.",
+                            "type": "Number"
+                        }
+                    ]
+                },
+                {
+                    "name": "point2",
+                    "description": "An object containing latitude and longitude properties.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "latitude",
+                            "description": "The latitude of the value to calculate distance width.",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "longitude",
+                            "description": "The longitude of the value to calculate distance width.",
+                            "type": "Number"
+                        }
+                    ]
+                }
+            ],
+            "class": "core.addons.CoreLocation",
+            "module": "addons",
+            "namespace": "core.addons"
+        },
+        {
+            "file": "addons/location/geo.location.js",
+            "line": 93,
+            "description": "Refreshes current location and last known location. Runs geolocation check again.",
+            "itemtype": "method",
+            "name": "update",
+            "class": "core.addons.CoreLocation",
+            "module": "addons",
+            "namespace": "core.addons"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 37,
+            "description": "Method for storing key/value pair using local storage.",
+            "itemtype": "method",
+            "name": "storeLocal",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to use when storing values",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to store paired with the key parameter",
+                    "type": "Object"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 50,
+            "description": "Method for retrieving values in local storage.",
+            "itemtype": "method",
+            "name": "retrieveLocal",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key pair to use when retrieving values",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 63,
+            "description": "Method for storing key/value pair using session storage.",
+            "itemtype": "method",
+            "name": "storeSession",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to use when storing values",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to store paired with the key parameter",
+                    "type": "Object"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 75,
+            "description": "Method for retrieving values in session storage.",
+            "itemtype": "method",
+            "name": "retrieveSession",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key pair to use when retrieving values",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 87,
+            "description": "Method for creating tables on WebSQL",
+            "itemtype": "method",
+            "name": "createTable",
+            "params": [
+                {
+                    "name": "tablename",
+                    "description": "The table name to use upon creation",
+                    "type": "String"
+                },
+                {
+                    "name": "structure",
+                    "description": "The columns to use when creating table",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 103,
+            "description": "Method for inserting data on WebSQL",
+            "itemtype": "method",
+            "name": "insertSql",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "The string INSERT query to use upon insertion",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 115,
+            "description": "Method for retrieving data on WebSQL",
+            "itemtype": "method",
+            "name": "retrieveSql",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "The string SELECT query to use upon retrieval",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 127,
+            "description": "Method for configuring WebSQL, this includes database creation and all other meta information required on creation",
+            "itemtype": "method",
+            "name": "configureSQL",
+            "params": [
+                {
+                    "name": "dbname",
+                    "description": "The name of the database to create",
+                    "type": "String"
+                },
+                {
+                    "name": "version",
+                    "description": "The version of the database to create",
+                    "type": "String"
+                },
+                {
+                    "name": "desc",
+                    "description": "The description of the database to create",
+                    "type": "String"
+                },
+                {
+                    "name": "size",
+                    "description": "The size of the database to create, uses bytes. (ie. 1024*1024 * [intended mb size])",
+                    "type": "Number"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/OfflineModule.js",
+            "line": 36,
+            "description": "The main method handler for checking the application status. Also determines if a web application has gone offline/online",
+            "itemtype": "method",
+            "name": "onApplicationCacheStatus",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Contains the information about the current application cache status.",
+                    "type": "Object"
+                }
+            ],
+            "class": "core.wirings.OfflineModule",
+            "module": "addons",
+            "namespace": "core.wirings"
+        },
+        {
+            "file": "addons/webapp/OfflineModule.js",
+            "line": 93,
+            "description": "Virtual protected function. Should be overridden on subclasses. Called automatically when the cache status has changed.",
+            "itemtype": "method",
+            "name": "cacheStatus",
+            "params": [
+                {
+                    "name": "status",
+                    "description": "The status of the application cache.",
+                    "type": "String"
+                }
+            ],
+            "class": "core.wirings.OfflineModule",
+            "module": "addons",
+            "namespace": "core.wirings"
+        },
+        {
+            "file": "addons/webapp/OfflineModule.js",
+            "line": 102,
+            "description": "Virtual protected function. Should be overridden on subclasses. Called automatically when the online/offline state of the application changes.",
+            "itemtype": "method",
+            "name": "onlineStatus",
+            "params": [
+                {
+                    "name": "isonline",
+                    "description": "True/false depending on the applications online/offline state.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "core.wirings.OfflineModule",
+            "module": "addons",
+            "namespace": "core.wirings"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/core.js:151"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/core.js:168"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/core.js:212"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/core.js:231"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/core.js:407"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/core.js:417"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/core.js:243"
+        }
+    ]
+}

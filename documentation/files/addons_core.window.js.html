@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>addons/core.window.js - core</title>
+  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../assets/vendor/prettify/prettify.css">
+  <link rel="stylesheet" href="../assets/css/yuidoc-bootstrap.css">
+  <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=1">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="../index.html">core</a>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse">
+    <p class="navbar-text navbar-right">v0.0.2</p>
+  </div>
+</nav>
+
+<div class="container" id="main">
+  <div class="row">
+    <div class="col-md-3">
+    <div id="sidebar">
+  <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+    <li><a href="#classes" data-toggle="tab">Classes</a></li>
+    <li class="active"><a href="#modules" data-toggle="tab">Modules</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane" id="classes">
+      <ul id="api-classes" class="nav nav-list">
+        
+          <li><a href="../classes/core.html">core</a></li>
+        
+          <li><a href="../classes/core.addons.CoreLocation.html">core.addons.CoreLocation</a></li>
+        
+          <li><a href="../classes/core.addons.CoreWindow.html">core.addons.CoreWindow</a></li>
+        
+          <li><a href="../classes/core.addons.uiscroll.CoreParallax.html">core.addons.uiscroll.CoreParallax</a></li>
+        
+          <li><a href="../classes/core.addons.uiscroll.CoreSnap.html">core.addons.uiscroll.CoreSnap</a></li>
+        
+          <li><a href="../classes/core.addons.webapp.LocalStorage.html">core.addons.webapp.LocalStorage</a></li>
+        
+          <li><a href="../classes/core.Core.html">core.Core</a></li>
+        
+          <li><a href="../classes/core.events.EventBroadcaster.html">core.events.EventBroadcaster</a></li>
+        
+          <li><a href="../classes/core.events.EventDispatcher.html">core.events.EventDispatcher</a></li>
+        
+          <li><a href="../classes/core.net.XHR.html">core.net.XHR</a></li>
+        
+          <li><a href="../classes/core.wirings.Document.html">core.wirings.Document</a></li>
+        
+          <li><a href="../classes/core.wirings.Module.html">core.wirings.Module</a></li>
+        
+          <li><a href="../classes/core.wirings.OfflineModule.html">core.wirings.OfflineModule</a></li>
+        
+          <li><a href="../classes/Function.html">Function</a></li>
+        
+      </ul>
+    </div>
+
+    <div class="tab-pane active" id="modules">
+      <ul id="api-modules" class="nav nav-list">
+        
+          <li><a href="../modules/addons.html">addons</a></li>
+        
+          <li><a href="../modules/core.html">core</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+    </div>
+    <div class="col-md-9">
+      <form id="options-form" class="form-inline pull-right">
+  Show:
+  <label for="api-show-inherited" class="checkbox">
+    <input type="checkbox" id="api-show-inherited" checked="checked">
+    Inherited
+  </label>
+
+  <label for="api-show-protected" class="checkbox">
+    <input type="checkbox" id="api-show-protected" checked="checked">
+    Protected
+  </label>
+
+  <label for="api-show-private" class="checkbox">
+    <input type="checkbox" id="api-show-private" checked="checked">
+    Private
+  </label>
+  <label for="api-show-deprecated" class="checkbox">
+    <input type="checkbox" id="api-show-deprecated" checked="checked">
+    Deprecated
+  </label>
+
+</form>
+
+
+      <div class="apidocs">
+        <div id="docs-main">
+          <div class="content">
+            <div class="page-header">
+    <h1>addons/core.window.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * The base module for the Core JS framework.
+ * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
+ *
+ * @module addons
+ */
+(function () {
+    var EventDispatcher = core.events.EventDispatcher,
+        __super__ = EventDispatcher.prototype;
+    /**
+     * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
+     *
+     * @class CoreWindow
+     * @extends core.Core
+     * @namespace core.addons
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
+    function CoreWindow(opts) {
+        if (opts &amp;&amp; opts.__inheriting__) return;
+        EventDispatcher.call(this, opts);
+    }
+    CoreWindow.inherits(EventDispatcher);
+    var proto = CoreWindow.prototype;
+    proto.construct = function (opts) {
+        //create
+        __super__.construct.call(this, opts);
+        this.initialize();
+    };
+    proto.dispose = function () {
+        //clear
+        __super__.dispose.call(this);
+    };
+    proto.dispatchScroll = function(){
+        var scrollLeft = this.scrollLeft =  (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+        var scrollTop = this.scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+        this.trigger(&quot;window.scroll&quot;, {scrollTop:scrollTop, scrollLeft:scrollLeft});
+        this.tick = false;
+    };
+    proto.dispatchResize = function(){
+
+        var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        this.trigger(&quot;window.resize&quot;, {width:h, height:h});
+        this.tickResize = false;
+    };
+    proto.dispatchMotion = function(){
+        var evt = this.motionEvent;
+        var accelX = evt.accelerationIncludingGravity.x;
+        var accelY = evt.accelerationIncludingGravity.y;
+        var accelZ = evt.accelerationIncludingGravity.z;
+        var rotationAlpha = evt.rotationRate.alpha;
+        var rotationGamma = evt.rotationRate.gamma;
+        var rotationBeta = evt.rotationRate.beta;
+        this.trigger(&quot;window.device.motion&quot;, {accelX:accelX, accelY:accelY, accelZ:accelZ, rotationAlpha:rotationAlpha, rotationBeta:rotationBeta, rotationGamma:rotationGamma});
+        this.tickMotion = false;
+        this.motionEvent = null;
+
+    };
+    proto.onWindowScroll = function(){
+        if(!this.tick){
+            this.tick = true;
+            requestAnimationFrame(this._(&quot;dispatchScroll&quot;));
+        }
+    };
+    proto.onWindowResize = function(){
+        if(!this.tickResize){
+            this.tickResize = true;
+            requestAnimationFrame(this._(&quot;dispatchResize&quot;));
+        }
+    };
+    proto.onDeviceMotion = function(evt){
+        this.motionEvent = evt;
+        if(!this.tickMotion){
+            this.tickMotion = true;
+            requestAnimationFrame(this._(&quot;dispatchMotion&quot;));
+        }
+    };
+    proto.initialize = function(){
+        this.scrollTop = 0;
+        this.scrollLeft = 0;
+        window.addEventListener(&quot;scroll&quot;, this._(&quot;onWindowScroll&quot;));
+        window.addEventListener(&quot;resize&quot;, this._(&quot;onWindowResize&quot;));
+        if(core.browser.touch){
+            window.addEventListener(&quot;devicemotion&quot;, this._(&quot;onDeviceMotion&quot;));
+        }
+
+    };
+    var instance;
+    var o = {
+        init:function (opts) {
+            if (instance == null) {
+                instance = new CoreWindow(opts);
+            }
+            return instance;
+        }
+    };
+    o.instance = o.init;
+
+    core.registerNamespace(&quot;core.addons.CoreWindow&quot;, o);
+
+})();
+    </pre>
+</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/vendor/jquery/jquery.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

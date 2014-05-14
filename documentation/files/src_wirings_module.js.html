@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>src/wirings/module.js - core</title>
+  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../assets/vendor/prettify/prettify.css">
+  <link rel="stylesheet" href="../assets/css/yuidoc-bootstrap.css">
+  <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=1">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="../index.html">core</a>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse">
+    <p class="navbar-text navbar-right">v0.0.2</p>
+  </div>
+</nav>
+
+<div class="container" id="main">
+  <div class="row">
+    <div class="col-md-3">
+    <div id="sidebar">
+  <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+    <li><a href="#classes" data-toggle="tab">Classes</a></li>
+    <li class="active"><a href="#modules" data-toggle="tab">Modules</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane" id="classes">
+      <ul id="api-classes" class="nav nav-list">
+        
+          <li><a href="../classes/core.html">core</a></li>
+        
+          <li><a href="../classes/core.addons.CoreLocation.html">core.addons.CoreLocation</a></li>
+        
+          <li><a href="../classes/core.addons.CoreWindow.html">core.addons.CoreWindow</a></li>
+        
+          <li><a href="../classes/core.addons.uiscroll.CoreParallax.html">core.addons.uiscroll.CoreParallax</a></li>
+        
+          <li><a href="../classes/core.addons.uiscroll.CoreSnap.html">core.addons.uiscroll.CoreSnap</a></li>
+        
+          <li><a href="../classes/core.addons.webapp.LocalStorage.html">core.addons.webapp.LocalStorage</a></li>
+        
+          <li><a href="../classes/core.Core.html">core.Core</a></li>
+        
+          <li><a href="../classes/core.events.EventBroadcaster.html">core.events.EventBroadcaster</a></li>
+        
+          <li><a href="../classes/core.events.EventDispatcher.html">core.events.EventDispatcher</a></li>
+        
+          <li><a href="../classes/core.net.XHR.html">core.net.XHR</a></li>
+        
+          <li><a href="../classes/core.wirings.Document.html">core.wirings.Document</a></li>
+        
+          <li><a href="../classes/core.wirings.Module.html">core.wirings.Module</a></li>
+        
+          <li><a href="../classes/core.wirings.OfflineModule.html">core.wirings.OfflineModule</a></li>
+        
+          <li><a href="../classes/Function.html">Function</a></li>
+        
+      </ul>
+    </div>
+
+    <div class="tab-pane active" id="modules">
+      <ul id="api-modules" class="nav nav-list">
+        
+          <li><a href="../modules/addons.html">addons</a></li>
+        
+          <li><a href="../modules/core.html">core</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+    </div>
+    <div class="col-md-9">
+      <form id="options-form" class="form-inline pull-right">
+  Show:
+  <label for="api-show-inherited" class="checkbox">
+    <input type="checkbox" id="api-show-inherited" checked="checked">
+    Inherited
+  </label>
+
+  <label for="api-show-protected" class="checkbox">
+    <input type="checkbox" id="api-show-protected" checked="checked">
+    Protected
+  </label>
+
+  <label for="api-show-private" class="checkbox">
+    <input type="checkbox" id="api-show-private" checked="checked">
+    Private
+  </label>
+  <label for="api-show-deprecated" class="checkbox">
+    <input type="checkbox" id="api-show-deprecated" checked="checked">
+    Deprecated
+  </label>
+
+</form>
+
+
+      <div class="apidocs">
+        <div id="docs-main">
+          <div class="content">
+            <div class="page-header">
+    <h1>src/wirings/module.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * The base object of all core based classes. Every object created within the Core framework derives from this class.
+ *
+ * @class Module
+ * @namespace core.wirings
+ * @extends core.events.EventDispatcher
+ * @constructor
+ * @param {Object} opts An object containing configurations required by the Core derived class.
+ * @param {HTMLElement} opts.el The node element included in the class composition.
+ *
+ */
+(function (scope) {
+    var EventDispatcher = core.events.EventDispatcher,
+        __super__ = EventDispatcher.prototype;
+    function Module(opts) {
+        if (opts &amp;&amp; opts.__inheriting__) return;
+        if(opts &amp;&amp; opts.parent){
+            this.parent = opts.parent;
+        }
+        EventDispatcher.call(this, opts);
+    }
+    Module.inherits(EventDispatcher);
+    var proto = Module.prototype;
+    proto.delayedConstruct = function (opts) {
+        //create
+        findImmediateClasses.call(this, this.el);
+        this.initialized(opts);
+    };
+    proto.dispose = function (removeNode) {
+        //clear
+        __super__.dispose.call(this, removeNode);
+    };
+    function findImmediateClasses(node) {
+        var recurse = function(modules) {
+            var i = -1,
+                cls,
+                opts,
+                len = modules.length-1;
+            while(i++ &lt; len){
+                var mod = modules[i];
+                if(mod.nodeType == 1){
+                    var cmod = mod.getAttribute(&quot;core-module&quot;);
+                    var cid = mod.getAttribute(&quot;core-id&quot;);
+                    var params = mod.getAttribute(&quot;core-params&quot;);
+                    if(cmod &amp;&amp; cid &amp;&amp; !this[cid]){
+                        cls = Function.apply(scope, [&quot;return &quot;+cmod])();
+                        opts = params ? JSON.parse(params) : {};
+                        opts.el = mod;
+                        opts.parent = this;
+                        this[cid] = new cls(opts);
+                    }else if(cmod &amp;&amp; !cid){
+                        cls = Function.apply(scope, [&quot;return &quot;+cmod])();
+                        opts = params ? JSON.parse(params) : {};
+                        opts.parent = this;
+                        opts.el = mod;
+                        new cls(opts); //do not assign to any property
+                    }else if(cmod &amp;&amp; cid &amp;&amp; this[cid]){
+                        cls = Function.apply(scope, [&quot;return &quot;+cmod])();
+                        opts = params ? JSON.parse(params) : {};
+                        opts.el = mod;
+                        opts.parent = this;
+                        var o = new cls(opts);
+                        try{
+                            this[cid].push(o);
+                        }catch(err){
+                            this[cid] = [this[cid]];
+                            this[cid].push(o);
+                        }
+                    }else if(mod.hasChildNodes()){
+                        recurse.call(this, mod.childNodes);
+                    }
+                }
+            }
+        };
+        recurse.call(this, node.childNodes);
+    }
+    core.registerNamespace(&quot;core.wirings.Module&quot;, Module);
+})(typeof process !== &quot;undefined&quot; &amp;&amp; process.arch !== undefined ? GLOBAL : window);
+    </pre>
+</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/vendor/jquery/jquery.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

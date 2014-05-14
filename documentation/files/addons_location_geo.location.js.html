@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>addons/location/geo.location.js - core</title>
+  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../assets/vendor/prettify/prettify.css">
+  <link rel="stylesheet" href="../assets/css/yuidoc-bootstrap.css">
+  <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=1">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="../index.html">core</a>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse">
+    <p class="navbar-text navbar-right">v0.0.2</p>
+  </div>
+</nav>
+
+<div class="container" id="main">
+  <div class="row">
+    <div class="col-md-3">
+    <div id="sidebar">
+  <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+    <li><a href="#classes" data-toggle="tab">Classes</a></li>
+    <li class="active"><a href="#modules" data-toggle="tab">Modules</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane" id="classes">
+      <ul id="api-classes" class="nav nav-list">
+        
+          <li><a href="../classes/core.html">core</a></li>
+        
+          <li><a href="../classes/core.addons.CoreLocation.html">core.addons.CoreLocation</a></li>
+        
+          <li><a href="../classes/core.addons.CoreWindow.html">core.addons.CoreWindow</a></li>
+        
+          <li><a href="../classes/core.addons.uiscroll.CoreParallax.html">core.addons.uiscroll.CoreParallax</a></li>
+        
+          <li><a href="../classes/core.addons.uiscroll.CoreSnap.html">core.addons.uiscroll.CoreSnap</a></li>
+        
+          <li><a href="../classes/core.addons.webapp.LocalStorage.html">core.addons.webapp.LocalStorage</a></li>
+        
+          <li><a href="../classes/core.Core.html">core.Core</a></li>
+        
+          <li><a href="../classes/core.events.EventBroadcaster.html">core.events.EventBroadcaster</a></li>
+        
+          <li><a href="../classes/core.events.EventDispatcher.html">core.events.EventDispatcher</a></li>
+        
+          <li><a href="../classes/core.net.XHR.html">core.net.XHR</a></li>
+        
+          <li><a href="../classes/core.wirings.Document.html">core.wirings.Document</a></li>
+        
+          <li><a href="../classes/core.wirings.Module.html">core.wirings.Module</a></li>
+        
+          <li><a href="../classes/core.wirings.OfflineModule.html">core.wirings.OfflineModule</a></li>
+        
+          <li><a href="../classes/Function.html">Function</a></li>
+        
+      </ul>
+    </div>
+
+    <div class="tab-pane active" id="modules">
+      <ul id="api-modules" class="nav nav-list">
+        
+          <li><a href="../modules/addons.html">addons</a></li>
+        
+          <li><a href="../modules/core.html">core</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+    </div>
+    <div class="col-md-9">
+      <form id="options-form" class="form-inline pull-right">
+  Show:
+  <label for="api-show-inherited" class="checkbox">
+    <input type="checkbox" id="api-show-inherited" checked="checked">
+    Inherited
+  </label>
+
+  <label for="api-show-protected" class="checkbox">
+    <input type="checkbox" id="api-show-protected" checked="checked">
+    Protected
+  </label>
+
+  <label for="api-show-private" class="checkbox">
+    <input type="checkbox" id="api-show-private" checked="checked">
+    Private
+  </label>
+  <label for="api-show-deprecated" class="checkbox">
+    <input type="checkbox" id="api-show-deprecated" checked="checked">
+    Deprecated
+  </label>
+
+</form>
+
+
+      <div class="apidocs">
+        <div id="docs-main">
+          <div class="content">
+            <div class="page-header">
+    <h1>addons/location/geo.location.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * The base module for the Core JS framework.
+ * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
+ *
+ * @module addons
+ */
+(function () {
+    var EventDispatcher = core.events.EventDispatcher,
+        __super__ = EventDispatcher.prototype;
+    /**
+     * The main class that implements HTML5 Geolocation functions.
+     *
+     * @class CoreLocation
+     * @extends core.events.EventDispatcher
+     * @namespace core.addons
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
+    function CoreLocation(opts) {
+        if (opts &amp;&amp; opts.__inheriting__) return;
+        EventDispatcher.call(this, opts);
+    }
+    CoreLocation.inherits(EventDispatcher);
+    var proto = CoreLocation.prototype;
+    proto.construct = function (opts) {
+        //create
+        __super__.construct.call(this, opts);
+        this.initialize();
+    };
+    proto.dispose = function () {
+        //clear
+        __super__.dispose.call(this);
+    };
+    proto.initialize = function(){
+        if(typeof navigator.geolocation == &quot;undefined&quot;){
+            return console.warn(&quot;Geolocation not available.&quot;)
+        }
+        navigator.geolocation.getCurrentPosition(this._(&quot;onLocationRetrieved&quot;), this._(&quot;onErrorLocation&quot;));
+    };
+    proto.onLocationRetrieved = function(position){
+        this.current = position.coords;
+        this.trigger(&quot;ready&quot;, {target:this, coords:position.coords});
+    };
+    proto.onErrorLocation = function(msg){
+        this.trigger(&quot;error&quot;, {target:this, message:msg});
+    };
+    var calculateDistance = function(point1, point2){
+        //haversine
+        var lat2 = point2.latitude;
+        var lon2 = point2.longitude;
+        var lat1 = point1.latitude;
+        var lon1 = point1.longitude;
+        var R = 6371; // km
+        var x1 = lat2-lat1;
+        var dLat = x1 * Math.PI / 180;
+        var x2 = lon2-lon1;
+        var dLon = x2 * Math.PI / 180;
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
+    };
+    /**
+     * Retrieves the distance from the last detected position. Returns distance result in km.
+     *
+     * @method getDistanceFromCurrentLocation
+     * @param {Object} point An object containing latitude and longitude properties.
+     * @param {Number} point.latitude The latitude of the value to calculate distance width.
+     * @param {Number} point.longitude The longitude of the value to calculate distance width.
+     *
+     */
+    proto.getDistanceFromCurrentLocation = function(point){
+        return calculateDistance(this.current, point);
+    };
+    /**
+     * Calculates the distance between 2 coordinates.
+     *
+     * @method getDistanceFromLocations
+     * @param {Object} point1 An object containing latitude and longitude properties.
+     * @param {Number} point1.latitude The latitude of the value to calculate distance width.
+     * @param {Number} point1.longitude The longitude of the value to calculate distance width.
+     * @param {Object} point2 An object containing latitude and longitude properties.
+     * @param {Number} point2.latitude The latitude of the value to calculate distance width.
+     * @param {Number} point2.longitude The longitude of the value to calculate distance width.
+     *
+     */
+    proto.getDistanceFromLocations = function(point1, point2){
+        return calculateDistance(point1, point2);
+    };
+    /**
+     * Refreshes current location and last known location. Runs geolocation check again.
+     *
+     * @method update
+     *
+     */
+    proto.update = function(){
+        navigator.geolocation.getCurrentPosition(this._(&quot;onLocationRetrieved&quot;), this._(&quot;onErrorLocation&quot;));
+    };
+    var instance;
+    var o = {
+        init:function (opts) {
+            if (instance == null) {
+                instance = new CoreLocation(opts);
+            }
+            return instance;
+        }
+    };
+    o.instance = o.init;
+
+    core.registerNamespace(&quot;core.addons.location.CoreLocation&quot;, o);
+
+})();
+    </pre>
+</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/vendor/jquery/jquery.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

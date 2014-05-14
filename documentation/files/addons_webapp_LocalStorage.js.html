@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>addons/webapp/LocalStorage.js - core</title>
+  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../assets/vendor/prettify/prettify.css">
+  <link rel="stylesheet" href="../assets/css/yuidoc-bootstrap.css">
+  <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=1">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="../index.html">core</a>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse">
+    <p class="navbar-text navbar-right">v0.0.2</p>
+  </div>
+</nav>
+
+<div class="container" id="main">
+  <div class="row">
+    <div class="col-md-3">
+    <div id="sidebar">
+  <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+    <li><a href="#classes" data-toggle="tab">Classes</a></li>
+    <li class="active"><a href="#modules" data-toggle="tab">Modules</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane" id="classes">
+      <ul id="api-classes" class="nav nav-list">
+        
+          <li><a href="../classes/core.html">core</a></li>
+        
+          <li><a href="../classes/core.addons.CoreLocation.html">core.addons.CoreLocation</a></li>
+        
+          <li><a href="../classes/core.addons.CoreWindow.html">core.addons.CoreWindow</a></li>
+        
+          <li><a href="../classes/core.addons.uiscroll.CoreParallax.html">core.addons.uiscroll.CoreParallax</a></li>
+        
+          <li><a href="../classes/core.addons.uiscroll.CoreSnap.html">core.addons.uiscroll.CoreSnap</a></li>
+        
+          <li><a href="../classes/core.addons.webapp.LocalStorage.html">core.addons.webapp.LocalStorage</a></li>
+        
+          <li><a href="../classes/core.Core.html">core.Core</a></li>
+        
+          <li><a href="../classes/core.events.EventBroadcaster.html">core.events.EventBroadcaster</a></li>
+        
+          <li><a href="../classes/core.events.EventDispatcher.html">core.events.EventDispatcher</a></li>
+        
+          <li><a href="../classes/core.net.XHR.html">core.net.XHR</a></li>
+        
+          <li><a href="../classes/core.wirings.Document.html">core.wirings.Document</a></li>
+        
+          <li><a href="../classes/core.wirings.Module.html">core.wirings.Module</a></li>
+        
+          <li><a href="../classes/core.wirings.OfflineModule.html">core.wirings.OfflineModule</a></li>
+        
+          <li><a href="../classes/Function.html">Function</a></li>
+        
+      </ul>
+    </div>
+
+    <div class="tab-pane active" id="modules">
+      <ul id="api-modules" class="nav nav-list">
+        
+          <li><a href="../modules/addons.html">addons</a></li>
+        
+          <li><a href="../modules/core.html">core</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+    </div>
+    <div class="col-md-9">
+      <form id="options-form" class="form-inline pull-right">
+  Show:
+  <label for="api-show-inherited" class="checkbox">
+    <input type="checkbox" id="api-show-inherited" checked="checked">
+    Inherited
+  </label>
+
+  <label for="api-show-protected" class="checkbox">
+    <input type="checkbox" id="api-show-protected" checked="checked">
+    Protected
+  </label>
+
+  <label for="api-show-private" class="checkbox">
+    <input type="checkbox" id="api-show-private" checked="checked">
+    Private
+  </label>
+  <label for="api-show-deprecated" class="checkbox">
+    <input type="checkbox" id="api-show-deprecated" checked="checked">
+    Deprecated
+  </label>
+
+</form>
+
+
+      <div class="apidocs">
+        <div id="docs-main">
+          <div class="content">
+            <div class="page-header">
+    <h1>addons/webapp/LocalStorage.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+(function () {
+    var Core = core.Core,
+        __super__ = Core.prototype;
+    /**
+     * ** Singleton. ** &lt;br&gt;The main class that implements local storage functionalities on a web application.
+     * This class wraps multiple storage mechanisms for storing information on the client side.
+     * &lt;br&gt;&lt;br&gt;** This class supports the following: **&lt;br&gt;
+     * - SessionStorage
+     * - LocalStorage
+     * - WebSQL
+     * @class LocalStorage
+     * @module addons
+     * @extends core.Core
+     * @namespace core.addons.webapp
+     * @constructor
+     * @param {Object} opts An object containing configurations required by the Core derived class.
+     * @param {HTMLElement} opts.el The node element included in the class composition.
+     *
+     */
+    function LocalStorage(opts) {
+        if (opts &amp;&amp; opts.__inheriting__) return;
+        __super__.constructor.call(this, opts);
+
+    }
+    LocalStorage.inherits(Core);
+    var proto = LocalStorage.prototype;
+    proto.dispose = function () {
+        //clear
+        __super__.dispose.call(this);
+    };
+    proto.construct = function(opts){
+        __super__.construct.call(this, opts);
+        this.hasLocalStorage = &quot;localStorage&quot; in window;
+        this.hasSessionStorage = &quot;sessionStorage&quot; in window;
+        this.hasSQL = &quot;openDatabase&quot; in window;
+    };
+    /**
+     * Method for storing key/value pair using local storage.
+     *
+     * @method storeLocal
+     * @param {String} key The key to use when storing values
+     * @param {Object} value The value to store paired with the key parameter
+     */
+    proto.storeLocal = function(key, value){
+        if(this.hasLocalStorage){
+            localStorage[key] = value;
+        }
+
+    };
+    /**
+     * Method for retrieving values in local storage.
+     *
+     * @method retrieveLocal
+     * @param {String} key The key pair to use when retrieving values
+     *
+     */
+    proto.retrieveLocal = function(key){
+        if(this.hasLocalStorage){
+            return localStorage[key];
+        }
+        return null;
+    };
+    /**
+     * Method for storing key/value pair using session storage.
+     *
+     * @method storeSession
+     * @param {String} key The key to use when storing values
+     * @param {Object} value The value to store paired with the key parameter
+     */
+    proto.storeSession = function(key, value){
+        if(this.hasSessionStorage){
+            sessionStorage[key] = value;
+        }
+    };
+    /**
+     * Method for retrieving values in session storage.
+     *
+     * @method retrieveSession
+     * @param {String} key The key pair to use when retrieving values
+     *
+     */
+    proto.retrieveSession = function(key){
+        if(this.hasSessionStorage){
+            return sessionStorage[key];
+        }
+    };
+    /**
+     * Method for creating tables on WebSQL
+     *
+     * @method createTable
+     * @param {String} tablename The table name to use upon creation
+     * @param {String} structure The columns to use when creating table
+     */
+    proto.createTable = function(tablename, struct){
+        if(this.hasSQL){
+            if(typeof this.sqlDB !== &#x27;undefined&#x27;){
+                this.sqlDB.transaction((function(sql){
+                    sql.executeSql(&quot;CREATE TABLE IF NOT EXISTS &quot; + tablename + &quot;(&quot;+struct+&quot;)&quot;);
+                }).bind(this));
+            }
+        }
+    };
+    /**
+     * Method for inserting data on WebSQL
+     *
+     * @method insertSql
+     * @param {String} query The string INSERT query to use upon insertion
+     *
+     */
+    proto.updateSql = proto.insertSql = function(query){
+        this.sqlDB.transaction((function(sql){
+            sql.executeSql(query);
+        }));
+    };
+    /**
+     * Method for retrieving data on WebSQL
+     *
+     * @method retrieveSql
+     * @param {String} query The string SELECT query to use upon retrieval
+     *
+     */
+    proto.retrieveSql = function(query, callback){
+        this.sqlDB.transaction((function(sql){
+            sql.executeSql(query, [], callback);
+        }))
+    };
+    /**
+     * Method for configuring WebSQL, this includes database creation and all other meta information required on creation
+     *
+     * @method configureSQL
+     * @param {String} dbname The name of the database to create
+     * @param {String} version The version of the database to create
+     * @param {String} desc The description of the database to create
+     * @param {Number} size The size of the database to create, uses bytes. (ie. 1024*1024 * [intended mb size])
+     *
+     */
+    proto.configureSQL = function(dbname, version, desc, size){
+        if(this.hasSQL){
+            this.sqlDB = openDatabase(dbname, version, desc, size);
+        }
+    };
+    var instance = null;
+    var o = {
+        init:function () {
+            if (instance == null) {
+                instance = new LocalStorage();
+            }
+            return instance;
+        }
+    };
+    o.instance = o.init;
+
+    core.registerNamespace(&quot;core.addons.webapp.LocalStorage&quot;, o);
+
+})();
+    </pre>
+</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/vendor/jquery/jquery.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>
