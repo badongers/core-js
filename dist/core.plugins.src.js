@@ -113,10 +113,10 @@
     var EventDispatcher = core.events.EventDispatcher,
         __super__ = EventDispatcher.prototype;
     /**
-     * The main class that implements Geolocation services.
+     * The main class that implements HTML5 Geolocation functions.
      *
      * @class CoreLocation
-     * @extends core.Core
+     * @extends core.events.EventDispatcher
      * @namespace core.addons
      * @constructor
      * @param {Object} opts An object containing configurations required by the Core derived class.
@@ -167,13 +167,40 @@
                 Math.sin(dLon/2) * Math.sin(dLon/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         return R * c;
-    }
+    };
+    /**
+     * Retrieves the distance from the last detected position. Returns distance result in km.
+     *
+     * @method getDistanceFromCurrentLocation
+     * @param {Object} point An object containing latitude and longitude properties.
+     * @param {Number} point.latitude The latitude of the value to calculate distance width.
+     * @param {Number} point.longitude The longitude of the value to calculate distance width.
+     *
+     */
     proto.getDistanceFromCurrentLocation = function(point){
         return calculateDistance(this.current, point);
     };
+    /**
+     * Calculates the distance between 2 coordinates.
+     *
+     * @method getDistanceFromLocations
+     * @param {Object} point1 An object containing latitude and longitude properties.
+     * @param {Number} point1.latitude The latitude of the value to calculate distance width.
+     * @param {Number} point1.longitude The longitude of the value to calculate distance width.
+     * @param {Object} point2 An object containing latitude and longitude properties.
+     * @param {Number} point2.latitude The latitude of the value to calculate distance width.
+     * @param {Number} point2.longitude The longitude of the value to calculate distance width.
+     *
+     */
     proto.getDistanceFromLocations = function(point1, point2){
         return calculateDistance(point1, point2);
     };
+    /**
+     * Refreshes current location and last known location. Runs geolocation check again.
+     *
+     * @method update
+     *
+     */
     proto.update = function(){
         navigator.geolocation.getCurrentPosition(this._("onLocationRetrieved"), this._("onErrorLocation"));
     };
