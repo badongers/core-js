@@ -44,11 +44,11 @@
         var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         var t = "mobile";
-        if(evt.width >= 992 && evt.width < 1200){
+        if(w >= 992 && w < 1200){
             t = "medium";
-        }else if(evt.width < 992 && evt.width >= 768){
+        }else if(w < 992 && w >= 768){
             t = "small";
-        }else if(evt.width >= 1200){
+        }else if(w >= 1200){
             t = "large";
         }
         this.trigger("window.resize", {width:w, height:h, type:t});
