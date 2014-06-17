@@ -1,4 +1,4 @@
-/*! core 2014-05-14 */
+/*! core 2014-06-18 */
 /**
  * The base module for the Core JS framework.
  * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
@@ -44,7 +44,15 @@
 
         var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        this.trigger("window.resize", {width:h, height:h});
+        var t = "mobile";
+        if(evt.width >= 992 && evt.width < 1200){
+            t = "medium";
+        }else if(evt.width < 992 && evt.width >= 768){
+            t = "small";
+        }else if(evt.width >= 1200){
+            t = "large";
+        }
+        this.trigger("window.resize", {width:w, height:h, type:t});
         this.tickResize = false;
     };
     proto.dispatchMotion = function(){
@@ -157,7 +165,7 @@
         var lon2 = point2.longitude;
         var lat1 = point1.latitude;
         var lon1 = point1.longitude;
-        var R = 6371; // km
+        var R = 6372.795477598; // km
         var x1 = lat2-lat1;
         var dLat = x1 * Math.PI / 180;
         var x2 = lon2-lon1;
@@ -173,8 +181,8 @@
      *
      * @method getDistanceFromCurrentLocation
      * @param {Object} point An object containing latitude and longitude properties.
-     * @param {Number} point.latitude The latitude of the value to calculate distance width.
-     * @param {Number} point.longitude The longitude of the value to calculate distance width.
+     * @param {Number} point.latitude The latitude of the value to calculate distance.
+     * @param {Number} point.longitude The longitude of the value to calculate distance.
      *
      */
     proto.getDistanceFromCurrentLocation = function(point){
@@ -185,11 +193,11 @@
      *
      * @method getDistanceFromLocations
      * @param {Object} point1 An object containing latitude and longitude properties.
-     * @param {Number} point1.latitude The latitude of the value to calculate distance width.
-     * @param {Number} point1.longitude The longitude of the value to calculate distance width.
+     * @param {Number} point1.latitude The latitude of the value to calculate distance.
+     * @param {Number} point1.longitude The longitude of the value to calculate distance.
      * @param {Object} point2 An object containing latitude and longitude properties.
-     * @param {Number} point2.latitude The latitude of the value to calculate distance width.
-     * @param {Number} point2.longitude The longitude of the value to calculate distance width.
+     * @param {Number} point2.latitude The latitude of the value to calculate distance.
+     * @param {Number} point2.longitude The longitude of the value to calculate distance.
      *
      */
     proto.getDistanceFromLocations = function(point1, point2){

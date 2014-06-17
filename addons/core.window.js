@@ -43,7 +43,15 @@
 
         var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        this.trigger("window.resize", {width:h, height:h});
+        var t = "mobile";
+        if(evt.width >= 992 && evt.width < 1200){
+            t = "medium";
+        }else if(evt.width < 992 && evt.width >= 768){
+            t = "small";
+        }else if(evt.width >= 1200){
+            t = "large";
+        }
+        this.trigger("window.resize", {width:w, height:h, type:t});
         this.tickResize = false;
     };
     proto.dispatchMotion = function(){
