@@ -177,7 +177,11 @@
 
         }
         o = targ.getBoundingClientRect();
-        if(!o.right){
+        if(typeof o.width == "undefined"){
+            o.width = o.right - o.left;
+            o.height = o.bottom + o.top;
+        }else
+        if(typeof o.right == "undefined"){
             o.right = o.left+ o.width;
             o.bottom = o.top + o.height;
         }

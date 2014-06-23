@@ -78,5 +78,8 @@
             findRootClass.call(this);
         }
     };
-    var doc = new Document();
+    setTimeout(function(){
+        var doc = new Document();
+    }, 1);
+
 })(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);

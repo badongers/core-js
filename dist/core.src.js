@@ -1,4 +1,4 @@
-/*! core 2014-06-18 */
+/*! core 2014-06-24 */
 /**
  * The base module for the Core JS framework.
  * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
@@ -178,7 +178,11 @@
 
         }
         o = targ.getBoundingClientRect();
-        if(!o.right){
+        if(typeof o.width == "undefined"){
+            o.width = o.right - o.left;
+            o.height = o.bottom + o.top;
+        }else
+        if(typeof o.right == "undefined"){
             o.right = o.left+ o.width;
             o.bottom = o.top + o.height;
         }
@@ -948,7 +952,10 @@ if(typeof module !== 'undefined' && module.exports){
             findRootClass.call(this);
         }
     };
-    var doc = new Document();
+    setTimeout(function(){
+        var doc = new Document();
+    }, 1);
+
 })(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
 /**
  * The base object of all core based classes. Every object created within the Core framework derives from this class.

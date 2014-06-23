@@ -165,7 +165,7 @@
             },
             "tag": "module",
             "file": "src/core.js",
-            "line": 294,
+            "line": 298,
             "description": "The base module for the Core JS framework.\nIt provides helper methods for implementing OOP methodologies and basic utilities such as browser detection."
         },
         "addons": {
@@ -376,7 +376,7 @@
             "module": "core",
             "namespace": "core",
             "file": "src/core.js",
-            "line": 294,
+            "line": 298,
             "description": "The base object of all core based classes. Every object created within the Core framework derives from this class.",
             "is_constructor": 1,
             "params": [
@@ -939,7 +939,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 186,
+            "line": 190,
             "description": "Utility method for exposing objects in a namespaced fashion.",
             "itemtype": "method",
             "name": "registerNamespace",
@@ -948,7 +948,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 212,
+            "line": 216,
             "description": "Utility method for referencing objects within the core framework. This also adds existence checking for the objects being referenced on import.",
             "itemtype": "method",
             "name": "import",
@@ -967,7 +967,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 231,
+            "line": 235,
             "description": "Utility method for performing dependency checks on core classes.",
             "itemtype": "method",
             "name": "dependency",
@@ -991,13 +991,13 @@
         },
         {
             "file": "src/core.js",
-            "line": 243,
+            "line": 247,
             "class": "core",
             "module": "core"
         },
         {
             "file": "src/core.js",
-            "line": 310,
+            "line": 314,
             "description": "The selected HTML element node reference.",
             "itemtype": "property",
             "name": "el",
@@ -1008,7 +1008,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 320,
+            "line": 324,
             "description": "Property for storing proxied function/methods",
             "itemtype": "property",
             "name": "proxyHandlers",
@@ -1019,7 +1019,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 337,
+            "line": 341,
             "description": "Returns a scope bound function and stores it on the proxyHandlers property.",
             "itemtype": "method",
             "name": "getProxyHandler",
@@ -1040,7 +1040,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 357,
+            "line": 361,
             "description": "Core method for clearing proxied function methods.",
             "itemtype": "method",
             "name": "clearProxyHandler",
@@ -1057,7 +1057,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 372,
+            "line": 376,
             "description": "Core method initialization. This is called automatically on core sub classes.",
             "itemtype": "method",
             "name": "construct",
@@ -1074,7 +1074,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 380,
+            "line": 384,
             "description": "Core method initialization. This is called automatically on core sub classes. Adds delay when being called automatically, this allows\ntime to setup all the other classes and manage the sequence of instantiations.",
             "itemtype": "method",
             "name": "delayedConstruct",
@@ -1091,7 +1091,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 389,
+            "line": 393,
             "description": "Core method for destroying/cleaning up objects.",
             "itemtype": "method",
             "name": "dispose",
@@ -1108,7 +1108,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 407,
+            "line": 411,
             "description": "Core method for searching sub node elements.",
             "itemtype": "method",
             "name": "find",
@@ -1129,7 +1129,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 417,
+            "line": 421,
             "description": "Core method for searching sub node elements within the document context.",
             "itemtype": "method",
             "name": "findAll",
@@ -1162,12 +1162,12 @@
                     "props": [
                         {
                             "name": "latitude",
-                            "description": "The latitude of the value to calculate distance width.",
+                            "description": "The latitude of the value to calculate distance.",
                             "type": "Number"
                         },
                         {
                             "name": "longitude",
-                            "description": "The longitude of the value to calculate distance width.",
+                            "description": "The longitude of the value to calculate distance.",
                             "type": "Number"
                         }
                     ]
@@ -1191,12 +1191,12 @@
                     "props": [
                         {
                             "name": "latitude",
-                            "description": "The latitude of the value to calculate distance width.",
+                            "description": "The latitude of the value to calculate distance.",
                             "type": "Number"
                         },
                         {
                             "name": "longitude",
-                            "description": "The longitude of the value to calculate distance width.",
+                            "description": "The longitude of the value to calculate distance.",
                             "type": "Number"
                         }
                     ]
@@ -1208,12 +1208,12 @@
                     "props": [
                         {
                             "name": "latitude",
-                            "description": "The latitude of the value to calculate distance width.",
+                            "description": "The latitude of the value to calculate distance.",
                             "type": "Number"
                         },
                         {
                             "name": "longitude",
-                            "description": "The longitude of the value to calculate distance width.",
+                            "description": "The longitude of the value to calculate distance.",
                             "type": "Number"
                         }
                     ]
@@ -1462,23 +1462,23 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/core.js:212"
+            "line": " src/core.js:216"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/core.js:231"
+            "line": " src/core.js:235"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/core.js:407"
+            "line": " src/core.js:411"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/core.js:417"
+            "line": " src/core.js:421"
         },
         {
             "message": "Missing item type",
-            "line": " src/core.js:243"
+            "line": " src/core.js:247"
         }
     ]
 }

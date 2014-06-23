@@ -170,7 +170,7 @@
         var lon2 = point2.longitude;
         var lat1 = point1.latitude;
         var lon1 = point1.longitude;
-        var R = 6371; // km
+        var R = 6372.795477598; // km
         var x1 = lat2-lat1;
         var dLat = x1 * Math.PI / 180;
         var x2 = lon2-lon1;
@@ -186,8 +186,8 @@
      *
      * @method getDistanceFromCurrentLocation
      * @param {Object} point An object containing latitude and longitude properties.
-     * @param {Number} point.latitude The latitude of the value to calculate distance width.
-     * @param {Number} point.longitude The longitude of the value to calculate distance width.
+     * @param {Number} point.latitude The latitude of the value to calculate distance.
+     * @param {Number} point.longitude The longitude of the value to calculate distance.
      *
      */
     proto.getDistanceFromCurrentLocation = function(point){
@@ -198,11 +198,11 @@
      *
      * @method getDistanceFromLocations
      * @param {Object} point1 An object containing latitude and longitude properties.
-     * @param {Number} point1.latitude The latitude of the value to calculate distance width.
-     * @param {Number} point1.longitude The longitude of the value to calculate distance width.
+     * @param {Number} point1.latitude The latitude of the value to calculate distance.
+     * @param {Number} point1.longitude The longitude of the value to calculate distance.
      * @param {Object} point2 An object containing latitude and longitude properties.
-     * @param {Number} point2.latitude The latitude of the value to calculate distance width.
-     * @param {Number} point2.longitude The longitude of the value to calculate distance width.
+     * @param {Number} point2.latitude The latitude of the value to calculate distance.
+     * @param {Number} point2.longitude The longitude of the value to calculate distance.
      *
      */
     proto.getDistanceFromLocations = function(point1, point2){

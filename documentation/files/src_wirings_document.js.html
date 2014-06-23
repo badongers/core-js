@@ -196,7 +196,10 @@
             findRootClass.call(this);
         }
     };
-    var doc = new Document();
+    setTimeout(function(){
+        var doc = new Document();
+    }, 1);
+
 })(typeof process !== &quot;undefined&quot; &amp;&amp; process.arch !== undefined ? GLOBAL : window);
     </pre>
 </div>

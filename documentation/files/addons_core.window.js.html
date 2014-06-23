@@ -161,7 +161,15 @@
 
         var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        this.trigger(&quot;window.resize&quot;, {width:h, height:h});
+        var t = &quot;mobile&quot;;
+        if(w &gt;= 992 &amp;&amp; w &lt; 1200){
+            t = &quot;medium&quot;;
+        }else if(w &lt; 992 &amp;&amp; w &gt;= 768){
+            t = &quot;small&quot;;
+        }else if(w &gt;= 1200){
+            t = &quot;large&quot;;
+        }
+        this.trigger(&quot;window.resize&quot;, {width:w, height:h, type:t});
         this.tickResize = false;
     };
     proto.dispatchMotion = function(){
