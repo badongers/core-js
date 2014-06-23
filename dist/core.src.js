@@ -179,10 +179,23 @@
         }
         o = targ.getBoundingClientRect();
         if(typeof o.width == "undefined"){
+            var x = o;
+            o = {
+                top: x.top,
+                left: x.left,
+                right: x.right,
+                bottom: x.bottom
+            }
             o.width = o.right - o.left;
             o.height = o.bottom + o.top;
         }else
         if(typeof o.right == "undefined"){
+            o = {
+                top: x.top,
+                left: x.left,
+                width: x.width,
+                height: x.height
+            }
             o.right = o.left+ o.width;
             o.bottom = o.top + o.height;
         }
