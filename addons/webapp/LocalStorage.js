@@ -43,7 +43,7 @@
      */
     proto.storeLocal = function(key, value){
         if(this.hasLocalStorage){
-            localStorage[key] = value;
+            localStorage[key] = JSON.stringify(value);
         }
 
     };
@@ -55,8 +55,8 @@
      *
      */
     proto.retrieveLocal = function(key){
-        if(this.hasLocalStorage){
-            return localStorage[key];
+        if (this.hasLocalStorage && localStorage[key]) {
+            return JSON.parse(localStorage[key]);
         }
         return null;
     };

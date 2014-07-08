@@ -1,4 +1,4 @@
-/*! core 2014-06-24 */
+/*! core 2014-07-08 */
 /**
  * The base module for the Core JS framework.
  * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
@@ -549,7 +549,7 @@
      */
     proto.storeLocal = function(key, value){
         if(this.hasLocalStorage){
-            localStorage[key] = value;
+            localStorage[key] = JSON.stringify(value);
         }
 
     };
@@ -561,8 +561,8 @@
      *
      */
     proto.retrieveLocal = function(key){
-        if(this.hasLocalStorage){
-            return localStorage[key];
+        if (this.hasLocalStorage && localStorage[key]) {
+            return JSON.parse(localStorage[key]);
         }
         return null;
     };
