@@ -1,4 +1,4 @@
-/*! core 2014-07-08 */
+/*! core 2014-07-15 */
 /**
  * The base module for the Core JS framework.
  * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
@@ -688,7 +688,8 @@
         clearInterval(this.cacheStatusTimer);
     };
     proto.construct = function(opts){
-        __super__.construct.call(this, opts);
+        this.cacheUpdateInterval = 3000; 
+		__super__.construct.call(this, opts);
         prepare.call(this);
     };
     proto.initialized = function(opts){
@@ -791,7 +792,7 @@
 
                 }
 
-            }, 3000);
+            }, this.cacheUpdateInterval);
         }
         this.localStorage = core.addons.webapp.LocalStorage.init();
 
