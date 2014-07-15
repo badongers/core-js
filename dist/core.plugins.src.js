@@ -688,7 +688,10 @@
         clearInterval(this.cacheStatusTimer);
     };
     proto.construct = function(opts){
-        this.cacheUpdateInterval = 3000; 
+        //if cacheUpdateInterval is not overridden from outside, then assign a default value which is 3000
+        if (!this.cacheUpdateInterval)
+            this.cacheUpdateInterval = 3000;
+			
 		__super__.construct.call(this, opts);
         prepare.call(this);
     };
