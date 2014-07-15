@@ -1,11 +1,13 @@
 (function ($) {
     core.registerModule({
         inherits:"core.Module",
-        classname:"TestModule",
+        classname:"LoadedModule",
         module:function(){
             this.initialized = function(opts){
-                this.loadViewModule("./loaded.html");
+
+
             };
+
 
         }
     });

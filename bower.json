@@ -1,12 +1,15 @@
 {
-    "name": "Core JS",
-    "version": "0.0.2",
-    "description": "Core Javascript",
-    "keywords": [
-        "core-js",
-        "framework",
-        "javascript"
-    ],
-    "main": "dist/core.min.js",
-    "license": "MIT"
+  "name": "Core JS",
+  "version": "0.1.0",
+  "description": "Core Javascript",
+  "keywords": [
+    "core-js",
+    "framework",
+    "javascript"
+  ],
+  "main": "dist/core.min.js",
+  "license": "MIT",
+  "dependencies": {
+    "rivets": "~0.8.1"
+  }
 }

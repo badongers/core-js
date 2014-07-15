@@ -2,11 +2,14 @@
 // ----------------
 // Additional methods to the String prototype.
 (function(){
-
-    if(typeof String.prototype.trim !== 'function') {
-        String.prototype.trim = function() {
-            return this.replace(/^\s+|\s+$/g, '');
+    core.registerModule({
+        mixin:"String",
+        module:function(){
+            if(typeof String.prototype.trim !== 'function') {
+                this.trim = function () {
+                    return this.replace(/^\s+|\s+$/g, '');
+                }
+            }
         }
-    }
-
+    });
 })();

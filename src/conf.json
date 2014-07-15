@@ -3,8 +3,8 @@
         "allowUnknownTags": true
     },
     "source": {
-        "include":["./src/core.js", "./src/events/", "./src/utils/", "./src/wirings/"],
-
+        "include":["./src/core.js", "./src/lib/", "./src/utils/"],
+        "exclude":["./dependencies/", "./addons/"],
         "includePattern": ".+\\.js(doc)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },

@@ -10,19 +10,26 @@ module.exports = function(grunt) {
             my_target:{
                 files:{
                     'dist/<%= pkg.name %>.min.js':[
+                        'src/dependencies/sightglass.js',
+                        'src/dependencies/rivets.patched.js',
                         'src/core.js',
-                        'src/events/eventdispatcher.js',
-                        'src/events/eventbroadcaster.js',
-                        'src/net/xhr.js',
-                        'src/wirings/document.js',
-                        'src/wirings/module.js',
-                        'src/utils/raf.js',
-                        'src/utils/math.js',
-                        'src/utils/string.js'
+                        'src/lib/eventdispatcher.js',
+                        'src/lib/eventbroadcaster.js',
+                        'src/lib/xhr.js',
+                        'src/lib/module.js',
+                        'src/lib/windowevents.js',
+                        'src/lib/document.js',
+                        'src/addons/*.js'
                     ],
-                    'dist/<%= pkg.name %>.plugins.min.js':[
-                        'addons/core.window.js',
-                        'addons/{*,*/}/*.js'
+                    'dist/<%= pkg.name %>.nobinding.min.js':[
+                        'src/core.js',
+                        'src/lib/eventdispatcher.js',
+                        'src/lib/eventbroadcaster.js',
+                        'src/lib/xhr.js',
+                        'src/lib/module.js',
+                        'src/lib/windowevents.js',
+                        'src/lib/document.js',
+                        'src/addons/*.js'
                     ]
                 }
             }
@@ -34,20 +41,28 @@ module.exports = function(grunt) {
             my_target:{
                 files:{
                     'dist/<%= pkg.name %>.src.js':[
+                        'src/dependencies/sightglass.js',
+                        'src/dependencies/rivets.patched.js',
                         'src/core.js',
-                        'src/events/eventdispatcher.js',
-                        'src/events/eventbroadcaster.js',
-                        'src/net/xhr.js',
-                        'src/wirings/document.js',
-                        'src/wirings/module.js',
-                        'src/utils/raf.js',
-                        'src/utils/math.js',
-                        'src/utils/string.js'
+                        'src/lib/eventdispatcher.js',
+                        'src/lib/eventbroadcaster.js',
+                        'src/lib/xhr.js',
+                        'src/lib/module.js',
+                        'src/lib/windowevents.js',
+                        'src/lib/document.js',
+                        'src/addons/*.js'
                     ],
-                    'dist/<%= pkg.name %>.plugins.src.js':[
-                        'addons/core.window.js',
-                        'addons/{*,*/}/*.js'
+                    'dist/<%= pkg.name %>.src.nobinding.js':[
+                        'src/core.js',
+                        'src/lib/eventdispatcher.js',
+                        'src/lib/eventbroadcaster.js',
+                        'src/lib/xhr.js',
+                        'src/lib/module.js',
+                        'src/lib/windowevents.js',
+                        'src/lib/document.js',
+                        'src/addons/*.js'
                     ]
+
                 }
             }
         },

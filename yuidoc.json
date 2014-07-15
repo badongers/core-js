@@ -5,7 +5,7 @@
     "url": "http://lavender.ad",
     "options": {
         "outdir": "./documentation",
-        "paths":["./src", "./addons"],
+        "paths":["./src"],
         "themedir":"./yuidoc-bootstrap"
     }
 }

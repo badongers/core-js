@@ -3,21 +3,13 @@
  *
  * @class Document
  * @namespace core.wirings
- * @extends core.events.EventDispatcher
+ * @extends
  * @constructor
  * @param {Object} opts An object containing configurations required by the Core derived class.
  * @param {HTMLElement} opts.el The node element included in the class composition.
  *
  */
-(function (scope) {
-    var Core = core._import("core.Core"),
-        __super__ = Core.prototype;
-
-    function Document(opts) {
-        if (opts && opts.__inheriting__) return;
-        Core.call(this, opts);
-    }
-    Document.inherits(Core);
+(function () {
     function _isready(win, fn) {
         var done = false, top = true,
 
@@ -49,37 +41,40 @@
             win[add](pre + 'load', init, false);
         }
     }
-    var proto = Document.prototype;
-    proto.construct = function (opts) {
-        //create
-        __super__.construct.call(this, opts);
-        if(typeof document !== 'undefined'){
-            _isready(window, this.getProxyHandler("onDocumentReady"));
-        }
-    };
-    proto.dispose = function (removeNode) {
-        //clear
-        __super__.dispose.call(this, removeNode);
-    };
-    var findRootClass = function(){
-        var root = document.body;
-        if(root.hasAttribute("core-app") || root.hasAttribute("data-root")){
-            var scope = typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window;
-            var cls = Function.apply(scope, ["return "+(root.hasAttribute("core-app") ? root.getAttribute("core-app") : root.getAttribute("data-root"))])();
-            var opts = root.getAttribute("data-params") ? JSON.parse(root.getAttribute("data-params")) : {};
-            opts.el = root;
-            window.__coreapp__ = new cls(opts);
-        }else{
-            doc = null;
-        }
-    };
-    proto.onDocumentReady = function(automate){
-        if(automate){
-            findRootClass.call(this);
-        }
-    };
-    setTimeout(function(){
-        var doc = new Document();
-    }, 1);
+    core.registerModule({
+        inherits:"core.Core",
+        classname:"core.Document",
+        module:function(){
 
-})(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window);
+            this.onAfterConstruct = function(opts){
+                if(typeof document !== 'undefined'){
+                    _isready(window, this._("onDocumentReady"));
+                }
+            };
+            var findRootClass = function(){
+                var root = document.body;
+
+                if(root.hasAttribute("core-app") || root.hasAttribute("data-core-app")){
+                    var scope = typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window;
+                    var cls = Function.apply(scope, ["return "+(root.hasAttribute("data-core-app")  ? root.getAttribute("data-core-app") : root.getAttribute("core-app"))])();
+                    var opts = root.getAttribute("data-params") ? JSON.parse(root.getAttribute("data-params")) : {};
+                    opts.el = root;
+                    window.__coreapp__ = new cls(opts);
+                }else{
+                    doc = null;
+                }
+            };
+            this.onDocumentReady = function(automate){
+                if(automate){
+                    findRootClass.call(this);
+                }
+            };
+            setTimeout(function(){
+                var t = new core.Document();
+            }, 1);
+        }
+    });
+
+
+
+})();

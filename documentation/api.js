@@ -4,17 +4,12 @@ YUI.add("yuidoc-meta", function(Y) {
         "Function",
         "core",
         "core.Core",
-        "core.addons.CoreLocation",
         "core.addons.CoreWindow",
-        "core.addons.uiscroll.CoreParallax",
-        "core.addons.uiscroll.CoreSnap",
-        "core.addons.webapp.LocalStorage",
         "core.events.EventBroadcaster",
         "core.events.EventDispatcher",
         "core.net.XHR",
         "core.wirings.Document",
-        "core.wirings.Module",
-        "core.wirings.OfflineModule"
+        "core.wirings.Module"
     ],
     "modules": [
         "addons",
