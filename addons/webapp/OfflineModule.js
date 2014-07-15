@@ -27,7 +27,8 @@
         clearInterval(this.cacheStatusTimer);
     };
     proto.construct = function(opts){
-        __super__.construct.call(this, opts);
+        this.cacheUpdateInterval = 3000; 
+		__super__.construct.call(this, opts);
         prepare.call(this);
     };
     proto.initialized = function(opts){
@@ -130,7 +131,7 @@
 
                 }
 
-            }, 3000);
+            }, this.cacheUpdateInterval);
         }
         this.localStorage = core.addons.webapp.LocalStorage.init();
 
