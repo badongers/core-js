@@ -1,9 +1,9 @@
 {
     "project": {
-        "name": "Lavender Core JS",
-        "description": "Lavender Core JS",
-        "version": "1.0.0",
-        "url": "http://lavender.ad"
+        "name": "core",
+        "description": "Micro-framework for object oriented javascript",
+        "version": "0.0.2",
+        "url": "http://www.eightfolds.com.au"
     },
     "files": {
         "src/addons/parallax.js": {
@@ -66,12 +66,8 @@
         },
         "src/lib/windowevents.js": {
             "name": "src/lib/windowevents.js",
-            "modules": {
-                "addons": 1
-            },
-            "classes": {
-                "core.addons.CoreWindow": 1
-            },
+            "modules": {},
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "core.addons": 1
@@ -102,6 +98,74 @@
             "namespaces": {
                 "core": 1
             }
+        },
+        "addons/location/geo.location.js": {
+            "name": "addons/location/geo.location.js",
+            "modules": {
+                "addons": 1
+            },
+            "classes": {
+                "core.addons.CoreLocation": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons": 1
+            }
+        },
+        "addons/ui-scroll/core.parallax.js": {
+            "name": "addons/ui-scroll/core.parallax.js",
+            "modules": {},
+            "classes": {
+                "core.addons.uiscroll.CoreParallax": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons.uiscroll": 1
+            }
+        },
+        "addons/ui-scroll/core.snap.js": {
+            "name": "addons/ui-scroll/core.snap.js",
+            "modules": {},
+            "classes": {
+                "core.addons.uiscroll.CoreSnap": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons.uiscroll": 1
+            }
+        },
+        "addons/webapp/LocalStorage.js": {
+            "name": "addons/webapp/LocalStorage.js",
+            "modules": {},
+            "classes": {
+                "core.addons.webapp.LocalStorage": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons.webapp": 1
+            }
+        },
+        "addons/webapp/OfflineModule.js": {
+            "name": "addons/webapp/OfflineModule.js",
+            "modules": {},
+            "classes": {
+                "core.wirings.OfflineModule": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.wirings": 1
+            }
+        },
+        "addons/core.window.js": {
+            "name": "addons/core.window.js",
+            "modules": {},
+            "classes": {
+                "core.addons.CoreWindow": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core.addons": 1
+            }
         }
     },
     "modules": {
@@ -114,16 +178,24 @@
                 "core.events.EventDispatcher": 1,
                 "core.wirings.Module": 1,
                 "core.addons.CoreWindow": 1,
-                "core.net.XHR": 1
+                "core.net.XHR": 1,
+                "core.addons.CoreLocation": 1,
+                "core.addons.uiscroll.CoreParallax": 1,
+                "core.addons.uiscroll.CoreSnap": 1,
+                "core.addons.webapp.LocalStorage": 1,
+                "core.wirings.OfflineModule": 1
             },
             "fors": {},
             "namespaces": {
                 "core.addons": 1,
-                "core.net": 1
+                "core.net": 1,
+                "core.addons.uiscroll": 1,
+                "core.addons.webapp": 1,
+                "core.wirings": 1
             },
             "tag": "module",
-            "file": "src/lib/xhr.js",
-            "line": 1,
+            "file": "addons/webapp/OfflineModule.js",
+            "line": 4,
             "description": "The base module for the Core JS framework.\nIt provides helper methods for implementing OOP methodologies and basic utilities such as browser detection."
         },
         "core": {
@@ -268,8 +340,8 @@
             "extension_for": [],
             "module": "addons",
             "namespace": "core.addons",
-            "file": "src/lib/windowevents.js",
-            "line": 13,
+            "file": "addons/core.window.js",
+            "line": 10,
             "description": "The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.",
             "extends": "core.Core",
             "is_constructor": 1,
@@ -365,6 +437,156 @@
                 {
                     "name": "opts",
                     "description": "An object containing configurations required by the Core class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.addons.CoreLocation": {
+            "name": "core.addons.CoreLocation",
+            "shortname": "core.addons.CoreLocation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.addons",
+            "file": "addons/location/geo.location.js",
+            "line": 10,
+            "description": "The main class that implements HTML5 Geolocation functions.",
+            "extends": "core.events.EventDispatcher",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.addons.uiscroll.CoreParallax": {
+            "name": "core.addons.uiscroll.CoreParallax",
+            "shortname": "core.addons.uiscroll.CoreParallax",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.addons.uiscroll",
+            "file": "addons/ui-scroll/core.parallax.js",
+            "line": 5,
+            "description": "The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.",
+            "extends": "core.Core",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.addons.uiscroll.CoreSnap": {
+            "name": "core.addons.uiscroll.CoreSnap",
+            "shortname": "core.addons.uiscroll.CoreSnap",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.addons.uiscroll",
+            "file": "addons/ui-scroll/core.snap.js",
+            "line": 5,
+            "description": "The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.",
+            "extends": "core.Core",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.addons.webapp.LocalStorage": {
+            "name": "core.addons.webapp.LocalStorage",
+            "shortname": "core.addons.webapp.LocalStorage",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.addons.webapp",
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 4,
+            "description": "** Singleton. ** <br>The main class that implements local storage functionalities on a web application.\nThis class wraps multiple storage mechanisms for storing information on the client side.\n<br><br>** This class supports the following: **<br>\n- SessionStorage\n- LocalStorage\n- WebSQL",
+            "extends": "core.Core",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "el",
+                            "description": "The node element included in the class composition.",
+                            "type": "HTMLElement"
+                        }
+                    ]
+                }
+            ]
+        },
+        "core.wirings.OfflineModule": {
+            "name": "core.wirings.OfflineModule",
+            "shortname": "core.wirings.OfflineModule",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "addons",
+            "namespace": "core.wirings",
+            "file": "addons/webapp/OfflineModule.js",
+            "line": 4,
+            "description": "The main class that implements offline webapp functionalities using application cache and local storage.\nExtends core.wirings.Module to have the ability to be instantiated in the same fashion.",
+            "extends": "core.wirings.Module",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "opts",
+                    "description": "An object containing configurations required by the Core derived class.",
                     "type": "Object",
                     "props": [
                         {
@@ -909,6 +1131,308 @@
             "class": "core.Core",
             "module": "core",
             "namespace": "core"
+        },
+        {
+            "file": "addons/location/geo.location.js",
+            "line": 66,
+            "description": "Retrieves the distance from the last detected position. Returns distance result in km.",
+            "itemtype": "method",
+            "name": "getDistanceFromCurrentLocation",
+            "params": [
+                {
+                    "name": "point",
+                    "description": "An object containing latitude and longitude properties.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "latitude",
+                            "description": "The latitude of the value to calculate distance.",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "longitude",
+                            "description": "The longitude of the value to calculate distance.",
+                            "type": "Number"
+                        }
+                    ]
+                }
+            ],
+            "class": "core.addons.CoreLocation",
+            "module": "addons",
+            "namespace": "core.addons"
+        },
+        {
+            "file": "addons/location/geo.location.js",
+            "line": 78,
+            "description": "Calculates the distance between 2 coordinates.",
+            "itemtype": "method",
+            "name": "getDistanceFromLocations",
+            "params": [
+                {
+                    "name": "point1",
+                    "description": "An object containing latitude and longitude properties.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "latitude",
+                            "description": "The latitude of the value to calculate distance.",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "longitude",
+                            "description": "The longitude of the value to calculate distance.",
+                            "type": "Number"
+                        }
+                    ]
+                },
+                {
+                    "name": "point2",
+                    "description": "An object containing latitude and longitude properties.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "latitude",
+                            "description": "The latitude of the value to calculate distance.",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "longitude",
+                            "description": "The longitude of the value to calculate distance.",
+                            "type": "Number"
+                        }
+                    ]
+                }
+            ],
+            "class": "core.addons.CoreLocation",
+            "module": "addons",
+            "namespace": "core.addons"
+        },
+        {
+            "file": "addons/location/geo.location.js",
+            "line": 93,
+            "description": "Refreshes current location and last known location. Runs geolocation check again.",
+            "itemtype": "method",
+            "name": "update",
+            "class": "core.addons.CoreLocation",
+            "module": "addons",
+            "namespace": "core.addons"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 37,
+            "description": "Method for storing key/value pair using local storage.",
+            "itemtype": "method",
+            "name": "storeLocal",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to use when storing values",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to store paired with the key parameter",
+                    "type": "Object"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 50,
+            "description": "Method for retrieving values in local storage.",
+            "itemtype": "method",
+            "name": "retrieveLocal",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key pair to use when retrieving values",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 63,
+            "description": "Method for storing key/value pair using session storage.",
+            "itemtype": "method",
+            "name": "storeSession",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to use when storing values",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to store paired with the key parameter",
+                    "type": "Object"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 75,
+            "description": "Method for retrieving values in session storage.",
+            "itemtype": "method",
+            "name": "retrieveSession",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key pair to use when retrieving values",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 87,
+            "description": "Method for creating tables on WebSQL",
+            "itemtype": "method",
+            "name": "createTable",
+            "params": [
+                {
+                    "name": "tablename",
+                    "description": "The table name to use upon creation",
+                    "type": "String"
+                },
+                {
+                    "name": "structure",
+                    "description": "The columns to use when creating table",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 103,
+            "description": "Method for inserting data on WebSQL",
+            "itemtype": "method",
+            "name": "insertSql",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "The string INSERT query to use upon insertion",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 115,
+            "description": "Method for retrieving data on WebSQL",
+            "itemtype": "method",
+            "name": "retrieveSql",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "The string SELECT query to use upon retrieval",
+                    "type": "String"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/LocalStorage.js",
+            "line": 127,
+            "description": "Method for configuring WebSQL, this includes database creation and all other meta information required on creation",
+            "itemtype": "method",
+            "name": "configureSQL",
+            "params": [
+                {
+                    "name": "dbname",
+                    "description": "The name of the database to create",
+                    "type": "String"
+                },
+                {
+                    "name": "version",
+                    "description": "The version of the database to create",
+                    "type": "String"
+                },
+                {
+                    "name": "desc",
+                    "description": "The description of the database to create",
+                    "type": "String"
+                },
+                {
+                    "name": "size",
+                    "description": "The size of the database to create, uses bytes. (ie. 1024*1024 * [intended mb size])",
+                    "type": "Number"
+                }
+            ],
+            "class": "core.addons.webapp.LocalStorage",
+            "module": "addons",
+            "namespace": "core.addons.webapp"
+        },
+        {
+            "file": "addons/webapp/OfflineModule.js",
+            "line": 40,
+            "description": "The main method handler for checking the application status. Also determines if a web application has gone offline/online",
+            "itemtype": "method",
+            "name": "onApplicationCacheStatus",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Contains the information about the current application cache status.",
+                    "type": "Object"
+                }
+            ],
+            "class": "core.wirings.OfflineModule",
+            "module": "addons",
+            "namespace": "core.wirings"
+        },
+        {
+            "file": "addons/webapp/OfflineModule.js",
+            "line": 97,
+            "description": "Virtual protected function. Should be overridden on subclasses. Called automatically when the cache status has changed.",
+            "itemtype": "method",
+            "name": "cacheStatus",
+            "params": [
+                {
+                    "name": "status",
+                    "description": "The status of the application cache.",
+                    "type": "String"
+                }
+            ],
+            "class": "core.wirings.OfflineModule",
+            "module": "addons",
+            "namespace": "core.wirings"
+        },
+        {
+            "file": "addons/webapp/OfflineModule.js",
+            "line": 106,
+            "description": "Virtual protected function. Should be overridden on subclasses. Called automatically when the online/offline state of the application changes.",
+            "itemtype": "method",
+            "name": "onlineStatus",
+            "params": [
+                {
+                    "name": "isonline",
+                    "description": "True/false depending on the applications online/offline state.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "core.wirings.OfflineModule",
+            "module": "addons",
+            "namespace": "core.wirings"
         }
     ],
     "warnings": [
