@@ -4,7 +4,6 @@
     },
     "source": {
         "include":["./src/core.js", "./src/lib/", "./src/utils/"],
-        "exclude":["./dependencies/", "./addons/"],
         "includePattern": ".+\\.js(doc)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },
