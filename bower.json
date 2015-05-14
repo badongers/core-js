@@ -10,6 +10,5 @@
   "main": "dist/core.min.js",
   "license": "MIT",
   "dependencies": {
-    "rivets": "~0.8.1"
   }
 }
