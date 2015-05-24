@@ -74,7 +74,7 @@
                     var child = children[i];
                     if(child.nodeType === 1){
                         if(child.getAttribute("core-module") || child.getAttribute("data-core-module")){
-                            break;
+                            break; //stop when encountering another module
                         }
                         if(child.getAttribute("data-core-prop") || child.getAttribute("core-prop")){
                             if(!this.properties){
@@ -89,7 +89,13 @@
                             }else{
                                 this.properties[attr] = child;
                             }
+
                         }
+
+                        if(child.hasChildNodes()){
+                            checkNodeProperties.call(this, child);
+                        }
+
 
                     }
                 }
@@ -124,7 +130,12 @@
                                 opts.params = params ? parseParameters(params) : null;
                                 opts.parent = this;
                                 opts.el = mod;
-                                new cls(opts); //do not assign to any property
+                                if(cls){
+                                    new cls(opts); //do not assign to any property
+                                }else{
+                                    throw new Error(cmod + " module not found.")
+                                }
+
 
                             }else if(cmod && cid && this[cid]){
                                 cls = Function.apply(scope, ["return "+cmod])();

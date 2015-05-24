@@ -28,7 +28,7 @@
  .then(function(response){
         // Run when the request is successful
      })
- .catch(function(e,url){
+ .error(function(e,url){
         // Process the error
      })
  .complete(function(){
@@ -44,7 +44,7 @@
         inherits:"core.Core",
         classname:"core.XHR",
         singleton:true,
-        module:["core.XHR", function(xhr){
+        module:function(){
             var __xhr__ = function () {
                 return win.XMLHttpRequest ?
                     new XMLHttpRequest() :
@@ -101,6 +101,7 @@
                     // Define promises
                     promises = {
                         then: function (func) {
+
                             if (options.async) {
                                 then_stack.push(func);
                             }
@@ -259,6 +260,8 @@
                             p = response;
                             if (options.async) {
                                 for (i = 0; func = then_stack[i]; ++i) {
+
+                                    //console.log(method, url, xhr);
                                     p = func.call(xhr, p);
                                 }
                             }
@@ -304,12 +307,6 @@
                 // New request
                 ++requests;
 
-                if ('retries' in options) {
-                    if (win.console && console.warn) {
-                        console.warn('[Qwest] The retries option is deprecated. It indicates total number of requests to attempt. Please use the "attempts" option.');
-                    }
-                    options.attempts = options.retries;
-                }
 
                 // Normalize options
                 options.async = 'async' in options ? !!options.async : true;
@@ -503,11 +500,14 @@
                     console.log("TODO: implement http mock");
                 }
             };
+            var handleMockedPromise = function(){
+
+            };
             var create = function (method) {
                 return function (url, data, options) {
                     var b = before;
                     before = null;
-                    checkMocks();
+
                     return request(method, url, data, options, b);
                 };
             };
@@ -527,6 +527,6 @@
                 defaultXdrResponseType = type.toLocaleLowerCase();
             };
 
-        }]
+        }
     });
 })();

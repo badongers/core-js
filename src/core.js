@@ -4,7 +4,7 @@
  *
  * @module core
  */
-(function(scope){
+(function(scope, document){
 
     /**
      * Function prototype extension in the core framework.
@@ -254,7 +254,35 @@
             console.warn(message);
         }
     };
+    /** DOCUMENT READY **/
+    scope.core.documentReady = function(win, fn) {
+        var done = false, top = true,
+            doc = win.document, root = doc.documentElement,
+            add = doc.addEventListener ? 'addEventListener' : 'attachEvent',
+            rem = doc.addEventListener ? 'removeEventListener' : 'detachEvent',
+            pre = doc.addEventListener ? '' : 'on',
+            init = function(e) {
+                if (e.type == 'readystatechange' && doc.readyState != 'complete') return;
+                (e.type == 'load' ? win : doc)[rem](pre + e.type, init, false);
+                if (!done && (done = true)) fn.call(win, e.type || e);
+            },
 
+            poll = function() {
+                try { root.doScroll('left'); } catch(e) { setTimeout(poll, 50); return; }
+                init('poll');
+            };
+
+        if (doc.readyState == 'complete') fn.call(win, 'lazy');
+        else {
+            if (doc.createEventObject && root.doScroll) {
+                try { top = !win.frameElement; } catch(e) { }
+                if (top) poll();
+            }
+            doc[add](pre + 'DOMContentLoaded', init, false);
+            doc[add](pre + 'readystatechange', init, false);
+            win[add](pre + 'load', init, false);
+        }
+    }
     // ### addEventListener/removeEventListener/dispatchEvent ## //
     // EventListener implementation for browsers without support
     if(scope == window){
@@ -287,35 +315,43 @@
             };
         })(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);
     }
-    core.ENV = {};
+    scope.core.ENV = {};
     scope.core.configure = function(o){
         for(var prop in o){
-            this.ENV[prop] = o;
+            this.ENV[prop] = o[prop];
         }
     };
+    var __queue__ = [];
+    function nameFunction(name, fn){
+        return (new Function("return function(call) { return function " + name + "() { return call(this, arguments) }; };")())(Function.apply.bind(fn));
+    }
     function retrieveClass(namespace, scope){
         var namespaces = namespace.split(".");
         var len = namespaces.length;
         var cscope = scope;
-
         for(var i = 0;i<len;i++){
-            cscope = cscope[namespaces[i]];
+            try{
+                cscope = cscope[namespaces[i]];
+            }catch(err){
+                return null;
+            }
+
         }
         return cscope;
     }
-    function nameFunction(name, fn){
-        return (new Function("return function(call) { return function " + name + "() { return call(this, arguments) }; };")())(Function.apply.bind(fn));
-    }
     function manageModuleRegistration(definition){
         var o = {};
-        if("inherits" in definition){
-            o.base = definition.inherits && definition.inherits.length ? scope.core._import(definition.inherits) : core.Core || Object;
+        if(!("inherits" in definition)){
+            definition.inherits = "core.Core";
         }
+
+
+        o.base = scope.core._import(definition.inherits);
         if("base" in o){
             try{
                 var __super__ = o.base.prototype;
             }catch(err){
-                console.log(o, definition);
+                throw new Error("Module "+definition.classname+" failed to inherit " + definition.inherits);
             }
 
         }
@@ -323,10 +359,7 @@
         var classsplit = definition.classname.split(".");
         o.funcname = classsplit[classsplit.length-1];
         o[o.funcname] = nameFunction(o.funcname, function (opts){
-
             if (opts && opts.__inheriting__) return;
-
-
             if(opts && "parent" in opts){
                 this.parent = opts.parent;
             }
@@ -336,15 +369,9 @@
             if(opts && "params" in opts){
                 this.params = opts.params;
             }
-
-            try{
+            if(__super__){
                 __super__.constructor.call(this, opts);
-            }catch(err) {
-                console.log("super construct", err)
-
             }
-
-
         });
         if(o.base){
             o[o.funcname].inherits(o.base);
@@ -354,21 +381,18 @@
             //clear
             if("onBeforeDispose" in this && typeof this.onBeforeDispose == "function") {
                 this.onBeforeDispose();
-                this.onBeforeDispose = null;
+                this.onBeforeDispose = null; //TODO: investigate why this is triggered twice
             }
             try{
                 __super__.dispose.call(this);
             }catch(err){
                 console.log("dispose", err);
             }
-
-
         };
         proto.construct = function(opts){
-
             if("onBeforeConstruct" in this && typeof this.onBeforeConstruct == "function"){
                 this.onBeforeConstruct();
-                this.onBeforeConstruct = null;
+                this.onBeforeConstruct = null; //TODO: investigate why this is triggered twice
             }
             try{
                 __super__.construct.call(this, opts);
@@ -380,9 +404,6 @@
             }catch(err){
                 console.log("construct", err.stack);
             };
-
-
-
         };
         var tscope = {$super:__super__, $classname: o.funcname};
         var module = definition.module;
@@ -390,9 +411,15 @@
             var mfunc = module.pop();
             var len = module.length;
             while(len--){
-                module[len] = retrieveClass(module[len], scope);
+                var tclass = retrieveClass(module[len], scope);
+                module[len] = tclass;
             }
-            mfunc.apply(tscope, module);
+            if(typeof mfunc == "function"){
+                mfunc.apply(tscope, module);
+            }else{
+                throw new Error("Property module does not contain a function.");
+            }
+
         }else if(typeof module == "function"){
             module.apply(tscope);
         }
@@ -407,11 +434,39 @@
             base[prop] = mix[prop];
         }
     };
+    function checkDIs(definition){
+        var module = definition.module;
+        if(module instanceof Array && module.length){
+            var len = module.length-1;
+            while(len--){
+                if(typeof module[len] !== "function"){
+                    var tclass = retrieveClass(module[len], scope);
+                    if(!tclass){
+                        return false
+                    }
+                }
+
+            }
+            if(typeof mfunc == "function"){
+                return true;
+            }
+
+        }else if(typeof module == "function"){
+            return true;
+        }
+        return true;
+    }
     scope.core.registerModule = function(definition){
         if(definition.classname){
-            manageModuleRegistration(definition);
-        }
-        if(definition.mixin){
+            if(checkDIs(definition)){
+                manageModuleRegistration(definition);
+                if(__queue__.length){
+                    scope.core.registerModule(__queue__.pop());
+                }
+            }else{
+                __queue__.push(definition); //queue up classes with missing dependencies
+            }
+        }else if(definition.mixin){
             var base = new Function("return " + definition.mixin)();
             var tscope = {};
             var module = definition.module;
@@ -433,12 +488,44 @@
                 }
 
             }
+        }else{
+            throw new Error("Error registering a module");
         }
-
-
+    };
+    scope.core.strapUp = function(func, useclass){
+        if(__queue__.length){
+            while(__queue__.length){
+                manageModuleRegistration(__queue__.pop()); //load remaining definitions without checking dependencies.
+            }
+        }
+        //instantiate body as a module
+        //this will trigger instantiation of each child element as core modules.
+        if(typeof document !== 'undefined'){
+            var found = false;
+            var evaluateRootApp = function(root){
+                var scope = typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window;
+                var cls = useclass ? core._import(useclass) : scope.core.Module;
+                var opts = {};
+                opts.el = root;
+                if(!("__coreapp__" in window)){
+                    window.__coreapp__ = new cls(opts);
+                }else{
+                    if(!(window.__coreapp__ instanceof Array)){
+                        window.__coreapp__ = [window.__coreapp__];
+                    }
+                    window.__coreapp__.push(new cls(opts));
+                }
+                found = true;
+            };
+            scope.core.documentReady(window, function docready(){
+                evaluateRootApp(document.body);
+                func();
+            });
+        }
     };
 
-})(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window); //supports node js
+
+})(typeof process !== "undefined" && process.arch !== undefined ? GLOBAL : window, document); //supports node js
 
 if(!("console" in window)){
     console = {
@@ -461,34 +548,7 @@ if(!("console" in window)){
      *
      */
 
-    var node_proto = {
-        rect:function(){
-            var o = {};
-            o = this.getBoundingClientRect();
-            if(typeof o.width == "undefined"){
-                var x = o;
-                o = {
-                    top: x.top,
-                    left: x.left,
-                    right: x.right,
-                    bottom: x.bottom
-                }
-                o.width = o.right - o.left;
-                o.height = o.bottom + o.top;
-            }else
-            if(typeof o.right == "undefined"){
-                o = {
-                    top: x.top,
-                    left: x.left,
-                    width: x.width,
-                    height: x.height
-                }
-                o.right = o.left+ o.width;
-                o.bottom = o.top + o.height;
-            }
-            return o;
-        }
-    }
+
 
     function Core(opts){
         //skips all process when instantiated from Function.inherits
