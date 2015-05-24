@@ -19,7 +19,9 @@ module.exports = function(grunt) {
                         'src/lib/module.js',
                         'src/lib/windowevents.js',
                         'src/lib/document.js',
-                        'src/addons/*.js'
+                        'src/addons/*.js',
+                        'src/polyfills/*.js'
+
                     ],
                     'dist/<%= pkg.name %>.nobinding.min.js':[
                         'src/core.js',
@@ -29,7 +31,8 @@ module.exports = function(grunt) {
                         'src/lib/module.js',
                         'src/lib/windowevents.js',
                         'src/lib/document.js',
-                        'src/addons/*.js'
+                        'src/addons/*.js',
+                        'src/polyfills/*.js'
                     ]
                 }
             }
@@ -50,7 +53,8 @@ module.exports = function(grunt) {
                         'src/lib/module.js',
                         'src/lib/windowevents.js',
                         'src/lib/document.js',
-                        'src/addons/*.js'
+                        'src/addons/*.js',
+                        'src/polyfills/*.js'
                     ],
                     'dist/<%= pkg.name %>.src.nobinding.js':[
                         'src/core.js',
@@ -60,7 +64,8 @@ module.exports = function(grunt) {
                         'src/lib/module.js',
                         'src/lib/windowevents.js',
                         'src/lib/document.js',
-                        'src/addons/*.js'
+                        'src/addons/*.js',
+                        'src/polyfills/*.js'
                     ]
 
                 }

@@ -24,33 +24,33 @@
             "name": "src/lib/eventbroadcaster.js",
             "modules": {},
             "classes": {
-                "core.events.EventBroadcaster": 1
+                "core.EventBroadcaster": 1
             },
             "fors": {},
             "namespaces": {
-                "core.events": 1
+                "core": 1
             }
         },
         "src/lib/eventdispatcher.js": {
             "name": "src/lib/eventdispatcher.js",
             "modules": {},
             "classes": {
-                "core.events.EventDispatcher": 1
+                "core.EventDispatcher": 1
             },
             "fors": {},
             "namespaces": {
-                "core.events": 1
+                "core": 1
             }
         },
         "src/lib/module.js": {
             "name": "src/lib/module.js",
             "modules": {},
             "classes": {
-                "core.wirings.Module": 1
+                "core.Module": 1
             },
             "fors": {},
             "namespaces": {
-                "core.wirings": 1
+                "core": 1
             }
         },
         "src/lib/windowevents.js": {
@@ -66,11 +66,11 @@
             "name": "src/lib/xhr.js",
             "modules": {},
             "classes": {
-                "core.net.XHR": 1
+                "core.XHR": 1
             },
             "fors": {},
             "namespaces": {
-                "core.net": 1
+                "core": 1
             }
         },
         "src/core.js": {
@@ -162,11 +162,11 @@
             "name": "addons",
             "submodules": {},
             "classes": {
-                "core.events.EventBroadcaster": 1,
-                "core.events.EventDispatcher": 1,
-                "core.wirings.Module": 1,
+                "core.EventBroadcaster": 1,
+                "core.EventDispatcher": 1,
+                "core.Module": 1,
                 "core.addons.CoreWindow": 1,
-                "core.net.XHR": 1,
+                "core.XHR": 1,
                 "core.addons.CoreLocation": 1,
                 "core.addons.uiscroll.CoreParallax": 1,
                 "core.addons.uiscroll.CoreSnap": 1,
@@ -176,7 +176,7 @@
             "fors": {},
             "namespaces": {
                 "core.addons": 1,
-                "core.net": 1,
+                "core": 1,
                 "core.addons.uiscroll": 1,
                 "core.addons.webapp": 1,
                 "core.wirings": 1
@@ -205,20 +205,20 @@
         }
     },
     "classes": {
-        "core.events.EventBroadcaster": {
-            "name": "core.events.EventBroadcaster",
-            "shortname": "core.events.EventBroadcaster",
+        "core.EventBroadcaster": {
+            "name": "core.EventBroadcaster",
+            "shortname": "core.EventBroadcaster",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
             "module": "addons",
-            "namespace": "core.events",
+            "namespace": "core",
             "file": "src/lib/eventbroadcaster.js",
             "line": 1,
             "description": "** Singleton. ** <br>Allows a global object to be utilized for broadcasting events.<br><br>\n** Example: ** <br> <pre>EventBroadcaster.instance().on(\"eventName\", scope._(\"someEvent\"), scope);</pre>",
-            "extends": "core.events.EventDispatcher",
+            "extends": "core.EventDispatcher",
             "is_constructor": 1,
             "params": [
                 {
@@ -228,16 +228,16 @@
                 }
             ]
         },
-        "core.events.EventDispatcher": {
-            "name": "core.events.EventDispatcher",
-            "shortname": "core.events.EventDispatcher",
+        "core.EventDispatcher": {
+            "name": "core.EventDispatcher",
+            "shortname": "core.EventDispatcher",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
             "module": "addons",
-            "namespace": "core.events",
+            "namespace": "core",
             "file": "src/lib/eventdispatcher.js",
             "line": 1,
             "description": "The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.",
@@ -258,20 +258,20 @@
                 }
             ]
         },
-        "core.wirings.Module": {
-            "name": "core.wirings.Module",
-            "shortname": "core.wirings.Module",
+        "core.Module": {
+            "name": "core.Module",
+            "shortname": "core.Module",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
             "module": "addons",
-            "namespace": "core.wirings",
+            "namespace": "core",
             "file": "src/lib/module.js",
             "line": 1,
             "description": "The base object of all core based classes. Every object created within the Core framework derives from this class.",
-            "extends": "core.events.EventDispatcher",
+            "extends": "core.EventDispatcher",
             "is_constructor": 1,
             "params": [
                 {
@@ -318,16 +318,16 @@
                 }
             ]
         },
-        "core.net.XHR": {
-            "name": "core.net.XHR",
-            "shortname": "core.net.XHR",
+        "core.XHR": {
+            "name": "core.XHR",
+            "shortname": "core.XHR",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
             "module": "addons",
-            "namespace": "core.net",
+            "namespace": "core",
             "file": "src/lib/xhr.js",
             "line": 1,
             "description": "** Singleton. ** <br>The base object of all core based classes. Every object created within the Core framework derives from this class.",
@@ -562,17 +562,17 @@
             "file": "src/addons/parallax.js",
             "line": 1,
             "description": "Created by donaldmartinez on 13/05/15.",
-            "class": "core.events.EventBroadcaster"
+            "class": "core.EventBroadcaster"
         },
         {
             "file": "src/dependencies/rivets.patched.js",
             "line": 382,
-            "class": "core.events.EventBroadcaster"
+            "class": "core.EventBroadcaster"
         },
         {
             "file": "src/dependencies/rivets.patched.js",
             "line": 390,
-            "class": "core.events.EventBroadcaster"
+            "class": "core.EventBroadcaster"
         },
         {
             "file": "src/lib/eventdispatcher.js",
@@ -598,8 +598,8 @@
                 "description": "Returns boolean indicating the existence of the scope passed on the parameters",
                 "type": "Booleans"
             },
-            "class": "core.events.EventDispatcher",
-            "namespace": "core.events"
+            "class": "core.EventDispatcher",
+            "namespace": "core"
         },
         {
             "file": "src/lib/eventdispatcher.js",
@@ -631,8 +631,8 @@
             ],
             "access": "private",
             "tagname": "",
-            "class": "core.events.EventDispatcher",
-            "namespace": "core.events"
+            "class": "core.EventDispatcher",
+            "namespace": "core"
         },
         {
             "file": "src/lib/eventdispatcher.js",
@@ -657,8 +657,8 @@
                     "type": "core.Core"
                 }
             ],
-            "class": "core.events.EventDispatcher",
-            "namespace": "core.events"
+            "class": "core.EventDispatcher",
+            "namespace": "core"
         },
         {
             "file": "src/lib/eventdispatcher.js",
@@ -683,8 +683,8 @@
                     "type": "core.Core"
                 }
             ],
-            "class": "core.events.EventDispatcher",
-            "namespace": "core.events"
+            "class": "core.EventDispatcher",
+            "namespace": "core"
         },
         {
             "file": "src/lib/eventdispatcher.js",
@@ -716,8 +716,8 @@
             ],
             "access": "private",
             "tagname": "",
-            "class": "core.events.EventDispatcher",
-            "namespace": "core.events"
+            "class": "core.EventDispatcher",
+            "namespace": "core"
         },
         {
             "file": "src/lib/eventdispatcher.js",
@@ -742,8 +742,8 @@
                     "type": "core.Core"
                 }
             ],
-            "class": "core.events.EventDispatcher",
-            "namespace": "core.events"
+            "class": "core.EventDispatcher",
+            "namespace": "core"
         },
         {
             "file": "src/lib/eventdispatcher.js",
@@ -758,8 +758,8 @@
                     "type": "core.Core"
                 }
             ],
-            "class": "core.events.EventDispatcher",
-            "namespace": "core.events"
+            "class": "core.EventDispatcher",
+            "namespace": "core"
         },
         {
             "file": "src/lib/eventdispatcher.js",
@@ -767,8 +767,8 @@
             "description": "Removes all items from the listener list.",
             "itemtype": "method",
             "name": "removeAll",
-            "class": "core.events.EventDispatcher",
-            "namespace": "core.events"
+            "class": "core.EventDispatcher",
+            "namespace": "core"
         },
         {
             "file": "src/lib/eventdispatcher.js",
@@ -788,16 +788,16 @@
                     "type": "Object"
                 }
             ],
-            "class": "core.events.EventDispatcher",
-            "namespace": "core.events"
+            "class": "core.EventDispatcher",
+            "namespace": "core"
         },
         {
             "file": "src/lib/xhr.js",
             "line": 12,
             "description": "LIFTED and renamed from qwest\nTODO: Add httpMock and interceptors\nOPTIONS\ndataType : post (by default), json, text, arraybuffer, blob, document or formdata (you don't need to specify XHR2 types since they're automatically detected)\nresponseType : the response type; either auto (default), json, xml, text, arraybuffer, blob or document\ncache : browser caching; default is false for GET requests and true for POST requests\nasync : true (default) or false; used to make asynchronous or synchronous requests\nuser : the user to access to the URL, if needed\npassword : the password to access to the URL, if needed\nheaders : javascript object containing headers to be sent\nwithCredentials : false by default; sends credentials with your XHR2 request (more info in that post)\ntimeout : the timeout for the request in ms; 3000 by default\nattempts : the total number of times to attempt the request through timeouts; 3 by default; if you want to remove the limit set it to null\n\nxhr.<method>(<url>[, data[, options]])\n.then(function(response){\n       // Run when the request is successful\n    })\n.error(function(e,url){\n       // Process the error\n    })\n.complete(function(){\n       // Always run\n    });\n\n\nxhr.limit(NUMBER) - sets simultaneous request limit",
-            "class": "core.net.XHR",
+            "class": "core.XHR",
             "module": "addons",
-            "namespace": "core.net"
+            "namespace": "core"
         },
         {
             "file": "src/core.js",

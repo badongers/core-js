@@ -2,7 +2,7 @@
  * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
  *
  * @class EventDispatcher
- * @namespace core.events
+ * @namespace core
  * @extends core.Core
  * @constructor
  * @param {Object} opts An object containing configurations required by the Core derived class.

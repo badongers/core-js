@@ -2,7 +2,7 @@
  * ** Singleton. ** <br>The base object of all core based classes. Every object created within the Core framework derives from this class.
  *
  * @class XHR
- * @namespace core.net
+ * @namespace core
  * @extends core.Core
  * @constructor
  * @param {Object} opts An object containing configurations required by the Core class.
