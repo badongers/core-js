@@ -12,7 +12,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "core.events.EventBroadcaster",
         "core.events.EventDispatcher",
         "core.net.XHR",
-        "core.wirings.Document",
         "core.wirings.Module",
         "core.wirings.OfflineModule"
     ],
