@@ -1570,7 +1570,7 @@ if(typeof module !== 'undefined' && module.exports){
                 if(target instanceof Array){
                     target = target[0];
                 }
-                target.parentElement().insertBefore(wrap.firstChild, target)
+                target.parentNode.insertBefore(wrap.firstChild, target)
                 wrap = null;
             };
             this.insertNodeAfter = function(target, toinsert){
@@ -1583,7 +1583,7 @@ if(typeof module !== 'undefined' && module.exports){
                 if(target instanceof Array){
                     target = target[0];
                 }
-                target.parentElement().insertAfter(wrap.firstChild, target)
+                target.parentNode.insertAfter(wrap.firstChild, target)
                 wrap = null;
             };
             this.appendFragment = function(str, appendto){
