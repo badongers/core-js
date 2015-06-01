@@ -3156,6 +3156,9 @@ if(typeof module !== 'undefined' && module.exports){
                 if(node instanceof Array){
                     node = node[0];
                 }
+                if(appendto instanceof Array){
+                    appendto = appendto[0];
+                }
                 var wrap = document.createElement("div");
                 wrap.appendChild(node);
                 findImmediateClasses.call(this, wrap);
