@@ -1568,10 +1568,9 @@ if(typeof module !== 'undefined' && module.exports){
                 wrap.appendChild(toinsert);
                 findImmediateClasses.call(this, wrap);
                 if(target instanceof Array){
-                    wrap.firstChild.insertBefore(target[0]);
-                }else{
-                    wrap.firstChild.insertBefore(target);
+                    target = target[0];
                 }
+                target.parentElement().insertBefore(wrap.firstChild, target)
                 wrap = null;
             };
             this.insertNodeAfter = function(target, toinsert){
@@ -1582,10 +1581,9 @@ if(typeof module !== 'undefined' && module.exports){
                 wrap.appendChild(toinsert);
                 findImmediateClasses.call(this, wrap);
                 if(target instanceof Array){
-                    wrap.firstChild.insertAfter(target[0]);
-                }else{
-                    wrap.firstChild.insertAfter(target);
+                    target = target[0];
                 }
+                target.parentElement().insertAfter(wrap.firstChild, target)
                 wrap = null;
             };
             this.appendFragment = function(str, appendto){
