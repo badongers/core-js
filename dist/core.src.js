@@ -1,4 +1,4 @@
-/*! core 2015-05-25 */
+/*! core 2015-06-01 */
 (function() {
   // Public sightglass interface.
   function sightglass(obj, keypath, callback, options) {
@@ -3152,21 +3152,30 @@ if(typeof module !== 'undefined' && module.exports){
                     this.appendFragment(fragment);
                 }).bind(this));
             };
-            this.appendNode = function(node){
+            this.appendNode = function(node, appendto){
                 var wrap = document.createElement("div");
                 wrap.appendChild(node);
                 findImmediateClasses.call(this, wrap);
-                this.el.appendChild(wrap.firstChild);
+                if(appendto){
+                    appendto.appendChild(wrap.firstChild);
+                }else{
+                    this.el.appendChild(wrap.firstChild);
+                }
+
                 wrap = null;
             };
-            this.appendFragment = function(str){
+            this.appendFragment = function(str, appendto){
                 var wrap = document.createElement("div");
                 wrap.innerHTML = str;
                 findImmediateClasses.call(this, wrap);
 
                 for(var i in wrap.childNodes){
                     try{
-                        this.el.appendChild(wrap.childNodes[i]);
+                        if(appendto){
+                            appendto.appendChild(wrap.childNodes[i]);
+                        }else{
+                            this.el.appendChild(wrap.childNodes[i]);
+                        }
                     }catch(err){}
 
                 }
