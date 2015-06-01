@@ -1554,11 +1554,38 @@ if(typeof module !== 'undefined' && module.exports){
 
                 wrap = null;
             };
+            this.insertNodeBefore = function(target, toinsert){
+                if(toinsert instanceof Array){
+                    toinsert = toinsert[0];
+                }
+                var wrap = document.createElement("div");
+                wrap.appendChild(toinsert);
+                findImmediateClasses.call(this, wrap);
+                if(target instanceof Array){
+                    wrap.firstChild.insertBefore(target[0]);
+                }else{
+                    wrap.firstChild.insertBefore(target);
+                }
+                wrap = null;
+            };
+            this.insertNodeAfter = function(target, toinsert){
+                if(toinsert instanceof Array){
+                    toinsert = toinsert[0];
+                }
+                var wrap = document.createElement("div");
+                wrap.appendChild(toinsert);
+                findImmediateClasses.call(this, wrap);
+                if(target instanceof Array){
+                    wrap.firstChild.insertAfter(target[0]);
+                }else{
+                    wrap.firstChild.insertAfter(target);
+                }
+                wrap = null;
+            };
             this.appendFragment = function(str, appendto){
                 var wrap = document.createElement("div");
                 wrap.innerHTML = str;
                 findImmediateClasses.call(this, wrap);
-
                 for(var i in wrap.childNodes){
                     try{
                         if(appendto){
