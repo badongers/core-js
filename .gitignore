@@ -1,4 +1,4 @@
 node_modules
 .idea
 dependencies
-
+npm-debug.log
