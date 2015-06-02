@@ -3147,10 +3147,11 @@ if(typeof module !== 'undefined' && module.exports){
                 this.el.addEventListener("DOMNodeInserted", nodeMutated.bind(this), false);
             };
             var nodeMutated = function(){
+                findImmediateClasses.call(this, this.el);
+                checkNodeProperties.call(this, this.el);
                 if("domMutated" in this){
                     this.domMutated();
                 }
-                findImmediateClasses.call(this, this.el);
             };
             this.loadViewModule = function(src){
                 var fragment;
@@ -3172,13 +3173,13 @@ if(typeof module !== 'undefined' && module.exports){
                 }
                 var wrap = document.createElement("div");
                 wrap.appendChild(node);
-                findImmediateClasses.call(this, wrap);
                 if(appendto){
                     appendto.appendChild(wrap.firstChild);
                 }else{
                     this.el.appendChild(wrap.firstChild);
                 }
-
+                findImmediateClasses.call(this, wrap);
+                checkNodeProperties.call(this, wrap);
                 wrap = null;
             };
             this.insertNodeBefore = function(target, toinsert){
@@ -3187,11 +3188,12 @@ if(typeof module !== 'undefined' && module.exports){
                 }
                 var wrap = document.createElement("div");
                 wrap.appendChild(toinsert);
-                findImmediateClasses.call(this, wrap);
                 if(target instanceof Array){
                     target = target[0];
                 }
-                target.parentNode.insertBefore(wrap.firstChild, target)
+                target.parentNode.insertBefore(wrap.firstChild, target);
+                findImmediateClasses.call(this, wrap);
+                checkNodeProperties.call(this, wrap);
                 wrap = null;
             };
             this.insertNodeAfter = function(target, toinsert){
@@ -3200,17 +3202,19 @@ if(typeof module !== 'undefined' && module.exports){
                 }
                 var wrap = document.createElement("div");
                 wrap.appendChild(toinsert);
-                findImmediateClasses.call(this, wrap);
+
                 if(target instanceof Array){
                     target = target[0];
                 }
-                target.parentNode.insertAfter(wrap.firstChild, target)
+                target.parentNode.insertAfter(wrap.firstChild, target);
+                findImmediateClasses.call(this, wrap);
+                checkNodeProperties.call(this, wrap);
                 wrap = null;
             };
             this.appendFragment = function(str, appendto){
                 var wrap = document.createElement("div");
                 wrap.innerHTML = str;
-                findImmediateClasses.call(this, wrap);
+
                 for(var i in wrap.childNodes){
                     try{
                         if(appendto){
@@ -3221,6 +3225,8 @@ if(typeof module !== 'undefined' && module.exports){
                     }catch(err){}
 
                 }
+                findImmediateClasses.call(this, wrap);
+                checkNodeProperties.call(this, wrap);
                 wrap = null;
             };
             function parseParameters(params){
