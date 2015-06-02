@@ -598,6 +598,11 @@ if(!("console" in window)){
             templateDelimiters: ['{{', '}}']
 
         });
+        setTimeout((function(){
+            if("bindingComplete" in this){
+                this.bindingComplete();
+            }
+        }).bind(this), 1);
     };
     var prepareBindings = function(){
         applyBindings.call(this);

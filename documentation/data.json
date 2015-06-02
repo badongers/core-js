@@ -967,7 +967,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 604,
+            "line": 609,
             "description": "Returns a scope bound function and stores it on the proxyHandlers property.",
             "itemtype": "method",
             "name": "getProxyHandler",
@@ -988,7 +988,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 624,
+            "line": 629,
             "description": "Core method for clearing proxied function methods.",
             "itemtype": "method",
             "name": "clearProxyHandler",
@@ -1005,7 +1005,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 639,
+            "line": 644,
             "description": "Core method initialization. This is called automatically on core sub classes.",
             "itemtype": "method",
             "name": "construct",
@@ -1022,7 +1022,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 647,
+            "line": 652,
             "description": "Core method initialization. This is called automatically on core sub classes. Adds delay when being called automatically, this allows\ntime to setup all the other classes and manage the sequence of instantiations.",
             "itemtype": "method",
             "name": "delayedConstruct",
@@ -1039,7 +1039,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 656,
+            "line": 661,
             "description": "Core method for destroying/cleaning up objects.",
             "itemtype": "method",
             "name": "dispose",
@@ -1056,7 +1056,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 676,
+            "line": 681,
             "description": "Core method for searching sub node elements.",
             "itemtype": "method",
             "name": "find",
@@ -1077,7 +1077,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 690,
+            "line": 695,
             "description": "Core method for searching sub node elements within the document context.",
             "itemtype": "method",
             "name": "findAll",
@@ -1418,11 +1418,11 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/core.js:676"
+            "line": " src/core.js:681"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/core.js:690"
+            "line": " src/core.js:695"
         },
         {
             "message": "Missing item type\nCreated by donaldmartinez on 13/05/15.",

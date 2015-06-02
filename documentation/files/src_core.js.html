@@ -713,6 +713,11 @@ if(!(&quot;console&quot; in window)){
             templateDelimiters: [&#x27;{{&#x27;, &#x27;}}&#x27;]
 
         });
+        setTimeout((function(){
+            if(&quot;bindingComplete&quot; in this){
+                this.bindingComplete();
+            }
+        }).bind(this), 1);
     };
     var prepareBindings = function(){
         applyBindings.call(this);
