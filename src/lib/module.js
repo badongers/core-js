@@ -108,6 +108,9 @@
                 }
                 return o;
             };
+            this.triggerSubModules = function(){
+                findImmediateClasses.call(this, this.node);
+            };
             function checkNodeProperties(node){
                 var children = node.childNodes;
                 for(var i in children){
@@ -151,7 +154,6 @@
                         var mod = modules[i];
 
                         if(mod.nodeType == 1){
-
                             var cmod = mod.getAttribute("core-module") || mod.getAttribute("data-core-module");
                             var cid = mod.getAttribute("core-id") || mod.getAttribute("data-core-id");
                             var params = mod.getAttribute("core-params") || mod.getAttribute("data-core-params");

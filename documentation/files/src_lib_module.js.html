@@ -224,6 +224,9 @@
                 }
                 return o;
             };
+            this.triggerSubModules = function(){
+                findImmediateClasses.call(this, this.node);
+            };
             function checkNodeProperties(node){
                 var children = node.childNodes;
                 for(var i in children){
@@ -267,7 +270,6 @@
                         var mod = modules[i];
 
                         if(mod.nodeType == 1){
-
                             var cmod = mod.getAttribute(&quot;core-module&quot;) || mod.getAttribute(&quot;data-core-module&quot;);
                             var cid = mod.getAttribute(&quot;core-id&quot;) || mod.getAttribute(&quot;data-core-id&quot;);
                             var params = mod.getAttribute(&quot;core-params&quot;) || mod.getAttribute(&quot;data-core-params&quot;);
