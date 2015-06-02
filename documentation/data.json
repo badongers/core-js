@@ -73,6 +73,13 @@
                 "core": 1
             }
         },
+        "src/polyfills/mutation.js": {
+            "name": "src/polyfills/mutation.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src/core.js": {
             "name": "src/core.js",
             "modules": {
@@ -800,6 +807,207 @@
             "namespace": "core"
         },
         {
+            "file": "src/polyfills/mutation.js",
+            "line": 1,
+            "license": "Copyright (c) 2014 The Polymer Project Authors. All rights reserved.\nThis code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt\nThe complete set of authors may be found at http://polymer.github.io/AUTHORS.txt\nThe complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt\nCode distributed by Google as part of the polymer project is also\nsubject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt",
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 88,
+            "description": "Schedules |dispatchCallback| to be called in the future.",
+            "params": [
+                {
+                    "name": "observer",
+                    "description": "",
+                    "type": "MutationObserver"
+                }
+            ],
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 150,
+            "description": "This function is used for the \"For each registered observer observer (with\nobserver's options as options) in target's list of registered observers,\nrun these substeps:\" and the \"For each ancestor ancestor of target, and for\neach registered observer observer (with options options) in ancestor's list\nof registered observers, run these substeps:\" part of the algorithms. The\n|options.subtree| is checked to ensure that the callback is called\ncorrectly.",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "Node"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function(MutationObserverInit):MutationRecord"
+                }
+            ],
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 185,
+            "description": "The class that maps to the DOM MutationObserver interface.",
+            "params": [
+                {
+                    "name": "callback.",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "is_constructor": 1,
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 273,
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "Node"
+                }
+            ],
+            "is_constructor": 1,
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 305,
+            "description": "Creates a record without |oldValue| and caches it as |currentRecord| for\nlater use.",
+            "params": [
+                {
+                    "name": "oldValue",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "MutationRecord"
+            },
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 315,
+            "description": "Gets or creates a record with |oldValue| based in the |currentRecord|",
+            "params": [
+                {
+                    "name": "oldValue",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "MutationRecord"
+            },
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 332,
+            "params": [
+                {
+                    "name": "record",
+                    "description": "",
+                    "type": "MutationRecord"
+                }
+            ],
+            "return": {
+                "description": "Whether the record represents a record from the current\nmutation event.",
+                "type": "Boolean"
+            },
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 341,
+            "description": "Selects which record, if any, to replace the last record in the queue.\nThis returns |null| if no record should be replaced.",
+            "params": [
+                {
+                    "name": "lastRecord",
+                    "description": "",
+                    "type": "MutationRecord"
+                },
+                {
+                    "name": "newRecord",
+                    "description": "",
+                    "type": "MutationRecord"
+                },
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "MutationRecord"
+                }
+            ],
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 361,
+            "description": "Class used to represent a registered observer.",
+            "params": [
+                {
+                    "name": "observer",
+                    "description": "",
+                    "type": "MutationObserver"
+                },
+                {
+                    "name": "target",
+                    "description": "",
+                    "type": "Node"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "MutationObserverInit"
+                }
+            ],
+            "is_constructor": 1,
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
+            "file": "src/polyfills/mutation.js",
+            "line": 436,
+            "description": "Adds a transient observer on node. The transient observer gets removed\nnext time we deliver the change records.",
+            "params": [
+                {
+                    "name": "node",
+                    "description": "",
+                    "type": "Node"
+                }
+            ],
+            "class": "Function",
+            "module": "addons",
+            "namespace": "core"
+        },
+        {
             "file": "src/core.js",
             "line": 17,
             "description": "Added support for older browser. Only applied when the method is not available. Returns a scope bound function.",
@@ -1401,6 +1609,14 @@
     ],
     "warnings": [
         {
+            "message": "unknown tag: license",
+            "line": " src/polyfills/mutation.js:1"
+        },
+        {
+            "message": "param name missing: {MutationRecord}",
+            "line": " src/polyfills/mutation.js:341"
+        },
+        {
             "message": "replacing incorrect tag: returns with return",
             "line": " src/core.js:148"
         },
@@ -1439,6 +1655,50 @@
         {
             "message": "Missing item type\nLIFTED and renamed from qwest\nTODO: Add httpMock and interceptors\nOPTIONS\ndataType : post (by default), json, text, arraybuffer, blob, document or formdata (you don't need to specify XHR2 types since they're automatically detected)\nresponseType : the response type; either auto (default), json, xml, text, arraybuffer, blob or document\ncache : browser caching; default is false for GET requests and true for POST requests\nasync : true (default) or false; used to make asynchronous or synchronous requests\nuser : the user to access to the URL, if needed\npassword : the password to access to the URL, if needed\nheaders : javascript object containing headers to be sent\nwithCredentials : false by default; sends credentials with your XHR2 request (more info in that post)\ntimeout : the timeout for the request in ms; 3000 by default\nattempts : the total number of times to attempt the request through timeouts; 3 by default; if you want to remove the limit set it to null\n\nxhr.<method>(<url>[, data[, options]])\n.then(function(response){\n       // Run when the request is successful\n    })\n.error(function(e,url){\n       // Process the error\n    })\n.complete(function(){\n       // Always run\n    });\n\n\nxhr.limit(NUMBER) - sets simultaneous request limit",
             "line": " src/lib/xhr.js:12"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/polyfills/mutation.js:1"
+        },
+        {
+            "message": "Missing item type\nSchedules |dispatchCallback| to be called in the future.",
+            "line": " src/polyfills/mutation.js:88"
+        },
+        {
+            "message": "Missing item type\nThis function is used for the \"For each registered observer observer (with\nobserver's options as options) in target's list of registered observers,\nrun these substeps:\" and the \"For each ancestor ancestor of target, and for\neach registered observer observer (with options options) in ancestor's list\nof registered observers, run these substeps:\" part of the algorithms. The\n|options.subtree| is checked to ensure that the callback is called\ncorrectly.",
+            "line": " src/polyfills/mutation.js:150"
+        },
+        {
+            "message": "Missing item type\nThe class that maps to the DOM MutationObserver interface.",
+            "line": " src/polyfills/mutation.js:185"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/polyfills/mutation.js:273"
+        },
+        {
+            "message": "Missing item type\nCreates a record without |oldValue| and caches it as |currentRecord| for\nlater use.",
+            "line": " src/polyfills/mutation.js:305"
+        },
+        {
+            "message": "Missing item type\nGets or creates a record with |oldValue| based in the |currentRecord|",
+            "line": " src/polyfills/mutation.js:315"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/polyfills/mutation.js:332"
+        },
+        {
+            "message": "Missing item type\nSelects which record, if any, to replace the last record in the queue.\nThis returns |null| if no record should be replaced.",
+            "line": " src/polyfills/mutation.js:341"
+        },
+        {
+            "message": "Missing item type\nClass used to represent a registered observer.",
+            "line": " src/polyfills/mutation.js:361"
+        },
+        {
+            "message": "Missing item type\nAdds a transient observer on node. The transient observer gets removed\nnext time we deliver the change records.",
+            "line": " src/polyfills/mutation.js:436"
         },
         {
             "message": "Missing item type",

@@ -21,7 +21,10 @@
                 if("initialized" in this){
                     this.initialized(opts);
                 }
-
+                this.el.addEventListener("DOMNodeInserted", nodeMutated.bind(this), false);
+            };
+            var nodeMutated = function(){
+                findImmediateClasses.call(this, this.el);
             };
             this.loadViewModule = function(src){
                 var fragment;
@@ -132,9 +135,7 @@
                             }else{
                                 this.properties[attr] = child;
                             }
-
                         }
-
                         if(child.hasChildNodes()){
                             checkNodeProperties.call(this, child);
                         }
