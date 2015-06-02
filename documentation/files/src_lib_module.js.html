@@ -140,6 +140,9 @@
                 this.el.addEventListener(&quot;DOMNodeInserted&quot;, nodeMutated.bind(this), false);
             };
             var nodeMutated = function(){
+                if(&quot;domMutated&quot; in this){
+                    this.domMutated();
+                }
                 findImmediateClasses.call(this, this.el);
             };
             this.loadViewModule = function(src){

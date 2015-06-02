@@ -1537,6 +1537,9 @@ if(typeof module !== 'undefined' && module.exports){
                 this.el.addEventListener("DOMNodeInserted", nodeMutated.bind(this), false);
             };
             var nodeMutated = function(){
+                if("domMutated" in this){
+                    this.domMutated();
+                }
                 findImmediateClasses.call(this, this.el);
             };
             this.loadViewModule = function(src){
