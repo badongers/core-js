@@ -1536,11 +1536,11 @@ if(typeof module !== 'undefined' && module.exports){
                 }
                 this.el.addEventListener("DOMNodeInserted", nodeMutated.bind(this), false);
             };
-            var nodeMutated = function(){
+            var nodeMutated = function(evt){
                 findImmediateClasses.call(this, this.el);
                 checkNodeProperties.call(this, this.el);
                 if("domMutated" in this){
-                    this.domMutated();
+                    this.domMutated(evt);
                 }
             };
             this.loadViewModule = function(src){
