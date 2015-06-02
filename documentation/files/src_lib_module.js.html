@@ -271,44 +271,50 @@
                             var cmod = mod.getAttribute(&quot;core-module&quot;) || mod.getAttribute(&quot;data-core-module&quot;);
                             var cid = mod.getAttribute(&quot;core-id&quot;) || mod.getAttribute(&quot;data-core-id&quot;);
                             var params = mod.getAttribute(&quot;core-params&quot;) || mod.getAttribute(&quot;data-core-params&quot;);
+                            var inited = mod.classList.contains(&quot;core-init&quot;);
 
-                            if(cmod &amp;&amp; cid &amp;&amp; !this[cid]){
-                                cls = Function.apply(scope, [&quot;return &quot;+cmod])();
-                                opts = {};
-                                opts.params = params ? parseParameters(params) : null;
-                                opts.el = mod;
-                                opts.parent = this;
+                            if(!inited){
+                                if(cmod &amp;&amp; cid &amp;&amp; !this[cid]){
+                                    cls = Function.apply(scope, [&quot;return &quot;+cmod])();
+                                    opts = {};
+                                    opts.params = params ? parseParameters(params) : null;
+                                    opts.el = mod;
+                                    opts.parent = this;
+                                    mod.classList.add(&quot;core-init&quot;)
+                                    this[cid] = new cls(opts);
+                                }else if(cmod &amp;&amp; !cid){
+                                    cls = Function.apply(scope, [&quot;return &quot;+cmod])();
+                                    opts = {};
+                                    opts.params = params ? parseParameters(params) : null;
+                                    opts.parent = this;
+                                    opts.el = mod;
+                                    mod.classList.add(&quot;core-init&quot;)
+                                    if(cls){
+                                        new cls(opts); //do not assign to any property
+                                    }else{
+                                        throw new Error(cmod + &quot; module not found.&quot;)
+                                    }
 
-                                this[cid] = new cls(opts);
-                            }else if(cmod &amp;&amp; !cid){
-                                cls = Function.apply(scope, [&quot;return &quot;+cmod])();
-                                opts = {};
-                                opts.params = params ? parseParameters(params) : null;
-                                opts.parent = this;
-                                opts.el = mod;
-                                if(cls){
-                                    new cls(opts); //do not assign to any property
-                                }else{
-                                    throw new Error(cmod + &quot; module not found.&quot;)
+
+                                }else if(cmod &amp;&amp; cid &amp;&amp; this[cid]){
+                                    cls = Function.apply(scope, [&quot;return &quot;+cmod])();
+                                    opts = {};
+                                    opts.params = params ? parseParameters(params) : null;
+                                    opts.el = mod;
+                                    mod.classList.add(&quot;core-init&quot;)
+                                    opts.parent = this;
+                                    var o = new cls(opts);
+                                    try{
+                                        this[cid].push(o);
+                                    }catch(err){
+                                        this[cid] = [this[cid]];
+                                        this[cid].push(o);
+                                    }
+                                }else if(mod.hasChildNodes()){
+                                    recurse.call(this, mod.childNodes);
                                 }
-
-
-                            }else if(cmod &amp;&amp; cid &amp;&amp; this[cid]){
-                                cls = Function.apply(scope, [&quot;return &quot;+cmod])();
-                                opts = {};
-                                opts.params = params ? parseParameters(params) : null;
-                                opts.el = mod;
-                                opts.parent = this;
-                                var o = new cls(opts);
-                                try{
-                                    this[cid].push(o);
-                                }catch(err){
-                                    this[cid] = [this[cid]];
-                                    this[cid].push(o);
-                                }
-                            }else if(mod.hasChildNodes()){
-                                recurse.call(this, mod.childNodes);
                             }
+
                         }
                     }
                 };
