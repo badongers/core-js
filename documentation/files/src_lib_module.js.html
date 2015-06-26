@@ -247,7 +247,11 @@
                         if(child.getAttribute(&quot;core-module&quot;) || child.getAttribute(&quot;data-core-module&quot;)){
                             break; //stop when encountering another module
                         }
+                        var isdata = false;
                         if(child.getAttribute(&quot;data-core-prop&quot;) || child.getAttribute(&quot;core-prop&quot;)){
+                            if(child.getAttribute(&quot;data-core-prop&quot;)){
+                                isdata = true;
+                            }
                             if(!this.properties){
                                 this.properties = {};
                             }
@@ -259,6 +263,13 @@
                                 this.properties[attr].push(child);
                             }else{
                                 this.properties[attr] = child;
+                            }
+                            if(isdata){
+                                child.setAttribute(&quot;data-core-prop-init&quot;, child.getAttribute(&quot;data-core-prop&quot;));
+                                child.removeAttribute(&quot;data-core-prop&quot;);
+                            }else{
+                                child.setAttribute(&quot;core-prop-init&quot;, child.getAttribute(&quot;core-prop&quot;));
+                                child.removeAttribute(&quot;core-prop&quot;);
                             }
                         }
                         if(child.hasChildNodes()){
@@ -285,6 +296,7 @@
                             var params = mod.getAttribute(&quot;core-params&quot;) || mod.getAttribute(&quot;data-core-params&quot;);
                             var inited = mod.classList.contains(&quot;core-init&quot;);
 
+
                             if(!inited){
                                 if(cmod &amp;&amp; cid &amp;&amp; !this[cid]){
                                     cls = Function.apply(scope, [&quot;return &quot;+cmod])();
@@ -300,7 +312,7 @@
                                     opts.params = params ? parseParameters(params) : null;
                                     opts.parent = this;
                                     opts.el = mod;
-                                    mod.classList.add(&quot;core-init&quot;)
+                                    mod.classList.add(&quot;core-init&quot;);
                                     if(cls){
                                         new cls(opts); //do not assign to any property
                                     }else{

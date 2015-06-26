@@ -23,6 +23,6 @@
 
     core.strapUp(function(){
         console.log("strapped")
-    }, "Main"); /* instantiate using custom main class, remove 2nd parameter to instantiate using built-in core module */
+    }, "Main"); //instantiate using custom main class, remove 2nd parameter to instantiate using built-in core module
 
 })();

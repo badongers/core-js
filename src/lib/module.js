@@ -131,7 +131,11 @@
                         if(child.getAttribute("core-module") || child.getAttribute("data-core-module")){
                             break; //stop when encountering another module
                         }
+                        var isdata = false;
                         if(child.getAttribute("data-core-prop") || child.getAttribute("core-prop")){
+                            if(child.getAttribute("data-core-prop")){
+                                isdata = true;
+                            }
                             if(!this.properties){
                                 this.properties = {};
                             }
@@ -143,6 +147,13 @@
                                 this.properties[attr].push(child);
                             }else{
                                 this.properties[attr] = child;
+                            }
+                            if(isdata){
+                                child.setAttribute("data-core-prop-init", child.getAttribute("data-core-prop"));
+                                child.removeAttribute("data-core-prop");
+                            }else{
+                                child.setAttribute("core-prop-init", child.getAttribute("core-prop"));
+                                child.removeAttribute("core-prop");
                             }
                         }
                         if(child.hasChildNodes()){
@@ -169,6 +180,7 @@
                             var params = mod.getAttribute("core-params") || mod.getAttribute("data-core-params");
                             var inited = mod.classList.contains("core-init");
 
+
                             if(!inited){
                                 if(cmod && cid && !this[cid]){
                                     cls = Function.apply(scope, ["return "+cmod])();
@@ -184,7 +196,7 @@
                                     opts.params = params ? parseParameters(params) : null;
                                     opts.parent = this;
                                     opts.el = mod;
-                                    mod.classList.add("core-init")
+                                    mod.classList.add("core-init");
                                     if(cls){
                                         new cls(opts); //do not assign to any property
                                     }else{
