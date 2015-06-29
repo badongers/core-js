@@ -5,17 +5,18 @@
     <link rel="stylesheet" href="qunit/qunit/qunit.css"/>
 </head>
 <body>
-<body>
+
 
 
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
+<h3 data-core-prop="header">Classname: {{$classname}}</h3> <!-- data-core-prop becomes a property (under properties) of the parent class node -->
 
-<h3 data-core-prop="header">Classname: {{$classname}}</h3>
 
 <div data-core-module="TestModule" data-core-params="test:'test1';something:100;" style="height:1000px;" data-core-id="test_module">
     <h3>Classname: {{$classname}}</h3>
 </div>
+<!-- <script language="javascript" src="../src/dependencies/jqlite.js"></script> -->
 <script language="javascript" src="../src/dependencies/sightglass.js"></script>
 <script language="javascript" src="../src/dependencies/rivets.patched.js"></script>
 <script language="javascript" src="../src/polyfills/classlist.js"></script>

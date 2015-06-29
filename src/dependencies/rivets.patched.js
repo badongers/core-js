@@ -4,11 +4,32 @@
 // license: MIT
 (function() {
   var Rivets, bindMethod, unbindMethod, _ref,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __bind = function(fn, me) {
+      return function() {
+        return fn.apply(me, arguments);
+      };
+    },
     __slice = [].slice,
     __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+    __extends = function(child, parent) {
+      for (var key in parent) {
+        if (__hasProp.call(parent, key)) child[key] = parent[key];
+      }
+
+      function ctor() {
+        this.constructor = child;
+      }
+      ctor.prototype = parent.prototype;
+      child.prototype = new ctor();
+      child.__super__ = parent.prototype;
+      return child;
+    },
+    __indexOf = [].indexOf || function(item) {
+      for (var i = 0, l = this.length; i < l; i++) {
+        if (i in this && this[i] === item) return i;
+      }
+      return -1;
+    };
 
   Rivets = {
     options: ['prefix', 'templateDelimiters', 'rootInterface', 'preloadData', 'handler'],
@@ -378,12 +399,12 @@
             _results = [];
             for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
               childNode = _ref1[_j];
-              try{
+              try {
                 /** MONKEY PATCH - Supports Core Framework **/
-                if(!childNode.hasAttribute("data-core-module")){
+                if (!childNode.hasAttribute("data-core-module")) {
                   _results.push(parse(childNode));
                 }
-              }catch(err) {
+              } catch (err) {
 
                 _results.push(parse(childNode));
               }
@@ -1383,7 +1404,7 @@
     return Rivets["public"];
   };
 
-  if (typeof (typeof module !== "undefined" && module !== null ? module.exports : void 0) === 'object') {
+  if (typeof(typeof module !== "undefined" && module !== null ? module.exports : void 0) === 'object') {
     module.exports = Rivets.factory(require('sightglass'));
   } else if (typeof define === 'function' && define.amd) {
     define(['sightglass'], function(sightglass) {
