@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CoreJS Qunit test</title>
+  <link rel="stylesheet" href="qunit/qunit/qunit.css"/>
+</head>
+<body>
+
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+
+<h3 data-core-prop="header">Classname: {{$classname}}</h3>
+
+<div data-core-module="don.TestModule" data-core-params="test:'test1';something:100;" data-core-id="test_module">
+  <h3>Classname: {{$classname}}</h3>
+</div>
+<div data-core-module="don.TestEventReceiverModule" data-core-params="test:'test1';something:100;" data-core-id="test_receiver_module">
+  <h3>Classname: {{$classname}}</h3>
+</div>
+<div data-core-module="don.SubTestModule" data-core-params="test:'test1';something:100;">
+    <h3>Classname: {{$classname}}</h3>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="../src/dependencies/sightglass.js"></script>
+<script src="../src/dependencies/rivets.patched.js"></script>
+<script src="../src/polyfills/classlist.js"></script>
+<script src="../src/polyfills/raf.js"></script>
+<script src="../src/core.js"></script>
+<script src="../src/lib/xhr.js"></script>
+
+<script src="../src/lib/eventdispatcher.js"></script>
+<script src="../src/lib/eventbroadcaster.js"></script>
+
+<script src="../src/lib/module.js"></script>
+<script src="../src/lib/windowevents.js"></script>
+<script src="../src/addons/parallax.js"></script>
+
+<script src="../src/utils/math.js"></script>
+
+<!--<script src="../dist/core.min.js"></script>-->
+
+<script src="config.js"></script>
+<script src="services.js"></script>
+<script src="testmodule.js"></script>
+<script src="TestEventEmitter.js"></script>
+<script src="TestEventReceiver.js"></script>
+<script src="SubTestModule.js"></script>
+<script src="LoadedModule.js"></script>
+
+<script src="main.js"></script>
+
+<script src="qunit/qunit/qunit.js"></script>
+<script src="test.js"></script>
+
+</body>
+</html>

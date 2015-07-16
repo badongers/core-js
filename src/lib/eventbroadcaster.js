@@ -8,13 +8,12 @@
  * @param {Object} opts An object containing configurations required by the Core derived class.
  *
  */
-(function () {
-    core.registerModule({
-        inherits:"core.EventDispatcher",
-        singleton:true,
-        classname:"core.EventBroadcaster",
-        module:function(){
-        }
-    });
+(function() {
+  core.registerModule({
+    inherits: "core.EventDispatcher",
+    singleton: true,
+    classname: "core.EventBroadcaster",
+    module: function() {}
+  });
 
 })();

@@ -23,28 +23,6 @@
   };
 
   /**
-   * Utility method for implementing mixins/augmentation/partial in the core framework
-   *
-   * @method mixin
-   * @param {Object} obj The object where the prototype is going to be mix with.
-   *
-   */
-  // Function.prototype.augment = Function.prototype.mixin = Function.prototype.partial = function(obj) {
-  //   if (typeof obj == "function") {
-  //     for (var prop in obj.prototype) {
-  //       this.prototype[prop] = obj.prototype[prop];
-  //     }
-  //   }
-  //   if (typeof obj == "object") {
-  //     for (var prop in obj) {
-  //       if (obj.hasOwnProperty(prop)) {
-  //         this.prototype[prop] = obj[prop];
-  //       }
-  //     }
-  //   }
-  // }
-
-  /**
    * Set helper properties if the environment is a browser.
    * Creates a browser object in the core object containing browser information.
    *
@@ -124,59 +102,72 @@
 
   }()); // END setBrowser()
 
-  /**
-   * Utility method for generating GUID. [http://stackoverflow.com/a/873856/820640]
-   * @method GUID
-   * @returns String Returns a GUID string
-   */
-  core.GUID = function() {
-    var s = [];
-    var hexDigits = "0123456789abcdef";
-    for (var i = 0; i < 36; i++) {
-      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-    }
-    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
-    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-    s[8] = s[13] = s[18] = s[23] = "-";
-    var uuid = s.join("");
-    return uuid;
-  };
+  (function defineUtils() {
+    var util = {};
 
-  /**
-   * Utility method for getting the bounding rect of the dom element - also adds support for IE8
-   * @method rect
-   * @returns Object Contains the rectangular information of a HTMLElement
-   */
-  core.rect = function(targ) {
-    var box = {};
-    box = (function() {
-      var o;
-      if (targ instanceof Array) {
-        o = targ[0].getBoundingClientRect();
-      } else {
-        targ.getBoundingClientRect();
+    /**
+     * Utility method for generating GUID. [http://stackoverflow.com/a/873856/820640]
+     * @method guid
+     * @returns String Returns a GUID string
+     */
+    util.guid = function() {
+      var s = [],
+        hexDigits = "0123456789abcdef",
+        uuid,
+        i = 0;
+      for (; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+      }
+      s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+      s[8] = s[13] = s[18] = s[23] = "-";
+      uuid = s.join("");
+      return uuid;
+    };
+
+    /**
+     * Utility method for getting the bounding rect of the dom element - also adds support for IE8
+     * @method rect
+     * @returns Object Contains the rectangular information of a HTMLElement
+     */
+    util.rect = function(targ) {
+      var box = {};
+      box = (function() {
+        var o;
+        if (targ instanceof Array) {
+          o = targ[0].getBoundingClientRect();
+        } else {
+          targ.getBoundingClientRect();
+        }
+
+        // Because the return value of getBoundingClientRect() is frozen, re-construct return object.
+        return {
+          top: o.top,
+          left: o.left,
+          right: o.right,
+          bottom: o.bottom,
+          width: o.width,
+          height: o.height
+        };
+      }());
+      if (typeof box.width == "undefined") {
+        box.width = box.right - box.left;
+        box.height = box.bottom + box.top;
+      } else if (typeof box.right == "undefined") {
+        box.right = box.left + box.width;
+        box.bottom = box.top + box.height;
       }
 
-      // Because the return value of getBoundingClientRect() is frozen, re-construct return object.
-      return {
-        top: o.top,
-        left: o.left,
-        right: o.right,
-        bottom: o.bottom,
-        width: o.width,
-        height: o.height
-      };
-    }());
-    if (typeof box.width == "undefined") {
-      box.width = box.right - box.left;
-      box.height = box.bottom + box.top;
-    } else if (typeof box.right == "undefined") {
-      box.right = box.left + box.width;
-      box.bottom = box.top + box.height;
-    }
+      return box;
+    };
 
-    return box;
-  };
+    /**
+     * Core utility object. Contains useful utility functions.
+     * @property util
+     * @type Object
+     */
+    core.util = util;
+  }());
 
   /**
    * Utility method for exposing objects in a namespaced fashion.
@@ -338,7 +329,9 @@
 
   core.mixin = function(base, mix) {
     for (var prop in mix) {
-      base[prop] = mix[prop];
+      if (mix.hasOwnProperty(prop)) {
+        base[prop] = mix[prop];
+      }
     }
   };
 
@@ -383,7 +376,6 @@
   };
 
   core.strapUp = function(func, useclass) {
-    console.log(__queue__, useclass);
     if (__queue__.length) {
       while (__queue__.length) {
         manageModuleRegistration(__queue__.pop()); //load remaining definitions without checking dependencies.
@@ -397,6 +389,9 @@
           opts = {};
 
         opts.el = root;
+        if ('jQuery' in window) {
+          opts.$el = $(root);
+        }
         if (!("__coreapp__" in window)) {
           window.__coreapp__ = new cls(opts);
         } else {
@@ -458,12 +453,16 @@
     o.funcname = classsplit[classsplit.length - 1];
     o[o.funcname] = nameFunction(o.funcname, function(opts) {
       //o[o.funcname] = function(opts) {
+
       if (opts && opts.__inheriting__) return;
       if (opts && "parent" in opts) {
         this.parent = opts.parent;
       }
       if (opts && "el" in opts) {
-        this.node = this.el = opts.el;
+        this.el = opts.el;
+        if ('$el' in opts) {
+          this.$el = opts.$el;
+        }
       }
       if (opts && "params" in opts) {
         this.params = opts.params;
@@ -594,7 +593,7 @@ if (window && !("console" in window)) {
 (function() {
 
   var applyBindings = function() {
-    this.$bindings = rivets.bind(this.node, this, {
+    this.$bindings = rivets.bind(this.el, this, {
       prefix: 'data-rv',
       preloadData: true,
       rootInterface: '.',
@@ -621,7 +620,6 @@ if (window && !("console" in window)) {
    *
    */
   function Core(opts) {
-    var ref;
     //skips all process when instantiated from Function.inherits
     if (opts && opts.__inheriting__) {
       return;
@@ -636,7 +634,10 @@ if (window && !("console" in window)) {
          * @type HTMLElement
          *
          */
-        this.node = this.el = opts.el;
+        this.el = opts.el;
+        if ('$el' in opts) {
+          this.$el = opts.$el;
+        }
         if ("rivets" in window) {
           prepareBindings.call(this);
         }
@@ -655,12 +656,17 @@ if (window && !("console" in window)) {
       this.construct(opts || {});
     }
 
-    ref = this;
-    setTimeout(function() {
-      if (ref.delayedConstruct) {
-        ref.delayedConstruct(opts || {});
-      }
-    }, 0);
+    if (this.delayedConstruct) {
+      this.delayedConstruct(opts || {});
+    }
+
+    // setTimeout((function(ref) {
+    //   return function() {
+    //     if (ref.delayedConstruct) {
+    //       ref.delayedConstruct(opts || {});
+    //     }
+    //   };
+    // }(this)), 0);
 
   } // Core()
 
@@ -681,7 +687,7 @@ if (window && !("console" in window)) {
 
     }
     return this.proxyHandlers[str];
-  }
+  };
 
   // ### Core.clearProxyHandler ######
   // Core method for clearing proxied function methods.
@@ -699,7 +705,7 @@ if (window && !("console" in window)) {
     this.proxyHandlers[str] = null;
     delete this.proxyHandlers[str];
     return ret;
-  }
+  };
 
   /**
    * Core method initialization. This is called automatically on core sub classes.
@@ -751,7 +757,7 @@ if (window && !("console" in window)) {
     if ("jQuery" in window) {
       select = window.jQuery;
     }
-    return select ? select(this.node).find(selector) : this.node.querySelectorAll(selector);
+    return select ? select(this.el).find(selector) : this.el.querySelectorAll(selector);
   };
 
   /**
@@ -768,9 +774,10 @@ if (window && !("console" in window)) {
     }
     return select ? select(document).find(selector) : document.querySelectorAll(selector);
   };
+
   core.registerNamespace("core.Core", Core);
 
-})();
+}());
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = core;
 }
