@@ -160,6 +160,7 @@ describe("TestModule", function() {
         classname: "TestEventReceiverModule",
         module: [function() {
           this.initialized = function(opts) {
+            this.$super.initialized.call(this, opts);
             core.EventBroadcaster.on("customBehaviour", "removeMe", this);
           };
           this.removeMe = function() {
@@ -200,7 +201,7 @@ describe("TestModule", function() {
         classname: "TestEventEmitterModule",
         module: [function() {
           this.initialized = function(opts) {
-            //this.$el.click(this.defaultClickHandler.bind(this));
+            this.$super.initialized.call(this, opts);
           };
 
           this.defaultClickHandler = function() {

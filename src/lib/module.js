@@ -28,29 +28,29 @@
           this.initialized(opts);
         }
 
-        if ('$super' in this) {
-          parentClass = this.$super;
-          if ('$classname' in parentClass) {
-            className = parentClass.$classname;
-          }
-        }
+        // if ('$super' in this) {
+        //   parentClass = this.$super;
+        //   if ('$classname' in parentClass) {
+        //     className = parentClass.$classname;
+        //   }
+        // }
 
-        if ('parent' in this && className !== this.parent.$classname) {
-          while (className && className !== 'Module') {
-            if ("initialized" in parentClass) {
-              parentClass.initialized.call(this, opts);
-            }
+        // if ('parent' in this && className !== this.parent.$classname) {
+        //   while (className && className !== 'Module') {
+        //     if ("initialized" in parentClass) {
+        //       parentClass.initialized.call(this, opts);
+        //     }
 
-            if ('$super' in parentClass) {
-              parentClass = parentClass.$super;
-              if ('$classname' in parentClass) {
-                className = parentClass.$classname;
-              }
-            }
-          }
+        //     if ('$super' in parentClass) {
+        //       parentClass = parentClass.$super;
+        //       if ('$classname' in parentClass) {
+        //         className = parentClass.$classname;
+        //       }
+        //     }
+        //   }
 
-          this.el.addEventListener("DOMNodeRemoved", nodeRemoved.bind(this), false);
-        }
+        //   this.el.addEventListener("DOMNodeRemoved", nodeRemoved.bind(this), false);
+        // }
 
         this.el.addEventListener("DOMNodeInserted", nodeMutated.bind(this), false);
       };
