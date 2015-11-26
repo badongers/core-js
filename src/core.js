@@ -338,7 +338,14 @@
   core.registerModule = function(definition) {
     if (definition.classname) {
       if (checkDIs(definition)) {
-        manageModuleRegistration(definition);
+        try{
+          manageModuleRegistration(definition);
+        }catch(err){
+          //failure to register module.
+          //push into first index of the __queue__
+          __queue__.splice(0, 0, definition);
+        }
+
         if (__queue__.length) {
           core.registerModule(__queue__.pop());
         }
