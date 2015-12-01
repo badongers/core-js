@@ -205,7 +205,7 @@
             },
             "tag": "module",
             "file": "src/core.js",
-            "line": 624,
+            "line": 622,
             "description": "The base module for the Core JS framework.\nIt provides helper methods for implementing OOP methodologies and basic utilities such as browser detection."
         }
     },
@@ -378,7 +378,7 @@
             "module": "core",
             "namespace": "core",
             "file": "src/core.js",
-            "line": 624,
+            "line": 622,
             "description": "The base object of all core based classes. Every object created within the Core framework derives from this class.",
             "is_constructor": 1,
             "params": [
@@ -1123,7 +1123,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 643,
+            "line": 641,
             "description": "The selected HTML element node reference.",
             "itemtype": "property",
             "name": "node",
@@ -1134,7 +1134,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 660,
+            "line": 658,
             "description": "Property for storing proxied function/methods",
             "itemtype": "property",
             "name": "proxyHandlers",
@@ -1145,7 +1145,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 688,
+            "line": 695,
             "description": "Returns a scope bound function and stores it on the proxyHandlers property.",
             "itemtype": "method",
             "name": "getProxyHandler",
@@ -1166,7 +1166,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 709,
+            "line": 716,
             "description": "Core method for clearing proxied function methods.",
             "itemtype": "method",
             "name": "clearProxyHandler",
@@ -1183,7 +1183,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 725,
+            "line": 732,
             "description": "Core method initialization. This is called automatically on core sub classes.",
             "itemtype": "method",
             "name": "construct",
@@ -1200,7 +1200,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 733,
+            "line": 740,
             "description": "Core method initialization. This is called automatically on core sub classes. Adds delay when being called automatically, this allows\ntime to setup all the other classes and manage the sequence of instantiations.",
             "itemtype": "method",
             "name": "delayedConstruct",
@@ -1217,7 +1217,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 742,
+            "line": 749,
             "description": "Core method for destroying/cleaning up objects.",
             "itemtype": "method",
             "name": "dispose",
@@ -1234,7 +1234,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 763,
+            "line": 770,
             "description": "Core method for searching sub node elements.",
             "itemtype": "method",
             "name": "find",
@@ -1255,7 +1255,7 @@
         },
         {
             "file": "src/core.js",
-            "line": 778,
+            "line": 785,
             "description": "Core method for searching sub node elements within the document context.",
             "itemtype": "method",
             "name": "findAll",
@@ -1604,11 +1604,11 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/core.js:763"
+            "line": " src/core.js:770"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src/core.js:778"
+            "line": " src/core.js:785"
         },
         {
             "message": "Missing item type\nCreated by donaldmartinez on 13/05/15.",

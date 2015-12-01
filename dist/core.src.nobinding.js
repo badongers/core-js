@@ -602,9 +602,7 @@ if (window && !("console" in window)) {
 (function() {
 
   var applyBindings = function() {
-    if(this.$bindings){
-      this.$bindings.unbind();
-    }
+
     this.$bindings = rivets.bind(this.el, this, {
       prefix: 'data-rv',
       preloadData: true,
@@ -683,8 +681,17 @@ if (window && !("console" in window)) {
     // }(this)), 0);
 
   } // Core()
-  Core.prototype.rebind = function(){
+  Core.prototype.bind = function(){
     prepareBindings.call(this);
+  };
+  Core.prototype.unbind = function(){
+    this.$bindings.unbind();
+  };
+  Core.prototype.rebindTo = function(model){
+    this.$bindings.unbind();
+    this.$bindings.model = model;
+    this.$bindings.build();
+    this.bind();
   };
   /**
    * Returns a scope bound function and stores it on the proxyHandlers property.
