@@ -65,8 +65,6 @@
             
                 <li><a href="../classes/core.XHR.html">core.XHR</a></li>
             
-                <li><a href="../classes/Function.html">Function</a></li>
-            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -125,231 +123,240 @@
  * @param {HTMLElement} opts.el The node element included in the class composition.
  *
  */
-(function (scope) {
-    core.registerModule({
-        inherits:&quot;core.EventDispatcher&quot;,
-        classname:&quot;core.Module&quot;,
-        module:[&quot;core.XHR&quot;, function(xhr){
-            this.delayedConstruct = function (opts) {
-                //create
-                findImmediateClasses.call(this, this.el);
-                checkNodeProperties.call(this, this.el);
-                if(&quot;initialized&quot; in this){
-                    this.initialized(opts);
-                }
-                this.el.addEventListener(&quot;DOMNodeInserted&quot;, nodeMutated.bind(this), false);
-            };
-            var nodeMutated = function(evt){
-                findImmediateClasses.call(this, this.el);
-                checkNodeProperties.call(this, this.el);
-                if(&quot;domMutated&quot; in this){
-                    this.domMutated(evt);
-                }
-            };
-            this.loadViewModule = function(src){
-                var fragment;
-                xhr.get(src).then((function(res){
-                    fragment = res;
+(function(scope) {
+  core.registerModule({
+    inherits: &quot;core.EventDispatcher&quot;,
+    classname: &quot;core.Module&quot;,
+    module: [&quot;core.XHR&quot;, function(xhr) {
 
-                }).bind(this)).error(function(err){
+      /*
+       * Intializes module(dom) including the class it has been extended from (if the parent class in not included)
+       */
+      this.delayedConstruct = function(opts) {
+        var className, parentClass, prop;
 
-                }).complete((function(res){
-                    this.appendFragment(fragment);
-                }).bind(this));
-            };
-            this.appendNode = function(node, appendto){
-                if(node instanceof Array){
-                    node = node[0];
-                }
-                if(appendto instanceof Array){
-                    appendto = appendto[0];
-                }
-                var wrap = document.createElement(&quot;div&quot;);
-                wrap.appendChild(node);
-                if(appendto){
-                    appendto.appendChild(wrap.firstChild);
-                }else{
-                    this.el.appendChild(wrap.firstChild);
-                }
-                findImmediateClasses.call(this, wrap);
-                checkNodeProperties.call(this, wrap);
-                wrap = null;
-            };
-            this.insertNodeBefore = function(target, toinsert){
-                if(toinsert instanceof Array){
-                    toinsert = toinsert[0];
-                }
-                var wrap = document.createElement(&quot;div&quot;);
-                wrap.appendChild(toinsert);
-                if(target instanceof Array){
-                    target = target[0];
-                }
-                target.parentNode.insertBefore(wrap.firstChild, target);
-                findImmediateClasses.call(this, wrap);
-                checkNodeProperties.call(this, wrap);
-                wrap = null;
-            };
-            this.insertNodeAfter = function(target, toinsert){
-                if(toinsert instanceof Array){
-                    toinsert = toinsert[0];
-                }
-                var wrap = document.createElement(&quot;div&quot;);
-                wrap.appendChild(toinsert);
-
-                if(target instanceof Array){
-                    target = target[0];
-                }
-                target.parentNode.insertAfter(wrap.firstChild, target);
-                findImmediateClasses.call(this, wrap);
-                checkNodeProperties.call(this, wrap);
-                wrap = null;
-            };
-            this.appendFragment = function(str, appendto){
-                var wrap = document.createElement(&quot;div&quot;);
-                wrap.innerHTML = str;
-
-                for(var i in wrap.childNodes){
-                    try{
-                        if(appendto){
-                            appendto.appendChild(wrap.childNodes[i]);
-                        }else{
-                            this.el.appendChild(wrap.childNodes[i]);
-                        }
-                    }catch(err){}
-
-                }
-                findImmediateClasses.call(this, wrap);
-                checkNodeProperties.call(this, wrap);
-                wrap = null;
-            };
-            function parseParameters(params){
-                var o = {};
-                var split = params.split(&quot;;&quot;);
-                if(split[split.length-1] == &quot;&quot;){
-                    split.pop();
-                }
-                var len = split.length;
-                while(len--){
-
-                    var pair = split[len].split(&quot;:&quot;);
-                    o[pair[0]] = pair[1];
-                }
-                return o;
-            };
-            this.triggerSubModules = function(){
-                findImmediateClasses.call(this, this.node);
-            };
-            function checkNodeProperties(node){
-                var children = node.childNodes;
-                for(var i in children){
-                    var child = children[i];
-                    if(child.nodeType === 1){
-                        if(child.getAttribute(&quot;core-module&quot;) || child.getAttribute(&quot;data-core-module&quot;)){
-                            break; //stop when encountering another module
-                        }
-                        var isdata = false;
-                        if(child.getAttribute(&quot;data-core-prop&quot;) || child.getAttribute(&quot;core-prop&quot;)){
-                            if(child.getAttribute(&quot;data-core-prop&quot;)){
-                                isdata = true;
-                            }
-                            if(!this.properties){
-                                this.properties = {};
-                            }
-                            var attr = child.getAttribute(&quot;data-core-prop&quot;) || child.getAttribute(&quot;core-prop&quot;);
-                            if(this.properties[attr] &amp;&amp; !(this.properties[attr] instanceof Array)){
-                                this.properties[attr] = [this.properties[attr]];
-                            }
-                            if(this.properties[attr] instanceof Array){
-                                this.properties[attr].push(child);
-                            }else{
-                                this.properties[attr] = child;
-                            }
-                            if(isdata){
-                                child.setAttribute(&quot;data-core-prop-init&quot;, child.getAttribute(&quot;data-core-prop&quot;));
-                                child.removeAttribute(&quot;data-core-prop&quot;);
-                            }else{
-                                child.setAttribute(&quot;core-prop-init&quot;, child.getAttribute(&quot;core-prop&quot;));
-                                child.removeAttribute(&quot;core-prop&quot;);
-                            }
-                        }
-                        if(child.hasChildNodes()){
-                            checkNodeProperties.call(this, child);
-                        }
+        //create
+        findImmediateClasses.call(this, this.el);
+        checkNodeProperties.call(this, this.el);
+        if (&quot;initialized&quot; in this) {
+          this.initialized(opts);
+        }
 
 
-                    }
-                }
-            };
-            function findImmediateClasses(node) {
-                var recurse = function(modules) {
-                    var i = -1,
-                        cls,
-                        opts,
-                        len = modules.length-1;
+        // if (&#x27;$super&#x27; in this) {
+        //   parentClass = this.$super;
+        //   if (&#x27;$classname&#x27; in parentClass) {
+        //     className = parentClass.$classname;
+        //   }
+        // }
 
-                    while(i++ &lt; len){
-                        var mod = modules[i];
+        // if (&#x27;parent&#x27; in this &amp;&amp; className !== this.parent.$classname) {
+        //   while (className &amp;&amp; className !== &#x27;Module&#x27;) {
+        //     if (&quot;initialized&quot; in parentClass) {
+        //       parentClass.initialized.call(this, opts);
+        //     }
 
-                        if(mod.nodeType == 1){
-                            var cmod = mod.getAttribute(&quot;core-module&quot;) || mod.getAttribute(&quot;data-core-module&quot;);
-                            var cid = mod.getAttribute(&quot;core-id&quot;) || mod.getAttribute(&quot;data-core-id&quot;);
-                            var params = mod.getAttribute(&quot;core-params&quot;) || mod.getAttribute(&quot;data-core-params&quot;);
-                            var inited = mod.classList.contains(&quot;core-init&quot;);
+        //     if (&#x27;$super&#x27; in parentClass) {
+        //       parentClass = parentClass.$super;
+        //       if (&#x27;$classname&#x27; in parentClass) {
+        //         className = parentClass.$classname;
+        //       }
+        //     }
+        //   }
 
+        //   this.el.addEventListener(&quot;DOMNodeRemoved&quot;, nodeRemoved.bind(this), false);
+        // }
 
-                            if(!inited){
-                                if(cmod &amp;&amp; cid &amp;&amp; !this[cid]){
-                                    cls = Function.apply(scope, [&quot;return &quot;+cmod])();
-                                    opts = {};
-                                    opts.params = params ? parseParameters(params) : null;
-                                    opts.el = mod;
-                                    opts.parent = this;
-                                    mod.classList.add(&quot;core-init&quot;)
-                                    this[cid] = new cls(opts);
-                                }else if(cmod &amp;&amp; !cid){
-                                    cls = Function.apply(scope, [&quot;return &quot;+cmod])();
-                                    opts = {};
-                                    opts.params = params ? parseParameters(params) : null;
-                                    opts.parent = this;
-                                    opts.el = mod;
-                                    mod.classList.add(&quot;core-init&quot;);
-                                    if(cls){
-                                        new cls(opts); //do not assign to any property
-                                    }else{
-                                        throw new Error(cmod + &quot; module not found.&quot;)
-                                    }
+        this.el.addEventListener(&quot;DOMNodeInserted&quot;, nodeMutated.bind(this), false);
+      };
+      this.loadViewModule = function(src) {
+        var fragment;
+        xhr.get(src).then((function(res) {
+          fragment = res;
 
+        }).bind(this)).error(function(err) {
 
-                                }else if(cmod &amp;&amp; cid &amp;&amp; this[cid]){
-                                    cls = Function.apply(scope, [&quot;return &quot;+cmod])();
-                                    opts = {};
-                                    opts.params = params ? parseParameters(params) : null;
-                                    opts.el = mod;
-                                    mod.classList.add(&quot;core-init&quot;)
-                                    opts.parent = this;
-                                    var o = new cls(opts);
-                                    try{
-                                        this[cid].push(o);
-                                    }catch(err){
-                                        this[cid] = [this[cid]];
-                                        this[cid].push(o);
-                                    }
-                                }else if(mod.hasChildNodes()){
-                                    recurse.call(this, mod.childNodes);
-                                }
-                            }
+        }).complete((function(res) {
+          appendFragment(fragment);
+        }).bind(this));
+      };
 
-                        }
-                    }
-                };
-                recurse.call(this, node.childNodes);
+      this.triggerSubModules = function() {
+        findImmediateClasses.call(this, this.el);
+      };
+
+      function nodeMutated(evt) {
+        findImmediateClasses.call(this, this.el);
+        checkNodeProperties.call(this, this.el);
+        if (&quot;domMutated&quot; in this) {
+          this.domMutated(evt);
+        }
+      } // END nodeMutated()
+
+      function nodeRemoved(evt) {
+        //this.dispose();
+      } // END nodeRemoved()
+
+      function appendFragment(str, appendto) {
+        var wrap = document.createElement(&quot;div&quot;);
+        wrap.innerHTML = str;
+
+        for (var i in wrap.childNodes) {
+          try {
+            if (appendto) {
+              appendto.appendChild(wrap.childNodes[i]);
+            } else {
+              this.el.appendChild(wrap.childNodes[i]);
+            }
+          } catch (err) {}
+
+        }
+        findImmediateClasses.call(this, wrap);
+        checkNodeProperties.call(this, wrap);
+        wrap = null;
+      };
+
+      function parseParameters(params) {
+        var len, pair, jsonStr = &#x27;&#x27;,
+          split = params.split(&quot;;&quot;);
+
+        function addValidQuotes(str, forceString) {
+          if (str[0] === &#x27;&quot;&#x27; &amp;&amp; str[str.length - 1] === &#x27;&quot;&#x27;) {
+            return str;
+          } else if (str[0] === &quot;&#x27;&quot; &amp;&amp; str[str.length - 1] === &quot;&#x27;&quot;) {
+            return &#x27;&quot;&#x27; + str.substr(1, str.length - 2) + &#x27;&quot;&#x27;;
+          } else if (forceString) {
+            return &#x27;&quot;&#x27; + str + &#x27;&quot;&#x27;;
+          }
+          return str;
+        } // END addValidQuotes()
+
+        len = split.length;
+        while (len--) {
+          if (split[len] === &#x27;&#x27;) {
+            continue;
+          }
+          pair = split[len].split(&quot;:&quot;);
+
+          pair[0] = addValidQuotes(pair[0], true);
+          pair[1] = addValidQuotes(pair[1]);
+
+          jsonStr += pair[0] + &#x27;:&#x27; + pair[1];
+
+          if (len &gt; 0) {
+            jsonStr += &#x27;,&#x27;;
+          }
+        }
+
+        return JSON.parse(&#x27;{&#x27; + jsonStr + &#x27;}&#x27;);
+      } // END paresParameters()
+
+      function checkNodeProperties(node) {
+        var children = node.childNodes,
+          attr, child, isdata;
+
+        for (var i in children) {
+          child = children[i];
+          if (child.nodeType === 1) {
+            if (child.getAttribute(&quot;core-module&quot;) || child.getAttribute(&quot;data-core-module&quot;)) {
+              break; //stop when encountering another module
+            }
+            isdata = false;
+            if (child.getAttribute(&quot;data-core-prop&quot;) || child.getAttribute(&quot;core-prop&quot;)) {
+              if (child.getAttribute(&quot;data-core-prop&quot;)) {
+                isdata = true;
+              }
+              if (!this.properties) {
+                this.properties = {};
+              }
+
+              attr = child.getAttribute(&quot;data-core-prop&quot;) || child.getAttribute(&quot;core-prop&quot;);
+
+              if (this.properties[attr] &amp;&amp; !(this.properties[attr] instanceof Array)) {
+                this.properties[attr] = [this.properties[attr]];
+              }
+              if (this.properties[attr] instanceof Array) {
+                this.properties[attr].push(child);
+              } else {
+                this.properties[attr] = child;
+              }
+              if (isdata) {
+                child.setAttribute(&quot;data-core-prop-init&quot;, child.getAttribute(&quot;data-core-prop&quot;));
+                child.removeAttribute(&quot;data-core-prop&quot;);
+              } else {
+                child.setAttribute(&quot;core-prop-init&quot;, child.getAttribute(&quot;core-prop&quot;));
+                child.removeAttribute(&quot;core-prop&quot;);
+              }
+            }
+            if (child.hasChildNodes()) {
+              checkNodeProperties.call(this, child);
             }
 
+          }
+        }
+      } // END checkNodeProperties()
 
-        }]
-    });
+      function findImmediateClasses(node) {
+        var recurse = function(modules) {
+          var i = 0,
+            cls,
+            opts,
+            len = modules.length;
 
-})(typeof process !== &quot;undefined&quot; &amp;&amp; process.arch !== undefined ? GLOBAL : window);
+          for (; i &lt; len; i += 1) {
+            (function() {
+              var mod = modules[i],
+                cmod, cid, params, inited, o;
+
+              if (mod.nodeType === Node.ELEMENT_NODE) {
+                cmod = mod.getAttribute(&quot;core-module&quot;) || mod.getAttribute(&quot;data-core-module&quot;);
+                cid = mod.getAttribute(&quot;core-id&quot;) || mod.getAttribute(&quot;data-core-id&quot;);
+                params = mod.getAttribute(&quot;core-params&quot;) || mod.getAttribute(&quot;data-core-params&quot;);
+                inited = mod.classList.contains(&quot;core-init&quot;);
+
+                if (!inited &amp;&amp; cmod) {
+
+                  cls = core._import(cmod);
+                  opts = {};
+                  opts.params = params ? parseParameters(params) : null;
+                  opts.parent = this;
+                  opts.el = mod;
+                  if (&#x27;jQuery&#x27; in window) {
+                    opts.$el = $(mod);
+                  }
+                  mod.classList.add(&quot;core-init&quot;);
+                  if (cid &amp;&amp; !this[cid]) {
+                    this[cid] = new cls(opts);
+                  } else if (!cid) {
+                    if (cls) {
+                      new cls(opts); //do not assign to any property
+                    } else {
+                      throw new Error(cmod + &quot; module not found.&quot;);
+                    }
+                  } else if (cid &amp;&amp; this[cid]) {
+                    o = new cls(opts);
+                    try {
+                      this[cid].push(o);
+                    } catch (err) {
+                      this[cid] = [this[cid]];
+                      this[cid].push(o);
+                    }
+                  }
+                } else if (mod.hasChildNodes()) {
+                  recurse.call(this, mod.childNodes);
+                }
+              }
+            }.bind(this)());
+          }
+        };
+        recurse.call(this, node.childNodes);
+      } // END findImmediateClasses()
+
+    }]
+  });
+
+})(window);
+
     </pre>
 </div>
 

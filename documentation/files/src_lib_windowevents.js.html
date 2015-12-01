@@ -65,8 +65,6 @@
             
                 <li><a href="../classes/core.XHR.html">core.XHR</a></li>
             
-                <li><a href="../classes/Function.html">Function</a></li>
-            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -120,93 +118,105 @@
  *
  * @module addons
  */
-(function () {
-    core.registerModule({
-        inherits:&quot;core.EventDispatcher&quot;,
-        classname:&quot;core.WindowEvents&quot;,
-        singleton:true,
-        module:function(){
-            /**
-             * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
-             *
-             * @class CoreWindow
-             * @extends core.Core
-             * @namespace core.addons
-             * @constructor
-             * @param {Object} opts An object containing configurations required by the Core derived class.
-             * @param {HTMLElement} opts.el The node element included in the class composition.
-             *
-             */
-            this.dispatchScroll = function(){
-                var scrollLeft = this.scrollLeft =  (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
-                var scrollTop = this.scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-                this.trigger(&quot;window.scroll&quot;, {scrollTop:scrollTop, scrollLeft:scrollLeft});
-                this.tick = false;
-            };
-            this.dispatchResize = function(){
-                var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-                var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-                var t = &quot;mobile&quot;;
-                if(w &gt;= 992 &amp;&amp; w &lt; 1200){
-                    t = &quot;medium&quot;;
-                }else if(w &lt; 992 &amp;&amp; w &gt;= 768){
-                    t = &quot;small&quot;;
-                }else if(w &gt;= 1200){
-                    t = &quot;large&quot;;
-                }
-                this.trigger(&quot;window.resize&quot;, {width:w, height:h, type:t});
-                this.tickResize = false;
-            };
-            this.dispatchMotion = function(){
-                var evt = this.motionEvent;
-                var accelX = evt.accelerationIncludingGravity.x;
-                var accelY = evt.accelerationIncludingGravity.y;
-                var accelZ = evt.accelerationIncludingGravity.z;
-                var rotationAlpha = evt.rotationRate.alpha;
-                var rotationGamma = evt.rotationRate.gamma;
-                var rotationBeta = evt.rotationRate.beta;
-                this.trigger(&quot;window.device.motion&quot;, {accelX:accelX, accelY:accelY, accelZ:accelZ, rotationAlpha:rotationAlpha, rotationBeta:rotationBeta, rotationGamma:rotationGamma});
-                this.tickMotion = false;
-                this.motionEvent = null;
-
-            };
-            this.onWindowScroll = function(){
-                if(!this.tick){
-                    this.tick = true;
-                    requestAnimationFrame(this._(&quot;dispatchScroll&quot;));
-                }
-            };
-            this.onWindowResize = function(){
-                if(!this.tickResize){
-                    this.tickResize = true;
-                    requestAnimationFrame(this._(&quot;dispatchResize&quot;));
-                }
-            };
-            this.onDeviceMotion = function(evt){
-                this.motionEvent = evt;
-                if(!this.tickMotion){
-                    this.tickMotion = true;
-                    requestAnimationFrame(this._(&quot;dispatchMotion&quot;));
-                }
-            };
-            this.onAfterConstruct = function(){
-
-                this.scrollTop = 0;
-                this.scrollLeft = 0;
-                window.addEventListener(&quot;scroll&quot;, this._(&quot;onWindowScroll&quot;));
-                window.addEventListener(&quot;resize&quot;, this._(&quot;onWindowResize&quot;));
-                if(core.browser.touch){
-                    window.addEventListener(&quot;devicemotion&quot;, this._(&quot;onDeviceMotion&quot;));
-                }
-                this.$super.onAfterConstruct.call(this);
-            };
+(function() {
+  core.registerModule({
+    inherits: &quot;core.EventDispatcher&quot;,
+    classname: &quot;core.WindowEvents&quot;,
+    singleton: true,
+    module: function() {
+      /**
+       * The main class that implements broadcaster pattern. Ideally subclassed by objects that will perform broadcasting functions.
+       *
+       * @class CoreWindow
+       * @extends core.Core
+       * @namespace core.addons
+       * @constructor
+       * @param {Object} opts An object containing configurations required by the Core derived class.
+       * @param {HTMLElement} opts.el The node element included in the class composition.
+       *
+       */
+      this.dispatchScroll = function() {
+        var scrollLeft = this.scrollLeft = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+        var scrollTop = this.scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+        this.trigger(&quot;window.scroll&quot;, {
+          scrollTop: scrollTop,
+          scrollLeft: scrollLeft
+        });
+        this.tick = false;
+      };
+      this.dispatchResize = function() {
+        var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        var t = &quot;mobile&quot;;
+        if (w &gt;= 992 &amp;&amp; w &lt; 1200) {
+          t = &quot;medium&quot;;
+        } else if (w &lt; 992 &amp;&amp; w &gt;= 768) {
+          t = &quot;small&quot;;
+        } else if (w &gt;= 1200) {
+          t = &quot;large&quot;;
         }
-    });
+        this.trigger(&quot;window.resize&quot;, {
+          width: w,
+          height: h,
+          type: t
+        });
+        this.tickResize = false;
+      };
+      this.dispatchMotion = function() {
+        var evt = this.motionEvent;
+        var accelX = evt.accelerationIncludingGravity.x;
+        var accelY = evt.accelerationIncludingGravity.y;
+        var accelZ = evt.accelerationIncludingGravity.z;
+        var rotationAlpha = evt.rotationRate.alpha;
+        var rotationGamma = evt.rotationRate.gamma;
+        var rotationBeta = evt.rotationRate.beta;
+        this.trigger(&quot;window.device.motion&quot;, {
+          accelX: accelX,
+          accelY: accelY,
+          accelZ: accelZ,
+          rotationAlpha: rotationAlpha,
+          rotationBeta: rotationBeta,
+          rotationGamma: rotationGamma
+        });
+        this.tickMotion = false;
+        this.motionEvent = null;
 
+      };
+      this.onWindowScroll = function() {
+        if (!this.tick) {
+          this.tick = true;
+          requestAnimationFrame(this._(&quot;dispatchScroll&quot;));
+        }
+      };
+      this.onWindowResize = function() {
+        if (!this.tickResize) {
+          this.tickResize = true;
+          requestAnimationFrame(this._(&quot;dispatchResize&quot;));
+        }
+      };
+      this.onDeviceMotion = function(evt) {
+        this.motionEvent = evt;
+        if (!this.tickMotion) {
+          this.tickMotion = true;
+          requestAnimationFrame(this._(&quot;dispatchMotion&quot;));
+        }
+      };
+      this.onAfterConstruct = function() {
 
-
+        this.scrollTop = 0;
+        this.scrollLeft = 0;
+        window.addEventListener(&quot;scroll&quot;, this._(&quot;onWindowScroll&quot;));
+        window.addEventListener(&quot;resize&quot;, this._(&quot;onWindowResize&quot;));
+        if (core.browser.touch) {
+          window.addEventListener(&quot;devicemotion&quot;, this._(&quot;onDeviceMotion&quot;));
+        }
+        this.$super.onAfterConstruct.call(this);
+      };
+    }
+  });
 
 })();
+
     </pre>
 </div>
 

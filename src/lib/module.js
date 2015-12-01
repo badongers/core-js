@@ -28,6 +28,7 @@
           this.initialized(opts);
         }
 
+
         // if ('$super' in this) {
         //   parentClass = this.$super;
         //   if ('$classname' in parentClass) {

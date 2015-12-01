@@ -65,8 +65,6 @@
             
                 <li><a href="../classes/core.XHR.html">core.XHR</a></li>
             
-                <li><a href="../classes/Function.html">Function</a></li>
-            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -118,7 +116,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_core.js.html#l68"><code>src&#x2F;core.js:68</code></a>
+            Defined in: <a href="../files/src_core.js.html#l580"><code>src&#x2F;core.js:580</code></a>
         </div>
     
 
@@ -165,6 +163,13 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
+                                <a href="#method__import">_import</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_dependency">dependency</a>
 
                                 
@@ -172,14 +177,14 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_GUID">GUID</a>
+                                <a href="#method_guid">guid</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_import">import</a>
+                                <a href="#method_inherits">inherits</a>
 
                                 
                                 
@@ -216,6 +221,13 @@
                                 
                             </li>
                         
+                            <li class="index-item property">
+                                <a href="#property_util">util</a>
+
+                                
+                                
+                            </li>
+                        
                     </ul>
                 </div>
             
@@ -228,6 +240,111 @@
         
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method__import" class="method item">
+    <h3 class="name"><code>_import</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>package</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_core.js.html#l203"><code>src&#x2F;core.js:203</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Utility method for referencing objects within the core framework. This also adds existence checking for the objects being referenced on import.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">package</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The namespace of the object being imported.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    <p>Object The object being imported</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
 
                 
                     <div id="method_dependency" class="method item">
@@ -282,7 +399,7 @@
             
         
         
-        <a href="../files/src_core.js.html#l245"><code>src&#x2F;core.js:245</code></a>
+        <a href="../files/src_core.js.html#l226"><code>src&#x2F;core.js:226</code></a>
         
         </p>
 
@@ -357,8 +474,8 @@
 </div>
 
                 
-                    <div id="method_GUID" class="method item">
-    <h3 class="name"><code>GUID</code></h3>
+                    <div id="method_guid" class="method item">
+    <h3 class="name"><code>guid</code></h3>
 
     
         <span class="paren">()</span>
@@ -393,7 +510,7 @@
             
         
         
-        <a href="../files/src_core.js.html#l148"><code>src&#x2F;core.js:148</code></a>
+        <a href="../files/src_core.js.html#l108"><code>src&#x2F;core.js:108</code></a>
         
         </p>
 
@@ -404,7 +521,7 @@
     </div>
 
     <div class="description">
-        <p>Utility method for generating GUID</p>
+        <p>Utility method for generating GUID. [<a href="http://stackoverflow.com/a/873856/820640">http://stackoverflow.com/a/873856/820640</a>]</p>
 
     </div>
 
@@ -428,8 +545,8 @@
 </div>
 
                 
-                    <div id="method_import" class="method item">
-    <h3 class="name"><code>import</code></h3>
+                    <div id="method_inherits" class="method item">
+    <h3 class="name"><code>inherits</code></h3>
 
     
         <div class="args">
@@ -437,7 +554,7 @@
             
                 <li class="arg">
                     
-                        <code>package</code>
+                        <code>obj</code>
                     
                 </li>
             
@@ -445,10 +562,6 @@
         </div>
     
 
-    
-        <span class="returns-inline">
-            <span class="type"></span>
-        </span>
     
 
     
@@ -474,7 +587,7 @@
             
         
         
-        <a href="../files/src_core.js.html#l226"><code>src&#x2F;core.js:226</code></a>
+        <a href="../files/src_core.js.html#l12"><code>src&#x2F;core.js:12</code></a>
         
         </p>
 
@@ -485,7 +598,7 @@
     </div>
 
     <div class="description">
-        <p>Utility method for referencing objects within the core framework. This also adds existence checking for the objects being referenced on import.</p>
+        <p>Utility method for implementing prototypal inheritance within the core framework.</p>
 
     </div>
 
@@ -497,14 +610,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">package</code>
-                        <span class="type">String</span>
+                        <code class="param-name">obj</code>
+                        <span class="type">Object</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The namespace of the object being imported.</p>
+                        <p>The object where the prototype is going to be derived from.</p>
 
                     </div>
 
@@ -515,18 +628,6 @@
         </div>
     
 
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                    <p>Object The object being imported</p>
-
-                
-            </div>
-        </div>
     
 
     
@@ -569,7 +670,7 @@
             
         
         
-        <a href="../files/src_core.js.html#l165"><code>src&#x2F;core.js:165</code></a>
+        <a href="../files/src_core.js.html#l128"><code>src&#x2F;core.js:128</code></a>
         
         </p>
 
@@ -636,7 +737,7 @@
             
         
         
-        <a href="../files/src_core.js.html#l200"><code>src&#x2F;core.js:200</code></a>
+        <a href="../files/src_core.js.html#l172"><code>src&#x2F;core.js:172</code></a>
         
         </p>
 
@@ -690,7 +791,7 @@
             
         
         
-        <a href="../files/src_core.js.html#l136"><code>src&#x2F;core.js:136</code></a>
+        <a href="../files/src_core.js.html#l96"><code>src&#x2F;core.js:96</code></a>
         
         </p>
 
@@ -700,7 +801,52 @@
     </div>
 
     <div class="description">
-        <p>Stored browser information based on the detection algorithm implemented within core.</p>
+        <p>Store browser information based on the detection algorithm implemented within core.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_util" class="property item">
+    <h3 class="name"><code>util</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_core.js.html#l164"><code>src&#x2F;core.js:164</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Core utility object. Contains useful utility functions.</p>
 
     </div>
 

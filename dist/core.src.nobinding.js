@@ -1,4 +1,4 @@
-/*! core 2015-11-27 */
+/*! core 2015-12-01 */
 /**
  * The base module for the Core JS framework.
  * It provides helper methods for implementing OOP methodologies and basic utilities such as browser detection.
@@ -475,6 +475,7 @@
       if (opts && "params" in opts) {
         this.params = opts.params;
       }
+
       if (__super__) {
         __super__.constructor.call(this, opts);
       }
@@ -601,6 +602,9 @@ if (window && !("console" in window)) {
 (function() {
 
   var applyBindings = function() {
+    if(this.$bindings){
+      this.$bindings.unbind();
+    }
     this.$bindings = rivets.bind(this.el, this, {
       prefix: 'data-rv',
       preloadData: true,
@@ -617,6 +621,7 @@ if (window && !("console" in window)) {
     applyBindings.call(this);
   };
 
+
   /**
    * The base object of all core based classes. Every object created within the Core framework derives from this class.
    *
@@ -629,6 +634,7 @@ if (window && !("console" in window)) {
    */
   function Core(opts) {
     //skips all process when instantiated from Function.inherits
+
     if (opts && opts.__inheriting__) {
       return;
     }
@@ -677,7 +683,9 @@ if (window && !("console" in window)) {
     // }(this)), 0);
 
   } // Core()
-
+  Core.prototype.rebind = function(){
+    prepareBindings.call(this);
+  };
   /**
    * Returns a scope bound function and stores it on the proxyHandlers property.
    *
@@ -1619,6 +1627,7 @@ if (typeof module !== 'undefined' && module.exports) {
         if ("initialized" in this) {
           this.initialized(opts);
         }
+
 
         // if ('$super' in this) {
         //   parentClass = this.$super;

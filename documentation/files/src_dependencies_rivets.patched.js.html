@@ -65,8 +65,6 @@
             
                 <li><a href="../classes/core.XHR.html">core.XHR</a></li>
             
-                <li><a href="../classes/Function.html">Function</a></li>
-            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -120,11 +118,32 @@
 // license: MIT
 (function() {
   var Rivets, bindMethod, unbindMethod, _ref,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __bind = function(fn, me) {
+      return function() {
+        return fn.apply(me, arguments);
+      };
+    },
     __slice = [].slice,
     __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i &lt; l; i++) { if (i in this &amp;&amp; this[i] === item) return i; } return -1; };
+    __extends = function(child, parent) {
+      for (var key in parent) {
+        if (__hasProp.call(parent, key)) child[key] = parent[key];
+      }
+
+      function ctor() {
+        this.constructor = child;
+      }
+      ctor.prototype = parent.prototype;
+      child.prototype = new ctor();
+      child.__super__ = parent.prototype;
+      return child;
+    },
+    __indexOf = [].indexOf || function(item) {
+      for (var i = 0, l = this.length; i &lt; l; i++) {
+        if (i in this &amp;&amp; this[i] === item) return i;
+      }
+      return -1;
+    };
 
   Rivets = {
     options: [&#x27;prefix&#x27;, &#x27;templateDelimiters&#x27;, &#x27;rootInterface&#x27;, &#x27;preloadData&#x27;, &#x27;handler&#x27;],
@@ -494,12 +513,12 @@
             _results = [];
             for (_j = 0, _len1 = _ref1.length; _j &lt; _len1; _j++) {
               childNode = _ref1[_j];
-              try{
+              try {
                 /** MONKEY PATCH - Supports Core Framework **/
-                if(!childNode.hasAttribute(&quot;data-core-module&quot;)){
+                if (!childNode.hasAttribute(&quot;data-core-module&quot;)) {
                   _results.push(parse(childNode));
                 }
-              }catch(err) {
+              } catch (err) {
 
                 _results.push(parse(childNode));
               }
@@ -1499,7 +1518,7 @@
     return Rivets[&quot;public&quot;];
   };
 
-  if (typeof (typeof module !== &quot;undefined&quot; &amp;&amp; module !== null ? module.exports : void 0) === &#x27;object&#x27;) {
+  if (typeof(typeof module !== &quot;undefined&quot; &amp;&amp; module !== null ? module.exports : void 0) === &#x27;object&#x27;) {
     module.exports = Rivets.factory(require(&#x27;sightglass&#x27;));
   } else if (typeof define === &#x27;function&#x27; &amp;&amp; define.amd) {
     define([&#x27;sightglass&#x27;], function(sightglass) {
